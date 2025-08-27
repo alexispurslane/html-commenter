@@ -348,545 +348,601 @@
 </section>
 
 <script>
-  // A guard to prevent initializing the system more than once.
-  window.commentingSystemInitialized = false;
+ // A guard to prevent initializing the system more than once.
+ window.commentingSystemInitialized = false;
 
-  window.initializeCommentingSystem = function(rootElementId) {
-    if (window.commentingSystemInitialized) {
-      console.warn("Commenting system has already been initialized. Aborting.");
-      return;
-    }
+ window.initializeCommentingSystem = function(rootElementId) {
+     if (window.commentingSystemInitialized) {
+         console.warn("Commenting system has already been initialized. Aborting.");
+         return;
+     }
 
-    // --- STATE MANAGEMENT ---
-    let comments = [];
-    let currentSelectionData = null;
+     // --- STATE MANAGEMENT ---
+     let comments = [];
+     let currentSelectionData = null;
 
-    // --- DOM ELEMENTS ---
-    const commentContainer = document.getElementById('comment-ui-container');
-    const addCommentBtn = document.getElementById('add-comment-btn');
-    const addCommentHelpText = document.getElementById('add-comment-help-text');
-    const commentForm = document.getElementById('comment-form');
-    const commentInput = document.getElementById('comment-input-area');
-    const exportBtn = document.getElementById('export-comments-btn');
-    const importInput = document.getElementById('import-comments-input');
-    const clearBtn = document.getElementById('clear-comments-btn');
-    const copyLinkBtn = document.getElementById('copy-link-btn');
-    const tooltip = document.getElementById('comment-tooltip');
-    const commentCounter = document.getElementById('comment-counter');
-    const commentSummarySection = document.getElementById('comment-summary-section');
-    const commentSummaryList = document.getElementById('comment-summary-list');
-    const contentRoot = document.getElementById(rootElementId) || document.body;
+     // --- DOM ELEMENTS ---
+     const commentContainer = document.getElementById('comment-ui-container');
+     const addCommentBtn = document.getElementById('add-comment-btn');
+     const addCommentHelpText = document.getElementById('add-comment-help-text');
+     const commentForm = document.getElementById('comment-form');
+     const commentInput = document.getElementById('comment-input-area');
+     const exportBtn = document.getElementById('export-comments-btn');
+     const importInput = document.getElementById('import-comments-input');
+     const clearBtn = document.getElementById('clear-comments-btn');
+     const copyLinkBtn = document.getElementById('copy-link-btn');
+     const tooltip = document.getElementById('comment-tooltip');
+     const commentCounter = document.getElementById('comment-counter');
+     const commentSummarySection = document.getElementById('comment-summary-section');
+     const commentSummaryList = document.getElementById('comment-summary-list');
+     const contentRoot = document.getElementById(rootElementId) || document.body;
 
-    if (!contentRoot) {
-        console.error(`Root element with ID "${rootElementId}" not found. Commenting system cannot start.`);
-        return;
-    }
+     // --- URL Data Handling & Compression Helpers ---
 
-    // --- URL Data Handling & Compression Helpers ---
+     const toUrlSafeBase64 = (buffer) => {
+         return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
+             .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+     };
 
-    const toUrlSafeBase64 = (buffer) => {
-        return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
-            .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    };
+     const fromUrlSafeBase64 = (str) => {
+         str = str.replace(/-/g, '+').replace(/_/g, '/');
+         while (str.length % 4) { str += '='; }
+         const binaryString = atob(str);
+         const bytes = new Uint8Array(binaryString.length);
+         for (let i = 0; i < binaryString.length; i++) {
+             bytes[i] = binaryString.charCodeAt(i);
+         }
+         return bytes.buffer;
+     };
 
-    const fromUrlSafeBase64 = (str) => {
-        str = str.replace(/-/g, '+').replace(/_/g, '/');
-        while (str.length % 4) { str += '='; }
-        const binaryString = atob(str);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-    };
+     const compressData = async (data) => {
+         const stream = new Blob([JSON.stringify(data)], { type: 'application/json' })
+             .stream().pipeThrough(new CompressionStream('gzip'));
+         return await new Response(stream).arrayBuffer();
+     };
 
-    const compressData = async (data) => {
-        const stream = new Blob([JSON.stringify(data)], { type: 'application/json' })
-            .stream().pipeThrough(new CompressionStream('gzip'));
-        return await new Response(stream).arrayBuffer();
-    };
-
-    const decompressData = async (compressedBuffer) => {
-        try {
-            const stream = new Blob([compressedBuffer], { type: 'application/gzip' })
-                .stream().pipeThrough(new DecompressionStream('gzip'));
-            const decompressed = await new Response(stream).json();
-            return decompressed;
-        } catch (e) {
-            console.error("Decompression failed:", e);
-            return null;
-        }
-    };
+     const decompressData = async (compressedBuffer) => {
+         try {
+             const stream = new Blob([compressedBuffer], { type: 'application/gzip' })
+                 .stream().pipeThrough(new DecompressionStream('gzip'));
+             const decompressed = await new Response(stream).json();
+             return decompressed;
+         } catch (e) {
+             console.error("Decompression failed:", e);
+             return null;
+         }
+     };
 
 
-    // --- CORE FUNCTIONS ---
+     // --- CORE FUNCTIONS ---
 
-    const getNodePath = (node) => {
-      const path = [];
-      while (node !== contentRoot && node) {
-        let sibling = node; let index = 0;
-        while ((sibling = sibling.previousSibling) != null) { index++; }
-        path.unshift(index);
-        node = node.parentNode;
-      }
-      return path;
-    };
+     const getNodePath = (node) => {
+         const path = [];
+         while (node !== contentRoot && node) {
+             let sibling = node; let index = 0;
+             while ((sibling = sibling.previousSibling) != null) { index++; }
+             path.unshift(index);
+             node = node.parentNode;
+         }
+         return path;
+     };
 
-    const getNodeFromPath = (path) => {
-      let node = contentRoot;
-      for (const index of path) {
-        if (node && node.childNodes[index]) {
-          node = node.childNodes[index];
-        } else { return null; }
-      }
-      return node;
-    };
+     const getNodeFromPath = (path) => {
+         let node = contentRoot;
+         for (const index of path) {
+             if (node && node.childNodes[index]) {
+                 node = node.childNodes[index];
+             } else { return null; }
+         }
+         return node;
+     };
 
-    const serializeRange = (range) => {
-      if (!range) return null;
-      return {
-        startPath: getNodePath(range.startContainer),
-        startOffset: range.startOffset,
-        endPath: getNodePath(range.endContainer),
-        endOffset: range.endOffset,
-        text: range.toString()
-      };
-    };
+     const serializeRange = (range) => {
+         if (!range) return null;
+         return {
+             startPath: getNodePath(range.startContainer),
+             startOffset: range.startOffset,
+             endPath: getNodePath(range.endContainer),
+             endOffset: range.endOffset,
+             text: range.toString()
+         };
+     };
 
-    const deserializeRange = (savedRange) => {
-      const startContainer = getNodeFromPath(savedRange.startPath);
-      const endContainer = getNodeFromPath(savedRange.endPath);
-      if (startContainer && endContainer) {
-        try {
-          const range = document.createRange();
-          const startOffset = Math.min(savedRange.startOffset, startContainer.textContent.length);
-          const endOffset = Math.min(savedRange.endOffset, endContainer.textContent.length);
-          range.setStart(startContainer, startOffset);
-          range.setEnd(endContainer, endOffset);
-          return range;
-        } catch (e) { console.error("Error setting range from path, falling back.", e, savedRange); }
-      }
-      console.warn("Path failed for highlight. Falling back to text search for:", savedRange.text);
-      const normalizedText = savedRange.text.replace(/\s+/g, ' ').trim();
-      if (!normalizedText) return null;
-      const walker = document.createTreeWalker(contentRoot, NodeFilter.SHOW_TEXT);
-      let node;
-      while (node = walker.nextNode()) {
-          const normalizedNodeText = node.nodeValue.replace(/\s+/g, ' ');
-          const index = normalizedNodeText.indexOf(normalizedText);
-          if (index !== -1) {
-              const range = document.createRange();
-              range.setStart(node, index);
-              range.setEnd(node, index + normalizedText.length);
-              return range;
-          }
-      }
-      console.error("Could not find text for highlight anywhere on the page:", savedRange);
-      return null;
-    };
+     const deserializeRange = (savedRange) => {
+         const startContainer = getNodeFromPath(savedRange.startPath);
+         const endContainer = getNodeFromPath(savedRange.endPath);
+         if (startContainer && endContainer) {
+             try {
+                 const range = document.createRange();
+                 const startOffset = Math.min(savedRange.startOffset, startContainer.textContent.length);
+                 const endOffset = Math.min(savedRange.endOffset, endContainer.textContent.length);
+                 range.setStart(startContainer, startOffset);
+                 range.setEnd(endContainer, endOffset);
+                 return range;
+             } catch (e) { console.error("Error setting range from path, falling back.", e, savedRange); }
+         }
+         console.warn("Path failed for highlight. Falling back to text search for:", savedRange.text);
+         const normalizedText = savedRange.text.replace(/\s+/g, ' ').trim();
+         if (!normalizedText) return null;
+         const walker = document.createTreeWalker(contentRoot, NodeFilter.SHOW_TEXT);
+         let node;
+         while (node = walker.nextNode()) {
+             const normalizedNodeText = node.nodeValue.replace(/\s+/g, ' ');
+             const index = normalizedNodeText.indexOf(normalizedText);
+             if (index !== -1) {
+                 const range = document.createRange();
+                 range.setStart(node, index);
+                 range.setEnd(node, index + normalizedText.length);
+                 return range;
+             }
+         }
+         console.error("Could not find text for highlight anywhere on the page:", savedRange);
+         return null;
+     };
 
-    const renderCommentSummary = () => {
-        commentSummaryList.innerHTML = '';
-        if (comments.length === 0) {
-            commentSummarySection.style.display = 'none';
-            return;
-        }
-        commentSummarySection.style.display = 'block';
-        const commentsWithElements = comments.map(comment => {
-            const el = document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`);
-            return { comment, el };
-        }).filter(item => item.el);
-        commentsWithElements.sort((a, b) => a.el.offsetTop - b.el.offsetTop);
-        commentsWithElements.forEach(({ comment }) => {
-            const li = document.createElement('li');
-            li.dataset.commentId = comment.id;
-            const deleteBtn = document.createElement('span');
-            deleteBtn.className = 'summary-delete-btn';
-            deleteBtn.innerHTML = '&times;';
-            deleteBtn.dataset.commentId = comment.id;
-            const blockquote = document.createElement('blockquote');
-            const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
-            blockquote.textContent = quoteText;
-            const p = document.createElement('p');
-            p.textContent = comment.text;
-            li.appendChild(deleteBtn);
-            li.appendChild(blockquote);
-            li.appendChild(p);
-            commentSummaryList.appendChild(li);
-        });
-    };
+     const renderCommentSummary = () => {
+         commentSummaryList.innerHTML = '';
+         if (comments.length === 0) {
+             commentSummarySection.style.display = 'none';
+             return;
+         }
+         commentSummarySection.style.display = 'block';
+         const commentsWithElements = comments.map(comment => {
+             const el = document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`);
+             return { comment, el };
+         }).filter(item => item.el);
+         commentsWithElements.sort((a, b) => a.el.offsetTop - b.el.offsetTop);
+         commentsWithElements.forEach(({ comment }) => {
+             const li = document.createElement('li');
+             li.dataset.commentId = comment.id;
+             const deleteBtn = document.createElement('span');
+             deleteBtn.className = 'summary-delete-btn';
+             deleteBtn.innerHTML = '&times;';
+             deleteBtn.dataset.commentId = comment.id;
+             const blockquote = document.createElement('blockquote');
+             const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
+             blockquote.textContent = quoteText;
+             const p = document.createElement('p');
+             p.textContent = comment.text;
+             li.appendChild(deleteBtn);
+             li.appendChild(blockquote);
+             li.appendChild(p);
+             commentSummaryList.appendChild(li);
+         });
+     };
 
-    const getLastHighlightScrollPercent = () => {
-        const highlights = Array.from(document.querySelectorAll('.comment-highlight'));
-        if (highlights.length === 0) return null;
-        const lastHighlight = highlights.reduce((last, current) => current.offsetTop > last.offsetTop ? current : last);
-        const docHeight = document.documentElement.scrollHeight;
-        const viewportHeight = window.innerHeight;
-        const scrollableHeight = docHeight - viewportHeight;
-        if (scrollableHeight <= 0) return 100;
-        const percentage = (lastHighlight.offsetTop / scrollableHeight) * 100;
-        return Math.min(100, Math.round(percentage));
-    };
+     const getLastHighlightScrollPercent = () => {
+         const highlights = Array.from(document.querySelectorAll('.comment-highlight'));
+         if (highlights.length === 0) return null;
+         const lastHighlight = highlights.reduce((last, current) => current.offsetTop > last.offsetTop ? current : last);
+         const docHeight = document.documentElement.scrollHeight;
+         const viewportHeight = window.innerHeight;
+         const scrollableHeight = docHeight - viewportHeight;
+         if (scrollableHeight <= 0) return 100;
+         const percentage = (lastHighlight.offsetTop / scrollableHeight) * 100;
+         return Math.min(100, Math.round(percentage));
+     };
 
-    const updateCounter = () => {
-      const count = comments.length;
-      if (count > 0) {
-        const percentage = getLastHighlightScrollPercent();
-        let text = `${count} Comment${count > 1 ? 's' : ''}`;
-        if (percentage !== null) {
-            text += ` (${percentage}%)`;
-        }
-        commentCounter.textContent = text;
-        commentCounter.style.display = 'block';
-      } else {
-          commentCounter.textContent = 'No Comments';
-          commentCounter.style.display = 'block';
-      }
-    };
 
-    const applyHighlight = (range, commentId) => {
-      if (!range || range.collapsed) return;
-      try {
-        const marker = document.createElement('mark');
-        marker.className = 'comment-highlight';
-        marker.dataset.commentId = commentId;
-        range.surroundContents(marker);
-        addHighlightEventListeners(marker);
-      } catch (e) {
-        console.warn("surroundContents failed, likely a multi-element selection. Using robust fallback.", e);
-        const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
-        const textNodes = [];
-        while(walker.nextNode()) {
-            if(range.intersectsNode(walker.currentNode)) {
-                textNodes.push(walker.currentNode);
-            }
-        }
-        for (const node of textNodes) {
-            const highlightRange = document.createRange();
-            highlightRange.setStart(node, node === range.startContainer ? range.startOffset : 0);
-            highlightRange.setEnd(node, node === range.endContainer ? range.endOffset : node.textContent.length);
-            if (!highlightRange.collapsed) {
-                const marker = document.createElement('mark');
-                marker.className = 'comment-highlight';
-                marker.dataset.commentId = commentId;
-                highlightRange.surroundContents(marker);
-                addHighlightEventListeners(marker);
-            }
-        }
-      }
-    };
+     const updateCounter = (placementErrors = 0) => {
+         const totalCount = comments.length;
+         const placedCount = totalCount - placementErrors;
 
-    const saveCommentsToLocal = () => {
-        try { localStorage.setItem('userComments', JSON.stringify(comments)); }
-        catch (e) { console.error("Could not save comments to localStorage.", e); }
-    };
+         // If there are no comments at all, show "No Comments"
+         if (totalCount === 0) {
+             commentCounter.textContent = 'No Comments';
+             commentCounter.title = '';
+             commentCounter.style.display = 'block';
+             return;
+         }
 
-    const applyAllHighlights = (commentsToApply) => {
-        const itemsWithRanges = commentsToApply.map(comment => ({
-            comment, range: deserializeRange(comment.range)
-        }));
-        itemsWithRanges.sort((a, b) => {
-            if (!a.range || !b.range) return 0;
-            return b.range.compareBoundaryPoints(Range.START_TO_START, a.range)
-        });
-        for (const item of itemsWithRanges) {
-            if (item.range) {
-                try {
-                    applyHighlight(item.range, item.comment.id);
-                } catch (e) {
-                    console.error("Failed to apply a highlight during import:", item.comment, e);
-                }
-            }
-        }
-    };
+         const percentage = getLastHighlightScrollPercent();
+         let text;
 
-    const loadInitialComments = async () => {
-        const hash = window.location.hash.slice(1);
-        if (hash) {
-            console.log("Loading comments from URL...");
-            const buffer = fromUrlSafeBase64(hash);
-            const data = await decompressData(buffer);
-            if (data && Array.isArray(data)) {
-                comments = data;
-                applyAllHighlights(comments);
-                saveCommentsToLocal();
-                history.replaceState(null, '', window.location.pathname + window.location.search);
-            }
-        } else {
-            console.log("Loading comments from localStorage...");
-            const savedCommentsJSON = localStorage.getItem('userComments');
-            if (savedCommentsJSON) {
-                try {
-                    const savedComments = JSON.parse(savedCommentsJSON);
-                    if (Array.isArray(savedComments)) {
-                        comments = savedComments;
-                        applyAllHighlights(comments);
-                    }
-                } catch (e) {
-                    console.error("Could not parse comments from localStorage.", e);
-                    localStorage.removeItem('userComments');
-                }
-            }
-        }
-        updateCounter();
-        renderCommentSummary();
-    };
+         // Show the count of successfully placed comments
+         if (placedCount > 0) {
+             text = `${placedCount} Comment${placedCount !== 1 ? 's' : ''}`;
+             if (percentage !== null) {
+                 text += ` (${percentage}%)`;
+             }
+         } else {
+             // Handle the case where comments exist but none could be placed
+             text = '0 Comments Placed';
+         }
 
-    const deleteComment = (commentId) => {
-        if (!confirm('Are you sure you want to delete this comment?')) return;
-        const commentIndex = comments.findIndex(c => c.id === commentId);
-        if (commentIndex > -1) {
-            comments.splice(commentIndex, 1);
-            saveCommentsToLocal();
-            document.querySelectorAll(`.comment-highlight[data-comment-id="${commentId}"]`).forEach(removeHighlight);
-            updateCounter();
-            hideTooltip();
-            renderCommentSummary();
-        }
-    };
+         // Use a tooltip to inform the user about unplaced comments
+         if (placementErrors > 0) {
+             commentCounter.title = `${placementErrors} comment(s) could not be found on the page.`;
+         } else {
+             commentCounter.title = '';
+         }
 
-    const showTooltip = (highlightEl) => {
-        const commentId = highlightEl.dataset.commentId;
-        const comment = comments.find(c => c.id === commentId);
-        if (!comment) return;
-        tooltip.innerHTML = `
-            <span>${comment.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
-            <button class="delete-comment-btn" data-comment-id="${commentId}">Delete</button>
-        `;
-        tooltip.querySelector('.delete-comment-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            deleteComment(e.target.dataset.commentId);
-        });
-        tooltip.style.display = 'block';
-        tooltip.dataset.activeCommentId = commentId;
-        const rect = highlightEl.getBoundingClientRect();
-        tooltip.style.left = `${rect.left + window.scrollX}px`;
-        tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
-        const tooltipRect = tooltip.getBoundingClientRect();
-        if (tooltipRect.right > window.innerWidth) {
-            tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10 + window.scrollX}px`;
-        }
+         commentCounter.textContent = text;
+         commentCounter.style.display = 'block';
+     };
+
+     const applyHighlight = (range, commentId) => {
+         if (!range || range.collapsed) return;
+         try {
+             const marker = document.createElement('mark');
+             marker.className = 'comment-highlight';
+             marker.dataset.commentId = commentId;
+             range.surroundContents(marker);
+             addHighlightEventListeners(marker);
+         } catch (e) {
+             console.warn("surroundContents failed, likely a multi-element selection. Using robust fallback.", e);
+             const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
+             const textNodes = [];
+             while(walker.nextNode()) {
+                 if(range.intersectsNode(walker.currentNode)) {
+                     textNodes.push(walker.currentNode);
+                 }
+             }
+             for (const node of textNodes) {
+                 const highlightRange = document.createRange();
+                 highlightRange.setStart(node, node === range.startContainer ? range.startOffset : 0);
+                 highlightRange.setEnd(node, node === range.endContainer ? range.endOffset : node.textContent.length);
+                 if (!highlightRange.collapsed) {
+                     const marker = document.createElement('mark');
+                     marker.className = 'comment-highlight';
+                     marker.dataset.commentId = commentId;
+                     highlightRange.surroundContents(marker);
+                     addHighlightEventListeners(marker);
+                 }
+             }
+         }
+     };
+
+     const saveCommentsToLocal = () => {
+         try { localStorage.setItem('userComments', JSON.stringify(comments)); }
+         catch (e) { console.error("Could not save comments to localStorage.", e); }
+     };
+
+     const applyAllHighlights = (commentsToApply) => {
+         let placementErrors = 0; // Counter for comments that couldn't be placed
+
+         // First, attempt to find a valid range for every comment
+         const itemsWithRanges = commentsToApply.map(comment => {
+             const range = deserializeRange(comment.range);
+             if (!range) {
+                 placementErrors++; // If no range is found, count it as an error
+             }
+             return { comment, range };
+         });
+
+         // Sort the valid ranges to apply them from the end of the document to the start
+         itemsWithRanges.sort((a, b) => {
+             if (!a.range || !b.range) return 0;
+             return b.range.compareBoundaryPoints(Range.START_TO_START, a.range);
+         });
+
+         // Apply the highlights only for comments that had a valid range
+         for (const item of itemsWithRanges) {
+             if (item.range) {
+                 try {
+                     applyHighlight(item.range, item.comment.id);
+                 } catch (e) {
+                     // This catch is for the highlighting process itself, the error is already counted
+                     console.error("Failed to apply a highlight:", item.comment, e);
+                 }
+             }
+         }
+         
+         // Return the total number of placement failures
+         return placementErrors;
+     };
+
+     const loadInitialComments = async () => {
+         const hash = window.location.hash.slice(1);
+         if (hash) {
+             console.log("Loading comments from URL...");
+             try {
+                 const buffer = fromUrlSafeBase64(hash);
+                 const data = await decompressData(buffer);
+                 if (data && Array.isArray(data)) {
+                     // NEW: Regenerate IDs for the ID-less data from the URL
+                     comments = data.map(comment => ({
+                         ...comment,
+                         id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+                     }));
+                     applyAllHighlights(comments);
+                     saveCommentsToLocal();
+                     history.replaceState(null, '', window.location.pathname + window.location.search);
+                 }
+             } catch (e) {
+                 console.error("Failed to load comments from URL:", e);
+                 // Fallback to localStorage if URL loading fails
+                 loadCommentsFromLocal();
+             }
+         } else {
+             console.log("Loading comments from localStorage...");
+             const savedCommentsJSON = localStorage.getItem('userComments');
+             if (savedCommentsJSON) {
+                 try {
+                     const savedComments = JSON.parse(savedCommentsJSON);
+                     if (Array.isArray(savedComments)) {
+                         comments = savedComments;
+                         applyAllHighlights(comments);
+                     }
+                 } catch (e) {
+                     console.error("Could not parse comments from localStorage.", e);
+                     localStorage.removeItem('userComments');
+                 }
+             }
+         }
+         updateCounter();
+         renderCommentSummary();
+     };
+
+     const deleteComment = (commentId) => {
+         if (!confirm('Are you sure you want to delete this comment?')) return;
+         const commentIndex = comments.findIndex(c => c.id === commentId);
+         if (commentIndex > -1) {
+             comments.splice(commentIndex, 1);
+             saveCommentsToLocal();
+             document.querySelectorAll(`.comment-highlight[data-comment-id="${commentId}"]`).forEach(removeHighlight);
+             updateCounter();
+             hideTooltip();
+             renderCommentSummary();
+         }
+     };
+
+     const showTooltip = (highlightEl) => {
+         const commentId = highlightEl.dataset.commentId;
+         const comment = comments.find(c => c.id === commentId);
+         if (!comment) return;
+         tooltip.innerHTML = `
+             <span>${comment.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
+             <button class="delete-comment-btn" data-comment-id="${commentId}">Delete</button>
+         `;
+         tooltip.querySelector('.delete-comment-btn').addEventListener('click', (e) => {
+             e.stopPropagation();
+             deleteComment(e.target.dataset.commentId);
+         });
+         tooltip.style.display = 'block';
+         tooltip.dataset.activeCommentId = commentId;
+         const rect = highlightEl.getBoundingClientRect();
+         tooltip.style.left = `${rect.left + window.scrollX}px`;
+         tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+         const tooltipRect = tooltip.getBoundingClientRect();
+         if (tooltipRect.right > window.innerWidth) {
+             tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10 + window.scrollX}px`;
+         }
          if (tooltipRect.top < 0) {
-            tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height - 5}px`;
-        }
-    };
+             tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height - 5}px`;
+         }
+     };
 
-    const hideTooltip = () => {
-        tooltip.style.display = 'none';
-        tooltip.dataset.activeCommentId = '';
-    };
+     const hideTooltip = () => {
+         tooltip.style.display = 'none';
+         tooltip.dataset.activeCommentId = '';
+     };
 
-    const addHighlightEventListeners = (marker) => {
-      marker.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (tooltip.dataset.activeCommentId === marker.dataset.commentId) {
-            hideTooltip();
-        } else {
-            showTooltip(marker);
-        }
-      });
-    };
+     const addHighlightEventListeners = (marker) => {
+         marker.addEventListener('click', (e) => {
+             e.stopPropagation();
+             if (tooltip.dataset.activeCommentId === marker.dataset.commentId) {
+                 hideTooltip();
+             } else {
+                 showTooltip(marker);
+             }
+         });
+     };
 
-    const removeHighlight = (el) => {
-        const parent = el.parentNode;
-        while (el.firstChild) parent.insertBefore(el.firstChild, el);
-        parent.removeChild(el);
-    };
+     const removeHighlight = (el) => {
+         const parent = el.parentNode;
+         if (parent) {
+             // Move all children of the <mark> tag to be siblings, right before the <mark> tag
+             while (el.firstChild) {
+                 parent.insertBefore(el.firstChild, el);
+             }
+             // Now that the <mark> tag is empty, remove it from the DOM
+             parent.removeChild(el);
+         }
+     };
 
-    const resetUI = () => {
-        commentContainer.classList.remove('visible');
-        addCommentBtn.style.display = 'none';
-        addCommentHelpText.style.display = 'none';
-        commentForm.style.display = 'none';
-        commentInput.value = '';
-        currentSelectionData = null;
-    };
+     const resetUI = () => {
+         commentContainer.classList.remove('visible');
+         addCommentBtn.style.display = 'none';
+         addCommentHelpText.style.display = 'none';
+         commentForm.style.display = 'none';
+         commentInput.value = '';
+         currentSelectionData = null;
+     };
 
-    const handleSelectionEnd = (e) => {
-      if (commentContainer.contains(e.target) || e.target.closest('.comment-highlight') || e.target.closest('#comment-widget-container')) return;
-      setTimeout(() => {
-        const selection = window.getSelection();
-        if (selection && !selection.isCollapsed && selection.rangeCount > 0) {
-          if (contentRoot.contains(selection.anchorNode) && contentRoot.contains(selection.focusNode)) {
-            commentContainer.classList.add('visible');
-            addCommentBtn.style.display = 'block';
-            addCommentHelpText.style.display = 'block';
-            commentForm.style.display = 'none';
-          }
-        } else {
-           if (document.activeElement !== commentInput) resetUI();
-        }
-      }, 10);
-    };
+     const handleSelectionEnd = (e) => {
+         if (commentContainer.contains(e.target) || e.target.closest('.comment-highlight') || e.target.closest('#comment-widget-container')) return;
+         setTimeout(() => {
+             const selection = window.getSelection();
+             if (selection && !selection.isCollapsed && selection.rangeCount > 0) {
+                 if (contentRoot.contains(selection.anchorNode) && contentRoot.contains(selection.focusNode)) {
+                     commentContainer.classList.add('visible');
+                     addCommentBtn.style.display = 'block';
+                     addCommentHelpText.style.display = 'block';
+                     commentForm.style.display = 'none';
+                 }
+             } else {
+                 if (document.activeElement !== commentInput) resetUI();
+             }
+         }, 10);
+     };
 
-    contentRoot.addEventListener('mouseup', handleSelectionEnd);
-    contentRoot.addEventListener('touchend', handleSelectionEnd);
+     contentRoot.addEventListener('mouseup', handleSelectionEnd);
+     contentRoot.addEventListener('touchend', handleSelectionEnd);
 
-    addCommentBtn.addEventListener('click', () => {
-      const selection = window.getSelection();
-      if (selection && !selection.isCollapsed) {
-        currentSelectionData = serializeRange(selection.getRangeAt(0));
-        addCommentBtn.style.display = 'none';
-        addCommentHelpText.style.display = 'none';
-        commentForm.style.display = 'flex';
-        commentInput.focus();
-      } else { resetUI(); }
-    });
+     addCommentBtn.addEventListener('click', () => {
+         const selection = window.getSelection();
+         if (selection && !selection.isCollapsed) {
+             currentSelectionData = serializeRange(selection.getRangeAt(0));
+             addCommentBtn.style.display = 'none';
+             addCommentHelpText.style.display = 'none';
+             commentForm.style.display = 'flex';
+             commentInput.focus();
+         } else { resetUI(); }
+     });
 
-    document.getElementById('cancel-comment-btn').addEventListener('click', () => {
-        resetUI();
-        if (window.getSelection) window.getSelection().removeAllRanges();
-    });
+     document.getElementById('cancel-comment-btn').addEventListener('click', () => {
+         resetUI();
+         if (window.getSelection) window.getSelection().removeAllRanges();
+     });
 
-    commentForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const commentText = commentInput.value.trim();
-      if (commentText && currentSelectionData) {
-        const rangeToHighlight = deserializeRange(currentSelectionData);
-        if (!rangeToHighlight) { resetUI(); return; }
-        const newComment = {
-          id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-          text: commentText,
-          range: currentSelectionData
-        };
-        comments.push(newComment);
-        saveCommentsToLocal();
-        applyHighlight(rangeToHighlight, newComment.id);
-        resetUI();
-        updateCounter();
-        renderCommentSummary();
-        if (window.getSelection) window.getSelection().removeAllRanges();
-      }
-    });
+     commentForm.addEventListener('submit', (e) => {
+         e.preventDefault();
+         const commentText = commentInput.value.trim();
+         if (commentText && currentSelectionData) {
+             const rangeToHighlight = deserializeRange(currentSelectionData);
+             if (!rangeToHighlight) { resetUI(); return; }
+             const newComment = {
+                 id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                 text: commentText,
+                 range: currentSelectionData
+             };
+             comments.push(newComment);
+             saveCommentsToLocal();
+             applyHighlight(rangeToHighlight, newComment.id);
+             resetUI();
+             updateCounter();
+             renderCommentSummary();
+             if (window.getSelection) window.getSelection().removeAllRanges();
+         }
+     });
 
-    commentInput.addEventListener('focus', () => { document.body.style.overflow = 'hidden'; });
-    commentInput.addEventListener('blur', () => { document.body.style.overflow = ''; });
+     commentInput.addEventListener('focus', () => { document.body.style.overflow = 'hidden'; });
+     commentInput.addEventListener('blur', () => { document.body.style.overflow = ''; });
 
-    commentInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); commentForm.requestSubmit(); }
-        if (e.key === 'Escape') {
-            e.preventDefault();
-            resetUI();
-            if (window.getSelection) window.getSelection().removeAllRanges();
-        }
-    });
+     commentInput.addEventListener('keydown', (e) => {
+         if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); commentForm.requestSubmit(); }
+         if (e.key === 'Escape') {
+             e.preventDefault();
+             resetUI();
+             if (window.getSelection) window.getSelection().removeAllRanges();
+         }
+     });
 
-    exportBtn.addEventListener('click', () => {
-      if (comments.length === 0) { return; }
-      const dataStr = JSON.stringify(comments, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      const a = document.createElement('a'); a.href = url; a.download = 'comments.json';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
+     exportBtn.addEventListener('click', () => {
+         if (comments.length === 0) { return; }
+         const dataStr = JSON.stringify(comments, null, 2);
+         const dataBlob = new Blob([dataStr], { type: 'application/json' });
+         const url = URL.createObjectURL(dataBlob);
+         const a = document.createElement('a'); a.href = url; a.download = 'comments.json';
+         document.body.appendChild(a); a.click(); document.body.removeChild(a);
+         URL.revokeObjectURL(url);
+     });
 
-    importInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const importedComments = JSON.parse(event.target.result);
-          if (Array.isArray(importedComments)) {
-            document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
-            comments = importedComments;
-            applyAllHighlights(comments);
-            saveCommentsToLocal();
-            updateCounter();
-            renderCommentSummary();
-          }
-        } catch (err) {
-            console.error(err);
-            alert('Error: Could not parse the JSON file.');
-        }
-      };
-      reader.readAsText(file);
-      e.target.value = '';
-    });
+     importInput.addEventListener('change', (e) => {
+         const file = e.target.files[0];
+         if (!file) return;
+         const reader = new FileReader();
+         reader.onload = (event) => {
+             try {
+                 const importedComments = JSON.parse(event.target.result);
+                 if (Array.isArray(importedComments)) {
+                     document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
+                     comments = importedComments;
+                     
+                     // Capture the number of errors from applyAllHighlights
+                     const placementErrors = applyAllHighlights(comments);
+                     
+                     saveCommentsToLocal();
+                     
+                     // Pass the error count to the counter
+                     updateCounter(placementErrors);
+                     
+                     renderCommentSummary();
+                 }
+             } catch (err) {
+                 console.error(err);
+                 alert('Error: Could not parse the JSON file.');
+             }
+         };
+         reader.readAsText(file);
+         e.target.value = '';
+     });
 
-    clearBtn.addEventListener('click', () => {
-        if (confirm('Are you sure you want to permanently delete all comments from this page?')) {
-            comments = [];
-            localStorage.removeItem('userComments');
-            document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
-            updateCounter();
-            renderCommentSummary();
-        }
-    });
+     clearBtn.addEventListener('click', () => {
+         if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
+             // Clear the data from storage
+             comments = [];
+             localStorage.removeItem('userComments');
+             
+             // Force a page reload to ensure a clean state
+             location.reload();
+         }
+     });
 
-    copyLinkBtn.addEventListener('click', async () => {
-        if (comments.length === 0) return;
-        const originalText = copyLinkBtn.textContent;
-        copyLinkBtn.textContent = 'Compressing...';
-        copyLinkBtn.disabled = true;
+     copyLinkBtn.addEventListener('click', async () => {
+         if (comments.length === 0) return;
+         const originalText = copyLinkBtn.textContent;
+         copyLinkBtn.textContent = 'Compressing...';
+         copyLinkBtn.disabled = true;
 
-        try {
-            const compressed = await compressData(comments);
-            const base64 = toUrlSafeBase64(compressed);
-            const url = new URL(window.location);
-            url.hash = base64;
+         try {
+             // NEW: Create the lightweight, ID-less version for the URL
+             const lightweightComments = comments.map(({ text, range }) => ({ text, range }));
 
-            // NEW: URL Length Check
-            const URL_LENGTH_LIMIT = 37000;
-            if (url.href.length > URL_LENGTH_LIMIT) {
-                alert("Warning: The generated link is very long and may not work in all browsers or applications.\n\nExporting a JSON file is recommended for many comments.");
-            }
+             const compressed = await compressData(lightweightComments);
+             const base64 = toUrlSafeBase64(compressed);
+             const url = new URL(window.location);
+             url.hash = base64;
 
-            await navigator.clipboard.writeText(url.href);
-            copyLinkBtn.textContent = 'Copied!';
-        } catch (err) {
-            console.error("Failed to copy link:", err);
-            copyLinkBtn.textContent = 'Error!';
-        } finally {
-            setTimeout(() => {
-                copyLinkBtn.textContent = originalText;
-                copyLinkBtn.disabled = false;
-            }, 2000);
-        }
-    });
+             const URL_LENGTH_LIMIT = 37000;
+             if (url.href.length > URL_LENGTH_LIMIT) {
+                 alert("Warning: The generated link is very long and may not work in all browsers or applications.\n\nExporting a JSON file is recommended for many comments.");
+             }
 
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.comment-highlight') && !e.target.closest('#comment-tooltip')) {
-            hideTooltip();
-        }
-    });
+             await navigator.clipboard.writeText(url.href);
+             copyLinkBtn.textContent = 'Copied!';
+         } catch (err) {
+             console.error("Failed to copy link:", err);
+             copyLinkBtn.textContent = 'Error!';
+         } finally {
+             setTimeout(() => {
+                 copyLinkBtn.textContent = originalText;
+                 copyLinkBtn.disabled = false;
+             }, 2000);
+         }
+     });
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && e.shiftKey && document.activeElement !== commentInput) {
-            if (addCommentBtn.style.display === 'block') {
-                e.preventDefault();
-                addCommentBtn.click();
-            }
-        }
-    });
+     document.addEventListener('click', (e) => {
+         if (!e.target.closest('.comment-highlight') && !e.target.closest('#comment-tooltip')) {
+             hideTooltip();
+         }
+     });
 
-    commentSummaryList.addEventListener('click', (e) => {
-        const deleteButton = e.target.closest('.summary-delete-btn');
-        if (deleteButton) {
-            e.stopPropagation();
-            deleteComment(deleteButton.dataset.commentId);
-            return;
-        }
-        const li = e.target.closest('li');
-        if (li && li.dataset.commentId) {
-            const commentId = li.dataset.commentId;
-            const highlightElement = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
-            if (highlightElement) {
-                highlightElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => { showTooltip(highlightElement); }, 300);
-            }
-        }
-    });
+     document.addEventListener('keydown', (e) => {
+         if (e.key === 'Enter' && e.shiftKey && document.activeElement !== commentInput) {
+             if (addCommentBtn.style.display === 'block') {
+                 e.preventDefault();
+                 addCommentBtn.click();
+             }
+         }
+     });
 
-    loadInitialComments();
+     commentSummaryList.addEventListener('click', (e) => {
+         const deleteButton = e.target.closest('.summary-delete-btn');
+         if (deleteButton) {
+             e.stopPropagation();
+             deleteComment(deleteButton.dataset.commentId);
+             return;
+         }
+         const li = e.target.closest('li');
+         if (li && li.dataset.commentId) {
+             const commentId = li.dataset.commentId;
+             const highlightElement = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
+             if (highlightElement) {
+                 highlightElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                 setTimeout(() => { showTooltip(highlightElement); }, 300);
+             }
+         }
+     });
 
-    window.commentingSystemInitialized = true;
-    console.log("Commenting system initialized successfully.");
-  };
+     loadInitialComments();
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initializeCommentingSystem('content');
-  });
+     window.commentingSystemInitialized = true;
+     console.log("Commenting system initialized successfully.");
+ };
+
+ document.addEventListener('DOMContentLoaded', () => {
+     initializeCommentingSystem('content');
+ });
 </script>
-<!-- END: Text Highlighting and Commenting Feature -->

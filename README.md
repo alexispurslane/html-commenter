@@ -12,7 +12,7 @@ A zero-dependency, self-contained commenting and highlighting tool for any stati
 *   **Resilient Data Model:** Annotations are saved using a precise DOM path, with a smart text-search fallback to ensure that comments can be imported and restored even if the underlying page structure has minor changes.
 *   **Two Ways to Share:**
     1.  **Shareable Links:** Generates a compressed, URL-safe Base64 link that contains all comment data. Perfect for directly sharing an annotated version of the page.
-    2.  **Import/Export:** Users can download their comments as a `.json` file for backup or sharing extremely large comment sets (over 1,740 comments, which is the length at which Chrome stops displaying URL characters), and import files from others.
+    2.  **Import/Export:** Users can download their comments as a `.json` file for backup or sharing extremely large comment sets (over ~2,300 comments, which is the length at which Chrome stops displaying URL characters), and import files from others.
 *   **Intuitive UI & UX:**
     *   An immersive UI that tries to remain as unobtrusive as possible.
     *   A central management widget that appears on hover.
