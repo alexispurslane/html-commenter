@@ -16,10 +16,12 @@ A zero-dependency, self-contained commenting and highlighting tool for any stati
 *   **Intuitive UI & UX:**
     *   An immersive UI that tries to remain as unobtrusive as possible.
     *   A central management widget that appears on hover.
-    *   A complete comment summary at the end of the document for easy navigation.
+    *   A complete comment list at the end of the document for easy navigation.
     *   Helpful keyboard shortcuts (`Shift+Enter` to comment/submit, `Esc` to cancel).
     *   Click-to-show tooltips with easy comment deletion.
     *   Fully responsive for both desktop and mobile use.
+    *   Click on the management widget to jump to the next comment, to save you scrolling in long documents.
+    *   A comment resolution feature that doesn't delete history, to help you keep track of what you have and haven't done if someone gives you input.
 
 ## Installation
 
