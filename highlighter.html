@@ -337,6 +337,25 @@
  #comment-counter.has-comments {
      cursor: pointer;
  }
+ /* --- Author Attribution Styles --- */
+ .comment-author {
+     display: block;
+     font-size: 0.8rem;
+     font-weight: bold;
+     opacity: 0.7;
+     margin-bottom: 0.5em;
+ }
+
+ #comment-tooltip .comment-author {
+     color: var(--comment-ui-accent);
+ }
+
+ .summary-author {
+     font-weight: bold;
+     margin-bottom: 0.5em;
+     font-family: sans-serif;
+     font-size: 0.9em;
+ }
 </style>
 
 <!-- The Tooltip and Counter now live outside the main UI container -->
@@ -395,6 +414,7 @@
 
      // --- STATE MANAGEMENT ---
      let comments = [];
+     let currentUser = 'Anonymous';     
      let nextHighlightIndex = 0;
      let currentSelectionData = null;
 
@@ -475,6 +495,35 @@
          return node;
      };
 
+     const getOrSetUser = () => {
+         const savedUser = localStorage.getItem('commentingUser');
+         if (savedUser) {
+             currentUser = savedUser;
+             return;
+         }
+         const newUser = prompt("Please enter your name or initials for commenting:", "Anonymous");
+         if (newUser && newUser.trim() !== "") {
+             currentUser = newUser.trim();
+         } else {
+             currentUser = 'Anonymous';
+         }
+         localStorage.setItem('commentingUser', currentUser);
+     };
+
+     const getAuthorColor = (author) => {
+         if (!author) return 'rgba(51, 255, 153, 0.4)'; // Fallback to default
+         let hash = 0;
+         for (let i = 0; i < author.length; i++) {
+             hash = author.charCodeAt(i) + ((hash << 5) - hash);
+         }
+         const h = hash % 360;
+         // Using HSL for consistent, pleasant colors. 70% saturation, 40% lightness for the border, 85% for the background
+         return {
+             border: `hsl(${h}, 70%, 40%)`,
+             background: `hsla(${h}, 70%, 85%, 0.4)`
+         };
+     };
+
      const serializeRange = (range) => {
          if (!range) return null;
          return {
@@ -526,12 +575,10 @@
          }
          commentSummarySection.style.display = 'block';
 
-         // Sort comments by position on the page, but group resolved ones at the bottom
-         const commentsWithElements = comments.map(comment => {
-             const el = document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`);
-             // For resolved comments, el will be null, which is fine.
-             return { comment, el };
-         });
+         const commentsWithElements = comments.map(comment => ({
+             comment,
+             el: document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`)
+         }));
 
          commentsWithElements.sort((a, b) => {
              if (a.comment.isResolved && !b.comment.isResolved) return 1;
@@ -543,6 +590,13 @@
          commentsWithElements.forEach(({ comment }) => {
              const li = document.createElement('li');
              li.dataset.commentId = comment.id;
+             const authorName = comment.author || 'Anonymous';
+             const authorColors = getAuthorColor(authorName);
+
+             const authorEl = document.createElement('div');
+             authorEl.className = 'summary-author';
+             authorEl.textContent = `By: ${authorName}`;
+             authorEl.style.color = authorColors.border;
 
              const deleteBtn = document.createElement('span');
              deleteBtn.className = 'summary-delete-btn';
@@ -552,11 +606,13 @@
              const blockquote = document.createElement('blockquote');
              const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
              blockquote.textContent = quoteText;
+             blockquote.style.borderLeftColor = authorColors.border;
 
              const p = document.createElement('p');
              p.textContent = comment.text;
 
              li.appendChild(deleteBtn);
+             li.appendChild(authorEl); // Add the author element
              li.appendChild(blockquote);
              li.appendChild(p);
 
@@ -631,10 +687,15 @@
 
      const applyHighlight = (range, commentId) => {
          if (!range || range.collapsed) return;
+         const comment = comments.find(c => c.id === commentId);
+         const authorColors = getAuthorColor(comment ? comment.author : null);
+
          try {
              const marker = document.createElement('mark');
              marker.className = 'comment-highlight';
              marker.dataset.commentId = commentId;
+             marker.style.backgroundColor = authorColors.background;
+             marker.style.borderBottomColor = authorColors.border;
              range.surroundContents(marker);
              addHighlightEventListeners(marker);
          } catch (e) {
@@ -642,9 +703,7 @@
              const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
              const textNodes = [];
              while(walker.nextNode()) {
-                 if(range.intersectsNode(walker.currentNode)) {
-                     textNodes.push(walker.currentNode);
-                 }
+                 if(range.intersectsNode(walker.currentNode)) { textNodes.push(walker.currentNode); }
              }
              for (const node of textNodes) {
                  const highlightRange = document.createRange();
@@ -654,6 +713,8 @@
                      const marker = document.createElement('mark');
                      marker.className = 'comment-highlight';
                      marker.dataset.commentId = commentId;
+                     marker.style.backgroundColor = authorColors.background;
+                     marker.style.borderBottomColor = authorColors.border;
                      highlightRange.surroundContents(marker);
                      addHighlightEventListeners(marker);
                  }
@@ -778,7 +839,10 @@
          const commentId = highlightEl.dataset.commentId;
          const comment = comments.find(c => c.id === commentId);
          if (!comment) return;
+         const authorName = comment.author || 'Anonymous';
+
          tooltip.innerHTML = `
+             <small class="comment-author">By: ${authorName}</small>
              <span>${comment.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
              <br/>
              <button class="resolve-comment-btn" data-comment-id="${commentId}">Resolve</button>
@@ -864,6 +928,7 @@
      contentRoot.addEventListener('touchend', handleSelectionEnd);
 
      addCommentBtn.addEventListener('click', () => {
+         getOrSetUser();
          const selection = window.getSelection();
          if (selection && !selection.isCollapsed) {
              currentSelectionData = serializeRange(selection.getRangeAt(0));
@@ -888,7 +953,9 @@
              const newComment = {
                  id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                  text: commentText,
-                 range: currentSelectionData
+                 range: currentSelectionData,
+                 author: currentUser, // Add author to the new comment
+                 isResolved: false
              };
              comments.push(newComment);
              saveCommentsToLocal();
@@ -930,18 +997,41 @@
              try {
                  const importedComments = JSON.parse(event.target.result);
                  if (Array.isArray(importedComments)) {
-                     document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
-                     comments = importedComments;
-                     
-                     // Capture the number of errors from applyAllHighlights
-                     const placementErrors = applyAllHighlights(comments);
-                     
-                     saveCommentsToLocal();
-                     
-                     // Pass the error count to the counter
-                     updateCounter(placementErrors);
-                     
-                     renderCommentSummary();
+                     const existingIds = new Set(comments.map(c => c.id));
+                     let newCommentsAdded = 0;
+
+                     importedComments.forEach(importedComment => {
+                         // --- ROBUSTNESS CHECK ---
+                         // Skip if the comment is malformed or has no range data.
+                         if (!importedComment || !importedComment.range) {
+                             console.warn("Skipping invalid comment object during import:", importedComment);
+                             return;
+                         }
+
+                         // If an ID is missing, assign a new one. This handles data
+                         // from links or other sources that might lack IDs.
+                         if (!importedComment.id) {
+                             importedComment.id = `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                         }
+                         // --- END ROBUSTNESS CHECK ---
+
+                         // Now, proceed with the reliable merge logic.
+                         if (!existingIds.has(importedComment.id)) {
+                             comments.push(importedComment);
+                             newCommentsAdded++;
+                         }
+                     });
+
+                     if (newCommentsAdded > 0) {
+                         document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
+                         const placementErrors = applyAllHighlights(comments);
+                         saveCommentsToLocal();
+                         updateCounter(placementErrors);
+                         renderCommentSummary();
+                         alert(`${newCommentsAdded} new comment(s) were successfully imported and merged.`);
+                     } else {
+                         alert("No new comments were found in the imported file.");
+                     }
                  }
              } catch (err) {
                  console.error(err);
@@ -950,17 +1040,6 @@
          };
          reader.readAsText(file);
          e.target.value = '';
-     });
-
-     clearBtn.addEventListener('click', () => {
-         if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
-             // Clear the data from storage
-             comments = [];
-             localStorage.removeItem('userComments');
-             
-             // Force a page reload to ensure a clean state
-             location.reload();
-         }
      });
 
      copyLinkBtn.addEventListener('click', async () => {
@@ -1072,6 +1151,19 @@
          // Update the index for the *next* click, wrapping around to the beginning
          // if we've reached the end of the list.
          nextHighlightIndex = (nextHighlightIndex + 1) % highlights.length;
+     });
+
+     clearBtn.addEventListener('click', () => {
+         if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
+             // 1. Clear the data from localStorage
+             localStorage.removeItem('userComments');
+             
+             // 2. Clear the hash from the URL without creating a new history entry
+             history.replaceState(null, '', window.location.pathname + window.location.search);
+             
+             // 3. Force a page reload to ensure a completely clean state
+             location.reload();
+         }
      });
 
      loadInitialComments();

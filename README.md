@@ -8,7 +8,8 @@ A zero-dependency, self-contained commenting and highlighting tool for any stati
 *   **Zero Dependencies:** Written in modern, vanilla JavaScript. No need for jQuery, React, Vue, or any other framework.
 *   **Purely Client-Side:** All data is processed and stored exclusively in the user's browser. No server is required, and no data is ever sent over the network, ensuring complete privacy.
 *   **Persistent Local Storage:** Comments are automatically saved to the browser's `localStorage`, so they persist even after closing the tab or browser.
-*   **Robust Highlighting:** The system can reliably highlight anything from a single word to selections that span multiple paragraphs.
+*   **Robust Highlighting:** The system can reliably highlight anything from text within an element to selections that span multiple elements, anywhere on the page.
+*   **Best-case Collaboration Features:** When you import other people's comments, your own are preserved, and next time you export, the combined comments are exported together, allowing conversations (made easier with self-contained link sharing). Even better, the authorship of each comment is maintained, with different author names and associated colors (based on a hash function). On top of that, "resolve" functionality allows you to mark which comments you've delt with, without losing comment history.
 *   **Resilient Data Model:** Annotations are saved using a precise DOM path, with a smart text-search fallback to ensure that comments can be imported and restored even if the underlying page structure has minor changes.
 *   **Two Ways to Share:**
     1.  **Shareable Links:** Generates a compressed, URL-safe Base64 link that contains all comment data. Perfect for directly sharing an annotated version of the page.
@@ -21,8 +22,7 @@ A zero-dependency, self-contained commenting and highlighting tool for any stati
     *   Click-to-show tooltips with easy comment deletion.
     *   Fully responsive for both desktop and mobile use.
     *   Click on the management widget to jump to the next comment, to save you scrolling in long documents.
-    *   A comment resolution feature that doesn't delete history, to help you keep track of what you have and haven't done if someone gives you input.
-
+    
 ## Installation
 
 Adding this system to any existing HTML page is a simple three-step process:
