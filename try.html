@@ -22,371 +22,15 @@
     <meta property="twitter:title" content="Vanilla JS Drop-in Annotation System">
     <meta property="twitter:description" content="A zero-dependency, self-contained commenting and highlighting tool for any static HTML page.">
     <meta property="twitter:image" content="https://example.com/image.jpg">
-
-    <style>
-     /* --- Commenting UI Styles --- */
-     :root {
-         --comment-highlight-bg: rgba(51, 255, 153, 0.4);
-         --comment-ui-bg: #1a2a1a;
-         --comment-ui-text: #e8f8e8;
-         --comment-ui-accent: #33ff99;
-         --comment-ui-border: #6a826a;
-     }
-
-        body { margin: auto auto; max-width: 65ch; }
-        p { text-align: justify; hyphens: auto; overflow-wrap: break-word; }
-        
-
-     .comment-highlight {
-         background-color: var(--comment-highlight-bg);
-         border-bottom: 2px dashed var(--comment-ui-accent);
-         cursor: pointer;
-         color: inherit;
-     }
-
-     /* --- Main Comment Creation Drawer --- */
-     #comment-ui-container {
-         position: fixed;
-         bottom: 0;
-         left: 0;
-         width: 100vw;
-         background-color: var(--comment-ui-bg);
-         color: var(--comment-ui-text);
-         box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-         z-index: 10000;
-         transform: translateY(100%);
-         transition: transform 0.3s ease-in-out;
-         padding: 1rem;
-         box-sizing: border-box;
-         display: flex;
-         flex-direction: column;
-         gap: 0.75rem;
-         border-top: 1px solid var(--comment-ui-border);
-     }
-
-     #comment-ui-container.visible {
-         transform: translateY(0);
-     }
-
-     #comment-ui-container button {
-         background-color: var(--comment-ui-accent);
-         color: var(--bg-color);
-         font-weight: bold;
-         border: none;
-         padding: 0.6rem 1rem;
-         border-radius: 5px;
-         cursor: pointer;
-         font-size: 0.9rem;
-         font-family: sans-serif;
-         text-align: center;
-     }
-     #comment-ui-container button.secondary {
-         background-color: var(--comment-ui-border);
-         color: var(--comment-ui-text);
-         font-weight: normal;
-     }
-     #comment-ui-container button:hover { opacity: 0.85; }
-
-     #comment-input-area {
-         width: 100%;
-         background-color: #0c140c;
-         color: var(--comment-ui-text);
-         border: 1px solid var(--comment-ui-border);
-         border-radius: 5px;
-         padding: 0.5rem;
-         font-size: 1rem;
-         font-family: sans-serif;
-         min-height: 80px;
-         box-sizing: border-box;
-         resize: vertical;
-     }
-
-     #comment-form {
-         display: none;
-         flex-direction: column;
-         gap: 0.75rem;
-     }
-     #comment-form .form-buttons {
-         display: flex;
-         gap: 0.5rem;
-         justify-content: flex-end;
-     }
-
-     /* --- Tooltip --- */
-     #comment-tooltip {
-         position: absolute;
-         display: none;
-         background-color: var(--comment-ui-bg);
-         color: var(--comment-ui-text);
-         border: 1px solid var(--comment-ui-border);
-         border-radius: 5px;
-         padding: 0.8rem;
-         max-width: 300px;
-         font-size: 0.9rem;
-         z-index: 10001;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-         overflow-wrap: break-word;
-         font-family: sans-serif;
-         line-height: 1.5;
-     }
-
-     .delete-comment-btn {
-         background: var(--comment-ui-border);
-         color: var(--comment-ui-text);
-         border: none;
-         padding: 4px 8px;
-         margin-top: 8px;
-         border-radius: 3px;
-         cursor: pointer;
-         display: block;
-         width: 100%;
-         font-size: 0.8rem;
-     }
-     .delete-comment-btn:hover { background: #c13434; }
-
-     /* --- Management Widget in Corner --- */
-     #comment-widget-container {
-         position: fixed;
-         bottom: 15px;
-         right: 15px;
-         z-index: 9999;
-         display: flex;
-         flex-direction: column-reverse;
-         align-items: flex-end;
-     }
-
-     #comment-counter {
-         background-color: rgba(26, 42, 26, 0.8);
-         backdrop-filter: blur(5px);
-         color: var(--comment-ui-text);
-         padding: 5px 12px;
-         margin-top: 8px;
-         border-radius: 15px;
-         font-size: 0.85rem;
-         font-family: sans-serif;
-         display: none;
-         box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-         border: 1px solid var(--comment-ui-border);
-         cursor: default;
-         transition: transform 0.2s ease-out;
-     }
-
-
-     #comment-management-wrapper {
-         display: flex;
-         flex-direction: column;
-         align-items: flex-end;
-         gap: 8px;
-         opacity: 0;
-         visibility: hidden;
-         transform: translateY(10px);
-         transition: all 0.2s ease-out;
-     }
-
-     #comment-management-flyout {
-         display: flex;
-         gap: 0.5rem;
-         padding: 8px;
-         background-color: rgba(26, 42, 26, 0.9);
-         backdrop-filter: blur(5px);
-         border: 1px solid var(--comment-ui-border);
-         border-radius: 8px;
-     }
-
-     #comment-management-help-text {
-         color: var(--comment-ui-border);
-         font-size: 0.75rem;
-         font-family: sans-serif;
-         text-align: right;
-         padding: 0 4px;
-         max-width: 250px;
-     }
-
-     #comment-widget-container:hover #comment-management-wrapper {
-         opacity: 1;
-         visibility: visible;
-         transform: translateY(0);
-     }
-     #comment-widget-container:hover #comment-counter {
-         transform: scale(1.05);
-     }
-
-     #comment-management-flyout button,
-     #comment-management-flyout .file-input-label {
-         background-color: var(--comment-ui-accent);
-         color: var(--bg-color);
-         font-weight: bold;
-         border: none;
-         padding: 0.5rem 0.8rem;
-         border-radius: 5px;
-         cursor: pointer;
-         font-size: 0.8rem;
-         font-family: sans-serif;
-         white-space: nowrap;
-         /* Ensure consistent size */
-         display: flex;
-         align-items: center;
-         justify-content: center;
-     }
-     #comment-management-flyout button.secondary {
-         background-color: var(--comment-ui-border);
-         color: var(--comment-ui-text);
-         font-weight: normal;
-     }
-     #comment-management-flyout button:hover,
-     #comment-management-flyout .file-input-label:hover {
-         opacity: 0.85;
-     }
-
-     #copy-link-btn {
-         background-color: #4A5D4A; /* A slightly different shade */
-     }
-
-     #import-comments-input { display: none; }
-
-     /* --- Help Text and Keybinding Styles --- */
-     .comment-help-text {
-         font-size: 0.8rem;
-         color: var(--comment-ui-border);
-         text-align: center;
-         width: 100%;
-     }
-     .comment-help-text kbd {
-         background-color: #0c140c;
-         border: 1px solid var(--comment-ui-border);
-         padding: 2px 6px;
-         border-radius: 4px;
-         font-family: monospace;
-         font-size: 0.75rem;
-     }
-
-     /* --- Comment Summary Section Styles --- */
-     #comment-summary-section {
-         max-width: 60em;
-         margin: 5em auto;
-         padding: 2em;
-         border-top: 2px solid var(--comment-ui-border);
-         color: var(--comment-ui-text);
-     }
-     #comment-summary-section h2 {
-         font-family: var(--font-heading);
-         color: var(--comment-ui-accent);
-         text-transform: uppercase;
-         margin-top: 0;
-         border-bottom: none;
-         margin-bottom: 1em;
-     }
-     #comment-summary-list {
-         list-style: none;
-         padding: 0;
-         margin: 0;
-     }
-     #comment-summary-list li {
-         padding: 1.5em;
-         border-bottom: 1px solid var(--comment-ui-border);
-         cursor: pointer;
-         transition: background-color 0.2s ease;
-         position: relative;
-     }
-     #comment-summary-list li:hover {
-         background-color: var(--comment-ui-bg);
-     }
-     #comment-summary-list li blockquote {
-         margin: 0 0 0.5em 0;
-         padding-left: 1em;
-         border-left: 3px solid var(--comment-ui-accent);
-         color: var(--comment-ui-text);
-         font-style: italic;
-         opacity: 0.8;
-     }
-     #comment-summary-list li p {
-         margin: 0;
-         color: var(--comment-ui-text);
-         font-family: sans-serif;
-     }
-
-     .summary-delete-btn {
-         position: absolute;
-         top: 5px;
-         right: 5px;
-         font-size: 1.5rem;
-         color: var(--comment-ui-border);
-         transition: color 0.2s ease;
-         line-height: 1;
-         padding: 10px;
-     }
-     .summary-delete-btn:hover {
-         color: #c13434;
-     }
-
-     /* --- Mobile Responsiveness --- */
-     @media (min-width: 600px) {
-         #comment-ui-container {
-             width: auto;
-             left: 50%;
-             transform: translateX(-50%) translateY(120%);
-             border-top-left-radius: 8px;
-             border-top-right-radius: 8px;
-         }
-         #comment-ui-container.visible { transform: translateX(-50%) translateY(0); }
-     }
-     /* --- Style for the new Resolve button in the tooltip --- */
-     
-     /* --- Style for the new Resolve button in the tooltip --- */
-     .resolve-comment-btn {
-         background-color: var(--comment-ui-accent); /* Match primary action color */
-         color: var(--bg-color);                     /* Match primary text color */
-         font-weight: bold;                          /* Match primary font weight */
-         border: none;
-         padding: 4px 8px;
-         margin-top: 8px;
-         margin-right: 5px;
-         border-radius: 3px;
-         cursor: pointer;
-         font-size: 0.8rem;
-     }
-     .resolve-comment-btn:hover { opacity: 0.85; } /* Match primary hover effect */
-
-     /* (In the summary list) */
-     .summary-unresolve-btn {
-         background-color: var(--comment-ui-accent); /* Match primary action color */
-         color: var(--bg-color);                     /* Match primary text color */
-         font-weight: bold;                          /* Match primary font weight */
-         border: none;
-         padding: 6px 12px;
-         border-radius: 4px;
-         cursor: pointer;
-         font-size: 0.85rem;
-         margin-top: 10px;
-         display: inline-block;
-     }
-     .summary-unresolve-btn:hover { opacity: 0.85; } /* Match primary hover effect */
-
-     /* Make the counter look clickable */
-     #comment-counter.has-comments {
-         cursor: pointer;
-     }
-     /* --- Author Attribution Styles --- */
-     .comment-author {
-         display: block;
-         font-size: 0.8rem;
-         font-weight: bold;
-         opacity: 0.7;
-         margin-bottom: 0.5em;
-     }
-
-     #comment-tooltip .comment-author {
-         color: var(--comment-ui-accent);
-     }
-
-     .summary-author {
-         font-weight: bold;
-         margin-bottom: 0.5em;
-         font-family: sans-serif;
-         font-size: 0.9em;
-     }
-    </style>
-</head>
+<style>
+body { max-width: 65ch; font-size: 1.1em; margin: auto auto; font-family: sans-serif; background-color: #222; color: #eee; padding: 5px 20px; }
+p, li { line-height: 1.4em; text-align: justify; word-wrap: break-word; hyphens: auto; }
+li { margin-top: 10px; }
+li li { margin-left: 20px; }
+ul, ol { margin-left: 0; padding-left: 0; }
+h1, h2, h3, h4, h5, h6 { text-align: center; }
+</style>
+      </head>
 <body>
     <main id="content">
         <h1 id="vanilla-js-drop-in-annotation-system">Vanilla JS Drop-in Annotation System</h1>
@@ -443,7 +87,390 @@
         <h2 id="vibe-coding-disclaimer">Vibe Coding Disclaimer</h2>
         <p>Usually even when I do AI-assisted coding I read every diff, design every architecture and algorithm decision before I even talk to the LLM, and I'm very careful and picky. I also use agentic coding systems to have tigher control over what they do, since every change is diffed. Not so here. I did this straight in a Gemini 2.5 Pro chat and literally didn't look at the code at all. So take that as you will. I'm not claiming this is my work, just that it's a really useful little tool for me, to replace the only thing I use Google Docs for, and someone might find it useful too.</p>
     </main>
+<style>
+ /* --- Commenting UI Styles --- */
+ :root {
+     --comment-highlight-bg: rgba(51, 255, 153, 0.4);
+     --comment-ui-bg: #1a2a1a;
+     --comment-ui-text: #e8f8e8;
+     --comment-ui-accent: #33ff99;
+     --comment-ui-border: #6a826a;
+ }
 
+ .comment-highlight {
+        background-color: var(--comment-highlight-bg);
+        border-bottom: 2px dashed var(--comment-ui-accent);
+        cursor: pointer;
+        color: inherit;
+    }
+
+  /* --- Main Comment Creation Drawer --- */
+    /* Positioned ABSOLUTELY within the FIXED root for stability */
+    #comment-ui-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--comment-ui-bg);
+        color: var(--comment-ui-text);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+        z-index: 10000;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out;
+        padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        border-top: 1px solid var(--comment-ui-border);
+    }
+
+
+ #comment-ui-container.visible {
+     transform: translateY(0);
+ }
+
+ #comment-ui-container button {
+        background-color: var(--comment-ui-accent);
+        color: var(--bg-color);
+        font-weight: bold;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-family: sans-serif;
+        text-align: center;
+    }
+    #comment-ui-container button.secondary {
+        background-color: var(--comment-ui-border);
+        color: var(--comment-ui-text);
+        font-weight: normal;
+    }
+    #comment-ui-container button:hover { opacity: 0.85; }
+
+
+ #comment-input-area {
+        width: 100%;
+        background-color: #0c140c;
+        color: var(--comment-ui-text);
+        border: 1px solid var(--comment-ui-border);
+        border-radius: 5px;
+        padding: 0.5rem;
+        font-size: 1rem;
+        font-family: sans-serif;
+        min-height: 80px;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+
+    #comment-form {
+        display: none;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    #comment-form .form-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    /* --- Tooltip --- */
+    #comment-tooltip {
+        position: absolute; /* Relative to root */
+        display: none;
+        background-color: var(--comment-ui-bg);
+        color: var(--comment-ui-text);
+        border: 1px solid var(--comment-ui-border);
+        border-radius: 5px;
+        padding: 0.8rem;
+        max-width: 300px;
+        font-size: 0.9rem;
+        z-index: 10001;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        overflow-wrap: break-word;
+        font-family: sans-serif;
+        line-height: 1.5;
+    }
+
+ .delete-comment-btn {
+     background: var(--comment-ui-border);
+     color: var(--comment-ui-text);
+     border: none;
+     padding: 4px 8px;
+     margin-top: 8px;
+     border-radius: 3px;
+     cursor: pointer;
+     display: block;
+     width: 100%;
+     font-size: 0.8rem;
+ }
+ .delete-comment-btn:hover { background: #c13434; }
+
+ /* --- Management Widget in Corner --- */
+  #comment-widget-container {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+
+    #comment-counter {
+        background-color: rgba(26, 42, 26, 0.8);
+        backdrop-filter: blur(5px);
+        color: var(--comment-ui-text);
+        padding: 5px 12px;
+        margin-top: 8px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-family: sans-serif;
+        display: none;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        border: 1px solid var(--comment-ui-border);
+        cursor: default;
+        transition: transform 0.2s ease-out;
+    }
+
+
+ #comment-management-wrapper {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+     gap: 8px;
+     opacity: 0;
+     visibility: hidden;
+     transform: translateY(10px);
+     transition: all 0.2s ease-out;
+ }
+
+ #comment-management-flyout {
+     display: flex;
+     gap: 0.5rem;
+     padding: 8px;
+     background-color: rgba(26, 42, 26, 0.9);
+     backdrop-filter: blur(5px);
+     border: 1px solid var(--comment-ui-border);
+     border-radius: 8px;
+ }
+
+ #comment-management-help-text {
+     color: var(--comment-ui-border);
+     font-size: 0.75rem;
+     font-family: sans-serif;
+     text-align: right;
+     padding: 0 4px;
+     max-width: 250px;
+ }
+
+ #comment-widget-container:hover #comment-management-wrapper {
+     opacity: 1;
+     visibility: visible;
+     transform: translateY(0);
+ }
+ #comment-widget-container:hover #comment-counter {
+     transform: scale(1.05);
+ }
+
+ #comment-management-flyout button,
+ #comment-management-flyout .file-input-label {
+     background-color: var(--comment-ui-accent);
+     color: var(--bg-color);
+     font-weight: bold;
+     border: none;
+     padding: 0.5rem 0.8rem;
+     border-radius: 5px;
+     cursor: pointer;
+     font-size: 0.8rem;
+     font-family: sans-serif;
+     white-space: nowrap;
+     /* Ensure consistent size */
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ #comment-management-flyout button.secondary {
+     background-color: var(--comment-ui-border);
+     color: var(--comment-ui-text);
+     font-weight: normal;
+ }
+ #comment-management-flyout button:hover,
+ #comment-management-flyout .file-input-label:hover {
+     opacity: 0.85;
+ }
+
+ #copy-link-btn {
+     background-color: #4A5D4A; /* A slightly different shade */
+ }
+
+ #import-comments-input { display: none; }
+
+ /* --- Help Text and Keybinding Styles --- */
+ .comment-help-text {
+     font-size: 0.8rem;
+     color: var(--comment-ui-border);
+     text-align: center;
+     width: 100%;
+ }
+ .comment-help-text kbd {
+     background-color: #0c140c;
+     border: 1px solid var(--comment-ui-border);
+     padding: 2px 6px;
+     border-radius: 4px;
+     font-family: monospace;
+     font-size: 0.75rem;
+ }
+
+ /* --- Comment Summary Section Styles --- */
+ #comment-summary-section {
+     max-width: 60em;
+     margin: 5em auto;
+     padding: 2em;
+     border-top: 2px solid var(--comment-ui-border);
+     color: var(--comment-ui-text);
+ }
+ #comment-summary-section h2 {
+     font-family: var(--font-heading);
+     color: var(--comment-ui-accent);
+     text-transform: uppercase;
+     margin-top: 0;
+     border-bottom: none;
+     margin-bottom: 1em;
+ }
+ #comment-summary-list {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+ }
+ #comment-summary-list li {
+     padding: 1.5em;
+     border-bottom: 1px solid var(--comment-ui-border);
+     cursor: pointer;
+     transition: background-color 0.2s ease;
+     position: relative;
+ }
+ #comment-summary-list li:hover {
+     background-color: var(--comment-ui-bg);
+ }
+ #comment-summary-list li blockquote {
+     margin: 0 0 0.5em 0;
+     padding-left: 1em;
+     border-left: 3px solid var(--comment-ui-accent);
+     color: var(--comment-ui-text);
+     font-style: italic;
+     opacity: 0.8;
+ }
+ #comment-summary-list li p {
+     margin: 0;
+     color: var(--comment-ui-text);
+     font-family: sans-serif;
+ }
+
+ .summary-delete-btn {
+     position: absolute;
+     top: 5px;
+     right: 5px;
+     font-size: 1.5rem;
+     color: var(--comment-ui-border);
+     transition: color 0.2s ease;
+     line-height: 1;
+     padding: 10px;
+ }
+ .summary-delete-btn:hover {
+     color: #c13434;
+ }
+
+ /* --- Mobile Responsiveness --- */
+@media (min-width: 600px) {
+      #comment-ui-container {
+        width: 500px; 
+        max-width: 90%;
+        left: 50%;
+        transform: translateX(-50%) translateY(120%);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      #comment-ui-container.visible { transform: translateX(-50%) translateY(0); }
+    }
+ /* --- Style for the new Resolve button in the tooltip --- */
+ 
+ /* --- Style for the new Resolve button in the tooltip --- */
+ .resolve-comment-btn {
+     background-color: var(--comment-ui-accent); /* Match primary action color */
+     color: var(--bg-color);                     /* Match primary text color */
+     font-weight: bold;                          /* Match primary font weight */
+     border: none;
+     padding: 4px 8px;
+     margin-top: 8px;
+     margin-right: 5px;
+     border-radius: 3px;
+     cursor: pointer;
+     font-size: 0.8rem;
+ }
+ .resolve-comment-btn:hover { opacity: 0.85; } /* Match primary hover effect */
+
+ /* (In the summary list) */
+ .summary-unresolve-btn {
+     background-color: var(--comment-ui-accent); /* Match primary action color */
+     color: var(--bg-color);                     /* Match primary text color */
+     font-weight: bold;                          /* Match primary font weight */
+     border: none;
+     padding: 6px 12px;
+     border-radius: 4px;
+     cursor: pointer;
+     font-size: 0.85rem;
+     margin-top: 10px;
+     display: inline-block;
+ }
+ .summary-unresolve-btn:hover { opacity: 0.85; } /* Match primary hover effect */
+
+ /* Make the counter look clickable */
+ #comment-counter.has-comments {
+     cursor: pointer;
+ }
+ /* --- Author Attribution Styles --- */
+ .comment-author {
+     display: block;
+     font-size: 0.8rem;
+     font-weight: bold;
+     opacity: 0.7;
+     margin-bottom: 0.5em;
+ }
+
+ #comment-tooltip .comment-author {
+     color: var(--comment-ui-accent);
+ }
+
+ .summary-author {
+     font-weight: bold;
+     margin-bottom: 0.5em;
+     font-family: sans-serif;
+     font-size: 0.9em;
+ }
+/* --- Sandboxed Root Container (Desktop-First) --- */
+#commenting-system-root {
+    /* Default to the simple, performant 'fixed' for desktop */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2147483647; 
+    pointer-events: none;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Re-enable pointer events on the actual UI components */
+#commenting-system-root > * {
+    pointer-events: auto;
+}
+</style>
+
+<div id="commenting-system-root">
     <!-- The Tooltip and Counter now live outside the main UI container -->
     <div id="comment-tooltip"></div>
 
@@ -481,787 +508,835 @@
                 <button type="submit" id="save-comment-btn">Save</button>
             </div>
         </form>
-    </div>
+    </div>    
+</div>
 
-    <section id="comment-summary-section" style="display: none;">
-        <h2>Comment Summary</h2>
-        <ol id="comment-summary-list"></ol>
-    </section>
+<section id="comment-summary-section" style="display: none;">
+    <h2>Comment Summary</h2>
+    <ol id="comment-summary-list"></ol>
+</section>
 
-    <script>
-     window.commentingSystemInitialized = false;
+<script>
+ window.commentingSystemInitialized = false;
 
-     window.initializeCommentingSystem = function(rootElementId) {
-         if (window.commentingSystemInitialized) {
-             console.warn("Commenting system has already been initialized. Aborting.");
+ window.initializeCommentingSystem = function(rootElementId) {
+     if (window.commentingSystemInitialized) {
+         console.warn("Commenting system has already been initialized. Aborting.");
+         return;
+     }
+
+     // --- STATE MANAGEMENT ---
+     let comments = [];
+     let currentUser = 'Anonymous';     
+     let nextHighlightIndex = 0;
+     let currentSelectionData = null;
+
+     // --- DOM ELEMENTS ---
+    
+     const commentingRoot = document.getElementById('commenting-system-root');
+     const commentWidgetContainer = document.getElementById('comment-widget-container');
+     const commentContainer = document.getElementById('comment-ui-container');
+     const addCommentBtn = document.getElementById('add-comment-btn');
+     const addCommentHelpText = document.getElementById('add-comment-help-text');
+     const commentForm = document.getElementById('comment-form');
+     const commentInput = document.getElementById('comment-input-area');
+     const exportBtn = document.getElementById('export-comments-btn');
+     const importInput = document.getElementById('import-comments-input');
+     const clearBtn = document.getElementById('clear-comments-btn');
+     const copyLinkBtn = document.getElementById('copy-link-btn');
+     const tooltip = document.getElementById('comment-tooltip');
+     const commentCounter = document.getElementById('comment-counter');
+     const commentSummarySection = document.getElementById('comment-summary-section');
+     const commentSummaryList = document.getElementById('comment-summary-list');
+     const contentRoot = document.getElementById(rootElementId) || document.body;
+
+     // --- URL Data Handling & Compression Helpers ---
+
+     const toUrlSafeBase64 = (buffer) => {
+         return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
+             .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+     };
+
+     const fromUrlSafeBase64 = (str) => {
+         str = str.replace(/-/g, '+').replace(/_/g, '/');
+         while (str.length % 4) { str += '='; }
+         const binaryString = atob(str);
+         const bytes = new Uint8Array(binaryString.length);
+         for (let i = 0; i < binaryString.length; i++) {
+             bytes[i] = binaryString.charCodeAt(i);
+         }
+         return bytes.buffer;
+     };
+
+     const compressData = async (data) => {
+         const stream = new Blob([JSON.stringify(data)], { type: 'application/json' })
+             .stream().pipeThrough(new CompressionStream('gzip'));
+         return await new Response(stream).arrayBuffer();
+     };
+
+     const decompressData = async (compressedBuffer) => {
+         try {
+             const stream = new Blob([compressedBuffer], { type: 'application/gzip' })
+                 .stream().pipeThrough(new DecompressionStream('gzip'));
+             const decompressed = await new Response(stream).json();
+             return decompressed;
+         } catch (e) {
+             console.error("Decompression failed:", e);
+             return null;
+         }
+     };
+
+
+     // --- CORE FUNCTIONS ---
+     const syncRootWithViewport = () => {
+         // Check if visualViewport is supported for safety
+         if (!window.visualViewport) return;
+
+         const { offsetTop, offsetLeft, width, height } = window.visualViewport;
+
+         // We use the page scroll values (window.scrollY) plus the viewport's own
+         // offset to find the true top-left corner of the visible area.
+         const trueTop = offsetTop + window.scrollY;
+         const trueLeft = offsetLeft + window.scrollX;
+
+         // Apply the calculated position and size to our root element.
+         // This makes our 'absolute' container perfectly match the visible screen area.
+         commentingRoot.style.transform = `translate(${trueLeft}px, ${trueTop}px)`;
+         commentingRoot.style.width = `${width}px`;
+         commentingRoot.style.height = `${height}px`;
+     };
+
+     const initializeViewportPositioning = () => {
+         // --- The Correct Heuristic ---
+         // We check for touch capability as the primary indicator of a mobile-like device
+         // where `position: fixed` is unreliable. `navigator.maxTouchPoints > 0` is the
+         // modern standard for this.
+         const isMobileLike = navigator.maxTouchPoints > 0;
+
+         // We proceed only if it's a mobile-like device AND the visualViewport API exists.
+         if (isMobileLike && window.visualViewport) {
+             console.log("Touch device detected. Upgrading to JS-driven positioning for reliability.");
+
+             // 1. Switch the positioning mode from 'fixed' to 'absolute'
+             commentingRoot.style.position = 'absolute';
+             
+             // 2. Attach the event listeners that power the JS positioning
+             window.visualViewport.addEventListener('resize', syncRootWithViewport);
+             window.visualViewport.addEventListener('scroll', syncRootWithViewport);
+             
+             // 3. Run it once to set the initial position correctly
+             syncRootWithViewport();
+         }
+         // --- End of Heuristic Logic ---
+         
+         // On any non-touch device (like a standard desktop), this `if` block is skipped,
+         // and the UI correctly uses the default `position: fixed` from the CSS.
+     };
+
+     const getNodePath = (node) => {
+         const path = [];
+         while (node !== contentRoot && node) {
+             let sibling = node; let index = 0;
+             while ((sibling = sibling.previousSibling) != null) { index++; }
+             path.unshift(index);
+             node = node.parentNode;
+         }
+         return path;
+     };
+
+     const getNodeFromPath = (path) => {
+         let node = contentRoot;
+         for (const index of path) {
+             if (node && node.childNodes[index]) {
+                 node = node.childNodes[index];
+             } else { return null; }
+         }
+         return node;
+     };
+
+     const getOrSetUser = () => {
+         const savedUser = localStorage.getItem('commentingUser');
+         if (savedUser) {
+             currentUser = savedUser;
+             return;
+         }
+         const newUser = prompt("Please enter your name or initials for commenting:", "Anonymous");
+         if (newUser && newUser.trim() !== "") {
+             currentUser = newUser.trim();
+         } else {
+             currentUser = 'Anonymous';
+         }
+         localStorage.setItem('commentingUser', currentUser);
+     };
+
+     const getAuthorColor = (author) => {
+         if (!author) return 'rgba(51, 255, 153, 0.4)'; // Fallback to default
+         let hash = 0;
+         for (let i = 0; i < author.length; i++) {
+             hash = author.charCodeAt(i) + ((hash << 5) - hash);
+         }
+         const h = hash % 360;
+         // Using HSL for consistent, pleasant colors. 70% saturation, 40% lightness for the border, 85% for the background
+         return {
+             border: `hsl(${h}, 70%, 40%)`,
+             background: `hsla(${h}, 70%, 85%, 0.4)`
+         };
+     };
+
+     const serializeRange = (range) => {
+         if (!range) return null;
+         return {
+             startPath: getNodePath(range.startContainer),
+             startOffset: range.startOffset,
+             endPath: getNodePath(range.endContainer),
+             endOffset: range.endOffset,
+             text: range.toString()
+         };
+     };
+
+     const deserializeRange = (savedRange) => {
+         const startContainer = getNodeFromPath(savedRange.startPath);
+         const endContainer = getNodeFromPath(savedRange.endPath);
+         if (startContainer && endContainer) {
+             try {
+                 const range = document.createRange();
+                 const startOffset = Math.min(savedRange.startOffset, startContainer.textContent.length);
+                 const endOffset = Math.min(savedRange.endOffset, endContainer.textContent.length);
+                 range.setStart(startContainer, startOffset);
+                 range.setEnd(endContainer, endOffset);
+                 return range;
+             } catch (e) { console.error("Error setting range from path, falling back.", e, savedRange); }
+         }
+         console.warn("Path failed for highlight. Falling back to text search for:", savedRange.text);
+         const normalizedText = savedRange.text.replace(/\s+/g, ' ').trim();
+         if (!normalizedText) return null;
+         const walker = document.createTreeWalker(contentRoot, NodeFilter.SHOW_TEXT);
+         let node;
+         while (node = walker.nextNode()) {
+             const normalizedNodeText = node.nodeValue.replace(/\s+/g, ' ');
+             const index = normalizedNodeText.indexOf(normalizedText);
+             if (index !== -1) {
+                 const range = document.createRange();
+                 range.setStart(node, index);
+                 range.setEnd(node, index + normalizedText.length);
+                 return range;
+             }
+         }
+         console.error("Could not find text for highlight anywhere on the page:", savedRange);
+         return null;
+     };
+
+     const renderCommentSummary = () => {
+         commentSummaryList.innerHTML = '';
+         if (comments.length === 0) {
+             commentSummarySection.style.display = 'none';
+             return;
+         }
+         commentSummarySection.style.display = 'block';
+
+         const commentsWithElements = comments.map(comment => ({
+             comment,
+             el: document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`)
+         }));
+
+         commentsWithElements.sort((a, b) => {
+             if (a.comment.isResolved && !b.comment.isResolved) return 1;
+             if (!a.comment.isResolved && b.comment.isResolved) return -1;
+             if (!a.el || !b.el) return 0;
+             return a.el.offsetTop - b.el.offsetTop;
+         });
+         
+         commentsWithElements.forEach(({ comment }) => {
+             const li = document.createElement('li');
+             li.dataset.commentId = comment.id;
+             const authorName = comment.author || 'Anonymous';
+             const authorColors = getAuthorColor(authorName);
+
+             const authorEl = document.createElement('div');
+             authorEl.className = 'summary-author';
+             authorEl.textContent = `By: ${authorName}`;
+             authorEl.style.color = authorColors.border;
+
+             const deleteBtn = document.createElement('span');
+             deleteBtn.className = 'summary-delete-btn';
+             deleteBtn.innerHTML = '&times;';
+             deleteBtn.dataset.commentId = comment.id;
+             
+             const blockquote = document.createElement('blockquote');
+             const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
+             blockquote.textContent = quoteText;
+             blockquote.style.borderLeftColor = authorColors.border;
+
+             const p = document.createElement('p');
+             p.textContent = comment.text;
+
+             li.appendChild(deleteBtn);
+             li.appendChild(authorEl); // Add the author element
+             li.appendChild(blockquote);
+             li.appendChild(p);
+
+             if (comment.isResolved) {
+                 li.classList.add('resolved');
+                 const unresolveBtn = document.createElement('button');
+                 unresolveBtn.className = 'summary-unresolve-btn';
+                 unresolveBtn.textContent = 'Unresolve';
+                 unresolveBtn.dataset.commentId = comment.id;
+                 li.appendChild(unresolveBtn);
+             }
+
+             commentSummaryList.appendChild(li);
+         });
+     };
+
+     const getLastHighlightScrollPercent = () => {
+         const highlights = Array.from(document.querySelectorAll('.comment-highlight'));
+         if (highlights.length === 0) return null;
+         const lastHighlight = highlights.reduce((last, current) => current.offsetTop > last.offsetTop ? current : last);
+         const docHeight = document.documentElement.scrollHeight;
+         const viewportHeight = window.innerHeight;
+         const scrollableHeight = docHeight - viewportHeight;
+         if (scrollableHeight <= 0) return 100;
+         const percentage = (lastHighlight.offsetTop / scrollableHeight) * 100;
+         return Math.min(100, Math.round(percentage));
+     };
+
+
+     const updateCounter = (placementErrors = 0) => {
+         const totalCount = comments.length;
+         const placedCount = totalCount - placementErrors;
+
+         // Check if there are any visible highlights on the page
+         const hasVisibleHighlights = document.querySelector('.comment-highlight') !== null;
+
+         // Add or remove the clickable class based on visible highlights
+         if (hasVisibleHighlights) {
+             commentCounter.classList.add('has-comments');
+         } else {
+             commentCounter.classList.remove('has-comments');
+         }
+
+         if (totalCount === 0) {
+             commentCounter.textContent = 'No Comments';
+             commentCounter.title = '';
+             commentCounter.style.display = 'block';
              return;
          }
 
-         // --- STATE MANAGEMENT ---
-         let comments = [];
-         let currentUser = 'Anonymous';     
-         let nextHighlightIndex = 0;
-         let currentSelectionData = null;
+         const percentage = getLastHighlightScrollPercent();
+         let text;
 
-         // --- DOM ELEMENTS ---
-         const commentWidgetContainer = document.getElementById('comment-widget-container');
-         const commentContainer = document.getElementById('comment-ui-container');
-         const addCommentBtn = document.getElementById('add-comment-btn');
-         const addCommentHelpText = document.getElementById('add-comment-help-text');
-         const commentForm = document.getElementById('comment-form');
-         const commentInput = document.getElementById('comment-input-area');
-         const exportBtn = document.getElementById('export-comments-btn');
-         const importInput = document.getElementById('import-comments-input');
-         const clearBtn = document.getElementById('clear-comments-btn');
-         const copyLinkBtn = document.getElementById('copy-link-btn');
-         const tooltip = document.getElementById('comment-tooltip');
-         const commentCounter = document.getElementById('comment-counter');
-         const commentSummarySection = document.getElementById('comment-summary-section');
-         const commentSummaryList = document.getElementById('comment-summary-list');
-         const contentRoot = document.getElementById(rootElementId) || document.body;
-
-         // --- URL Data Handling & Compression Helpers ---
-
-         const toUrlSafeBase64 = (buffer) => {
-             return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
-                 .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-         };
-
-         const fromUrlSafeBase64 = (str) => {
-             str = str.replace(/-/g, '+').replace(/_/g, '/');
-             while (str.length % 4) { str += '='; }
-             const binaryString = atob(str);
-             const bytes = new Uint8Array(binaryString.length);
-             for (let i = 0; i < binaryString.length; i++) {
-                 bytes[i] = binaryString.charCodeAt(i);
+         if (placedCount > 0) {
+             text = `${placedCount} Comment${placedCount !== 1 ? 's' : ''}`;
+             if (percentage !== null) {
+                 text += ` (${percentage}%)`;
              }
-             return bytes.buffer;
-         };
-
-         const compressData = async (data) => {
-             const stream = new Blob([JSON.stringify(data)], { type: 'application/json' })
-                 .stream().pipeThrough(new CompressionStream('gzip'));
-             return await new Response(stream).arrayBuffer();
-         };
-
-         const decompressData = async (compressedBuffer) => {
-             try {
-                 const stream = new Blob([compressedBuffer], { type: 'application/gzip' })
-                     .stream().pipeThrough(new DecompressionStream('gzip'));
-                 const decompressed = await new Response(stream).json();
-                 return decompressed;
-             } catch (e) {
-                 console.error("Decompression failed:", e);
-                 return null;
-             }
-         };
-
-
-         // --- CORE FUNCTIONS ---
-
-         const getNodePath = (node) => {
-             const path = [];
-             while (node !== contentRoot && node) {
-                 let sibling = node; let index = 0;
-                 while ((sibling = sibling.previousSibling) != null) { index++; }
-                 path.unshift(index);
-                 node = node.parentNode;
-             }
-             return path;
-         };
-
-         const getNodeFromPath = (path) => {
-             let node = contentRoot;
-             for (const index of path) {
-                 if (node && node.childNodes[index]) {
-                     node = node.childNodes[index];
-                 } else { return null; }
-             }
-             return node;
-         };
-
-         const getOrSetUser = () => {
-             const savedUser = localStorage.getItem('commentingUser');
-             if (savedUser) {
-                 currentUser = savedUser;
-                 return;
-             }
-             const newUser = prompt("Please enter your name or initials for commenting:", "Anonymous");
-             if (newUser && newUser.trim() !== "") {
-                 currentUser = newUser.trim();
-             } else {
-                 currentUser = 'Anonymous';
-             }
-             localStorage.setItem('commentingUser', currentUser);
-         };
-
-         const getAuthorColor = (author) => {
-             if (!author) return 'rgba(51, 255, 153, 0.4)'; // Fallback to default
-             let hash = 0;
-             for (let i = 0; i < author.length; i++) {
-                 hash = author.charCodeAt(i) + ((hash << 5) - hash);
-             }
-             const h = hash % 360;
-             // Using HSL for consistent, pleasant colors. 70% saturation, 40% lightness for the border, 85% for the background
-             return {
-                 border: `hsl(${h}, 70%, 40%)`,
-                 background: `hsla(${h}, 70%, 85%, 0.4)`
-             };
-         };
-
-         const serializeRange = (range) => {
-             if (!range) return null;
-             return {
-                 startPath: getNodePath(range.startContainer),
-                 startOffset: range.startOffset,
-                 endPath: getNodePath(range.endContainer),
-                 endOffset: range.endOffset,
-                 text: range.toString()
-             };
-         };
-
-         const deserializeRange = (savedRange) => {
-             const startContainer = getNodeFromPath(savedRange.startPath);
-             const endContainer = getNodeFromPath(savedRange.endPath);
-             if (startContainer && endContainer) {
-                 try {
-                     const range = document.createRange();
-                     const startOffset = Math.min(savedRange.startOffset, startContainer.textContent.length);
-                     const endOffset = Math.min(savedRange.endOffset, endContainer.textContent.length);
-                     range.setStart(startContainer, startOffset);
-                     range.setEnd(endContainer, endOffset);
-                     return range;
-                 } catch (e) { console.error("Error setting range from path, falling back.", e, savedRange); }
-             }
-             console.warn("Path failed for highlight. Falling back to text search for:", savedRange.text);
-             const normalizedText = savedRange.text.replace(/\s+/g, ' ').trim();
-             if (!normalizedText) return null;
-             const walker = document.createTreeWalker(contentRoot, NodeFilter.SHOW_TEXT);
-             let node;
-             while (node = walker.nextNode()) {
-                 const normalizedNodeText = node.nodeValue.replace(/\s+/g, ' ');
-                 const index = normalizedNodeText.indexOf(normalizedText);
-                 if (index !== -1) {
-                     const range = document.createRange();
-                     range.setStart(node, index);
-                     range.setEnd(node, index + normalizedText.length);
-                     return range;
-                 }
-             }
-             console.error("Could not find text for highlight anywhere on the page:", savedRange);
-             return null;
-         };
-
-         const renderCommentSummary = () => {
-             commentSummaryList.innerHTML = '';
-             if (comments.length === 0) {
-                 commentSummarySection.style.display = 'none';
-                 return;
-             }
-             commentSummarySection.style.display = 'block';
-
-             const commentsWithElements = comments.map(comment => ({
-                 comment,
-                 el: document.querySelector(`.comment-highlight[data-comment-id="${comment.id}"]`)
-             }));
-
-             commentsWithElements.sort((a, b) => {
-                 if (a.comment.isResolved && !b.comment.isResolved) return 1;
-                 if (!a.comment.isResolved && b.comment.isResolved) return -1;
-                 if (!a.el || !b.el) return 0;
-                 return a.el.offsetTop - b.el.offsetTop;
-             });
-             
-             commentsWithElements.forEach(({ comment }) => {
-                 const li = document.createElement('li');
-                 li.dataset.commentId = comment.id;
-                 const authorName = comment.author || 'Anonymous';
-                 const authorColors = getAuthorColor(authorName);
-
-                 const authorEl = document.createElement('div');
-                 authorEl.className = 'summary-author';
-                 authorEl.textContent = `By: ${authorName}`;
-                 authorEl.style.color = authorColors.border;
-
-                 const deleteBtn = document.createElement('span');
-                 deleteBtn.className = 'summary-delete-btn';
-                 deleteBtn.innerHTML = '&times;';
-                 deleteBtn.dataset.commentId = comment.id;
-                 
-                 const blockquote = document.createElement('blockquote');
-                 const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
-                 blockquote.textContent = quoteText;
-                 blockquote.style.borderLeftColor = authorColors.border;
-
-                 const p = document.createElement('p');
-                 p.textContent = comment.text;
-
-                 li.appendChild(deleteBtn);
-                 li.appendChild(authorEl); // Add the author element
-                 li.appendChild(blockquote);
-                 li.appendChild(p);
-
-                 if (comment.isResolved) {
-                     li.classList.add('resolved');
-                     const unresolveBtn = document.createElement('button');
-                     unresolveBtn.className = 'summary-unresolve-btn';
-                     unresolveBtn.textContent = 'Unresolve';
-                     unresolveBtn.dataset.commentId = comment.id;
-                     li.appendChild(unresolveBtn);
-                 }
-
-                 commentSummaryList.appendChild(li);
-             });
-         };
-
-         const getLastHighlightScrollPercent = () => {
-             const highlights = Array.from(document.querySelectorAll('.comment-highlight'));
-             if (highlights.length === 0) return null;
-             const lastHighlight = highlights.reduce((last, current) => current.offsetTop > last.offsetTop ? current : last);
-             const docHeight = document.documentElement.scrollHeight;
-             const viewportHeight = window.innerHeight;
-             const scrollableHeight = docHeight - viewportHeight;
-             if (scrollableHeight <= 0) return 100;
-             const percentage = (lastHighlight.offsetTop / scrollableHeight) * 100;
-             return Math.min(100, Math.round(percentage));
-         };
-
-
-         const updateCounter = (placementErrors = 0) => {
-             const totalCount = comments.length;
-             const placedCount = totalCount - placementErrors;
-
-             // Check if there are any visible highlights on the page
-             const hasVisibleHighlights = document.querySelector('.comment-highlight') !== null;
-
-             // Add or remove the clickable class based on visible highlights
-             if (hasVisibleHighlights) {
-                 commentCounter.classList.add('has-comments');
-             } else {
-                 commentCounter.classList.remove('has-comments');
-             }
-
-             if (totalCount === 0) {
-                 commentCounter.textContent = 'No Comments';
-                 commentCounter.title = '';
-                 commentCounter.style.display = 'block';
-                 return;
-             }
-
-             const percentage = getLastHighlightScrollPercent();
-             let text;
-
-             if (placedCount > 0) {
-                 text = `${placedCount} Comment${placedCount !== 1 ? 's' : ''}`;
-                 if (percentage !== null) {
-                     text += ` (${percentage}%)`;
-                 }
-             } else {
-                 text = '0 Comments Placed';
-             }
-
-             if (placementErrors > 0) {
-                 commentCounter.title = `${placementErrors} comment(s) could not be found on the page.`;
-             } else {
-                 commentCounter.title = '';
-             }
-
-             commentCounter.textContent = text;
-             commentCounter.style.display = 'block';
-         };
-
-         const applyHighlight = (range, commentId) => {
-             if (!range || range.collapsed) return;
-             const comment = comments.find(c => c.id === commentId);
-             const authorColors = getAuthorColor(comment ? comment.author : null);
-
-             try {
-                 const marker = document.createElement('mark');
-                 marker.className = 'comment-highlight';
-                 marker.dataset.commentId = commentId;
-                 marker.style.backgroundColor = authorColors.background;
-                 marker.style.borderBottomColor = authorColors.border;
-                 range.surroundContents(marker);
-                 addHighlightEventListeners(marker);
-             } catch (e) {
-                 console.warn("surroundContents failed, likely a multi-element selection. Using robust fallback.", e);
-                 const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
-                 const textNodes = [];
-                 while(walker.nextNode()) {
-                     if(range.intersectsNode(walker.currentNode)) { textNodes.push(walker.currentNode); }
-                 }
-                 for (const node of textNodes) {
-                     const highlightRange = document.createRange();
-                     highlightRange.setStart(node, node === range.startContainer ? range.startOffset : 0);
-                     highlightRange.setEnd(node, node === range.endContainer ? range.endOffset : node.textContent.length);
-                     if (!highlightRange.collapsed) {
-                         const marker = document.createElement('mark');
-                         marker.className = 'comment-highlight';
-                         marker.dataset.commentId = commentId;
-                         marker.style.backgroundColor = authorColors.background;
-                         marker.style.borderBottomColor = authorColors.border;
-                         highlightRange.surroundContents(marker);
-                         addHighlightEventListeners(marker);
-                     }
-                 }
-             }
-         };
-
-         const saveCommentsToLocal = () => {
-             try { localStorage.setItem('userComments', JSON.stringify(comments)); }
-             catch (e) { console.error("Could not save comments to localStorage.", e); }
-         };
-
-         const applyAllHighlights = (commentsToApply) => {
-             let placementErrors = 0;
-             const itemsWithRanges = commentsToApply.map(comment => {
-                 const range = deserializeRange(comment.range);
-                 if (!range) { placementErrors++; }
-                 return { comment, range };
-             });
-             itemsWithRanges.sort((a, b) => {
-                 if (!a.range || !b.range) return 0;
-                 return b.range.compareBoundaryPoints(Range.START_TO_START, a.range);
-             });
-             for (const item of itemsWithRanges) {
-                 // MODIFICATION HERE: Check if the comment is resolved
-                 if (item.range && !item.comment.isResolved) {
-                     try {
-                         applyHighlight(item.range, item.comment.id);
-                     } catch (e) {
-                         console.error("Failed to apply a highlight during import:", item.comment, e);
-                     }
-                 }
-             }
-             return placementErrors;
-         };
-
-         const loadInitialComments = async () => {
-             const hash = window.location.hash.slice(1);
-             if (hash) {
-                 console.log("Loading comments from URL...");
-                 try {
-                     const buffer = fromUrlSafeBase64(hash);
-                     const data = await decompressData(buffer);
-                     if (data && Array.isArray(data)) {
-                         // NEW: Regenerate IDs for the ID-less data from the URL
-                         comments = data.map(comment => ({
-                             ...comment,
-                             id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-                         }));
-                         applyAllHighlights(comments);
-                         saveCommentsToLocal();
-                         history.replaceState(null, '', window.location.pathname + window.location.search);
-                     }
-                 } catch (e) {
-                     console.error("Failed to load comments from URL:", e);
-                     // Fallback to localStorage if URL loading fails
-                     loadCommentsFromLocal();
-                 }
-             } else {
-                 console.log("Loading comments from localStorage...");
-                 const savedCommentsJSON = localStorage.getItem('userComments');
-                 if (savedCommentsJSON) {
-                     try {
-                         const savedComments = JSON.parse(savedCommentsJSON);
-                         if (Array.isArray(savedComments)) {
-                             comments = savedComments;
-                             applyAllHighlights(comments);
-                         }
-                     } catch (e) {
-                         console.error("Could not parse comments from localStorage.", e);
-                         localStorage.removeItem('userComments');
-                     }
-                 }
-             }
-             updateCounter();
-             renderCommentSummary();
-         };
-
-         const deleteComment = (commentId) => {
-             if (!confirm('Are you sure you want to delete this comment?')) return;
-             const commentIndex = comments.findIndex(c => c.id === commentId);
-             if (commentIndex > -1) {
-                 comments.splice(commentIndex, 1);
-                 saveCommentsToLocal();
-                 document.querySelectorAll(`.comment-highlight[data-comment-id="${commentId}"]`).forEach(removeHighlight);
-                 updateCounter();
-                 hideTooltip();
-                 renderCommentSummary();
-             }
-         };
-
-         const resolveComment = (commentId) => {
-             const comment = comments.find(c => c.id === commentId);
-             if (comment) {
-                 comment.isResolved = true;
-                 saveCommentsToLocal();
-                 const highlightEl = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
-                 if (highlightEl) {
-                     removeHighlight(highlightEl);
-                 }
-                 hideTooltip();
-                 renderCommentSummary();
-             }
-         };
-
-         const unresolveComment = (commentId) => {
-             const comment = comments.find(c => c.id === commentId);
-             if (comment) {
-                 comment.isResolved = false;
-                 saveCommentsToLocal();
-                 
-                 // Re-apply the highlight for this specific comment
-                 const range = deserializeRange(comment.range);
-                 if (range) {
-                     applyHighlight(range, comment.id);
-                 }
-                 renderCommentSummary();
-             }
-         };
-         
-         const showTooltip = (highlightEl) => {
-             const commentId = highlightEl.dataset.commentId;
-             const comment = comments.find(c => c.id === commentId);
-             if (!comment) return;
-             const authorName = comment.author || 'Anonymous';
-
-             tooltip.innerHTML = `
-                 <small class="comment-author">By: ${authorName}</small>
-                 <span>${comment.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
-                 <br/>
-                 <button class="resolve-comment-btn" data-comment-id="${commentId}">Resolve</button>
-                 <button class="delete-comment-btn" data-comment-id="${commentId}">Delete</button>
-             `;
-             tooltip.querySelector('.resolve-comment-btn').addEventListener('click', (e) => {
-                 e.stopPropagation();
-                 resolveComment(e.target.dataset.commentId);
-             });
-             tooltip.querySelector('.delete-comment-btn').addEventListener('click', (e) => {
-                 e.stopPropagation();
-                 deleteComment(e.target.dataset.commentId);
-             });
-             tooltip.style.display = 'block';
-             tooltip.dataset.activeCommentId = commentId;
-             const rect = highlightEl.getBoundingClientRect();
-             tooltip.style.left = `${rect.left + window.scrollX}px`;
-             tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
-             const tooltipRect = tooltip.getBoundingClientRect();
-             if (tooltipRect.right > window.innerWidth) {
-                 tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10 + window.scrollX}px`;
-             }
-             if (tooltipRect.top < 0) {
-                 tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height - 5}px`;
-             }
-         };
-
-         const hideTooltip = () => {
-             tooltip.style.display = 'none';
-             tooltip.dataset.activeCommentId = '';
-         };
-
-         const addHighlightEventListeners = (marker) => {
-             marker.addEventListener('click', (e) => {
-                 e.stopPropagation();
-                 if (tooltip.dataset.activeCommentId === marker.dataset.commentId) {
-                     hideTooltip();
-                 } else {
-                     showTooltip(marker);
-                 }
-             });
-         };
-
-         const removeHighlight = (el) => {
-             const parent = el.parentNode;
-             if (parent) {
-                 // Move all children of the <mark> tag to be siblings, right before the <mark> tag
-                 while (el.firstChild) {
-                     parent.insertBefore(el.firstChild, el);
-                 }
-                 // Now that the <mark> tag is empty, remove it from the DOM
-                 parent.removeChild(el);
-             }
-         };
-
-         const resetUI = () => {
-             commentContainer.classList.remove('visible');
-             addCommentBtn.style.display = 'none';
-             addCommentHelpText.style.display = 'none';
-             commentForm.style.display = 'none';
-             commentInput.value = '';
-             currentSelectionData = null;
-         };
-
-         const handleSelectionEnd = (e) => {
-             if (commentContainer.contains(e.target) || e.target.closest('.comment-highlight') || e.target.closest('#comment-widget-container')) return;
-             setTimeout(() => {
-                 const selection = window.getSelection();
-                 if (selection && !selection.isCollapsed && selection.rangeCount > 0) {
-                     if (contentRoot.contains(selection.anchorNode) && contentRoot.contains(selection.focusNode)) {
-                         commentContainer.classList.add('visible');
-                         addCommentBtn.style.display = 'block';
-                         addCommentHelpText.style.display = 'block';
-                         commentForm.style.display = 'none';
-                     }
-                 } else {
-                     if (document.activeElement !== commentInput) resetUI();
-                 }
-             }, 10);
-         };
-
-         contentRoot.addEventListener('mouseup', handleSelectionEnd);
-         contentRoot.addEventListener('touchend', handleSelectionEnd);
-
-         addCommentBtn.addEventListener('click', () => {
-             getOrSetUser();
-             const selection = window.getSelection();
-             if (selection && !selection.isCollapsed) {
-                 currentSelectionData = serializeRange(selection.getRangeAt(0));
-                 addCommentBtn.style.display = 'none';
-                 addCommentHelpText.style.display = 'none';
-                 commentForm.style.display = 'flex';
-                 commentInput.focus();
-             } else { resetUI(); }
-         });
-
-         document.getElementById('cancel-comment-btn').addEventListener('click', () => {
-             resetUI();
-             if (window.getSelection) window.getSelection().removeAllRanges();
-         });
-
-         commentForm.addEventListener('submit', (e) => {
-             e.preventDefault();
-             const commentText = commentInput.value.trim();
-             if (commentText && currentSelectionData) {
-                 const rangeToHighlight = deserializeRange(currentSelectionData);
-                 if (!rangeToHighlight) { resetUI(); return; }
-                 const newComment = {
-                     id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-                     text: commentText,
-                     range: currentSelectionData,
-                     author: currentUser, // Add author to the new comment
-                     isResolved: false
-                 };
-                 comments.push(newComment);
-                 saveCommentsToLocal();
-                 applyHighlight(rangeToHighlight, newComment.id);
-                 resetUI();
-                 updateCounter();
-                 renderCommentSummary();
-                 if (window.getSelection) window.getSelection().removeAllRanges();
-             }
-         });
-
-         commentInput.addEventListener('focus', () => { document.body.style.overflow = 'hidden'; });
-         commentInput.addEventListener('blur', () => { document.body.style.overflow = ''; });
-
-         commentInput.addEventListener('keydown', (e) => {
-             if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); commentForm.requestSubmit(); }
-             if (e.key === 'Escape') {
-                 e.preventDefault();
-                 resetUI();
-                 if (window.getSelection) window.getSelection().removeAllRanges();
-             }
-         });
-
-         exportBtn.addEventListener('click', () => {
-             if (comments.length === 0) { return; }
-             const dataStr = JSON.stringify(comments, null, 2);
-             const dataBlob = new Blob([dataStr], { type: 'application/json' });
-             const url = URL.createObjectURL(dataBlob);
-             const a = document.createElement('a'); a.href = url; a.download = 'comments.json';
-             document.body.appendChild(a); a.click(); document.body.removeChild(a);
-             URL.revokeObjectURL(url);
-         });
-
-         importInput.addEventListener('change', (e) => {
-             const file = e.target.files[0];
-             if (!file) return;
-             const reader = new FileReader();
-             reader.onload = (event) => {
-                 try {
-                     const importedComments = JSON.parse(event.target.result);
-                     if (Array.isArray(importedComments)) {
-                         const existingIds = new Set(comments.map(c => c.id));
-                         let newCommentsAdded = 0;
-
-                         importedComments.forEach(importedComment => {
-                             // --- ROBUSTNESS CHECK ---
-                             // Skip if the comment is malformed or has no range data.
-                             if (!importedComment || !importedComment.range) {
-                                 console.warn("Skipping invalid comment object during import:", importedComment);
-                                 return;
-                             }
-
-                             // If an ID is missing, assign a new one. This handles data
-                             // from links or other sources that might lack IDs.
-                             if (!importedComment.id) {
-                                 importedComment.id = `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                             }
-                             // --- END ROBUSTNESS CHECK ---
-
-                             // Now, proceed with the reliable merge logic.
-                             if (!existingIds.has(importedComment.id)) {
-                                 comments.push(importedComment);
-                                 newCommentsAdded++;
-                             }
-                         });
-
-                         if (newCommentsAdded > 0) {
-                             document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
-                             const placementErrors = applyAllHighlights(comments);
-                             saveCommentsToLocal();
-                             updateCounter(placementErrors);
-                             renderCommentSummary();
-                             alert(`${newCommentsAdded} new comment(s) were successfully imported and merged.`);
-                         } else {
-                             alert("No new comments were found in the imported file.");
-                         }
-                     }
-                 } catch (err) {
-                     console.error(err);
-                     alert('Error: Could not parse the JSON file.');
-                 }
-             };
-             reader.readAsText(file);
-             e.target.value = '';
-         });
-
-         copyLinkBtn.addEventListener('click', async () => {
-             if (comments.length === 0) return;
-             const originalText = copyLinkBtn.textContent;
-             copyLinkBtn.textContent = 'Compressing...';
-             copyLinkBtn.disabled = true;
-
-             try {
-                 // NEW: Create the lightweight, ID-less version for the URL
-                 const lightweightComments = comments.map(({ text, range }) => ({ text, range }));
-
-                 const compressed = await compressData(lightweightComments);
-                 const base64 = toUrlSafeBase64(compressed);
-                 const url = new URL(window.location);
-                 url.hash = base64;
-
-                 const URL_LENGTH_LIMIT = 37000;
-                 if (url.href.length > URL_LENGTH_LIMIT) {
-                     alert("Warning: The generated link is very long and may not work in all browsers or applications.\n\nExporting a JSON file is recommended for many comments.");
-                 }
-
-                 await navigator.clipboard.writeText(url.href);
-                 copyLinkBtn.textContent = 'Copied!';
-             } catch (err) {
-                 console.error("Failed to copy link:", err);
-                 copyLinkBtn.textContent = 'Error!';
-             } finally {
-                 setTimeout(() => {
-                     copyLinkBtn.textContent = originalText;
-                     copyLinkBtn.disabled = false;
-                 }, 2000);
-             }
-         });
-
-         document.addEventListener('click', (e) => {
-             if (!e.target.closest('.comment-highlight') && !e.target.closest('#comment-tooltip')) {
-                 hideTooltip();
-             }
-         });
-
-         document.addEventListener('keydown', (e) => {
-             if (e.key === 'Enter' && e.shiftKey && document.activeElement !== commentInput) {
-                 if (addCommentBtn.style.display === 'block') {
-                     e.preventDefault();
-                     addCommentBtn.click();
-                 }
-             }
-         });
-
-         commentSummaryList.addEventListener('click', (e) => {
-             const deleteButton = e.target.closest('.summary-delete-btn');
-             const unresolveButton = e.target.closest('.summary-unresolve-btn');
-
-             if (deleteButton) {
-                 e.stopPropagation();
-                 deleteComment(deleteButton.dataset.commentId);
-                 return;
-             }
-
-             if (unresolveButton) {
-                 e.stopPropagation();
-                 unresolveComment(unresolveButton.dataset.commentId);
-                 return;
-             }
-             
-             const li = e.target.closest('li');
-             if (li && li.dataset.commentId && !li.classList.contains('resolved')) {
-                 const commentId = li.dataset.commentId;
-                 const highlightElement = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
-                 if (highlightElement) {
-                     highlightElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                     setTimeout(() => { showTooltip(highlightElement); }, 300);
-                 }
-             }
-         });
-
-         commentWidgetContainer.addEventListener('click', (e) => {
-             // Prevent this action if a button inside the management flyout was clicked
-             if (e.target.closest('#comment-management-flyout')) {
-                 return;
-             }
-
-             // Find all active highlights and sort them by their vertical position on the page
-             const highlights = Array.from(document.querySelectorAll('.comment-highlight'))
-                                     .sort((a, b) => a.offsetTop - b.offsetTop);
-
-             // If there are no highlights on the page, do nothing and reset the index
-             if (highlights.length === 0) {
-                 nextHighlightIndex = 0;
-                 return;
-             }
-
-             // If the current index is out of bounds (which can happen if comments are deleted),
-             // reset it to 0 to be safe.
-             if (nextHighlightIndex >= highlights.length) {
-                 nextHighlightIndex = 0;
-             }
-
-             // Get the next highlight to scroll to
-             const nextHighlight = highlights[nextHighlightIndex];
-
-             // Scroll to that highlight and show its tooltip
-             if (nextHighlight) {
-                 nextHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                 setTimeout(() => { showTooltip(nextHighlight); }, 300); // Delay to wait for scroll animation
-             }
-
-             // Update the index for the *next* click, wrapping around to the beginning
-             // if we've reached the end of the list.
-             nextHighlightIndex = (nextHighlightIndex + 1) % highlights.length;
-         });
-
-         clearBtn.addEventListener('click', () => {
-             if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
-                 // 1. Clear the data from localStorage
-                 localStorage.removeItem('userComments');
-                 
-                 // 2. Clear the hash from the URL without creating a new history entry
-                 history.replaceState(null, '', window.location.pathname + window.location.search);
-                 
-                 // 3. Force a page reload to ensure a completely clean state
-                 location.reload();
-             }
-         });
-
-         loadInitialComments();
-
-         window.commentingSystemInitialized = true;
-         console.log("Commenting system initialized successfully.");
+         } else {
+             text = '0 Comments Placed';
+         }
+
+         if (placementErrors > 0) {
+             commentCounter.title = `${placementErrors} comment(s) could not be found on the page.`;
+         } else {
+             commentCounter.title = '';
+         }
+
+         commentCounter.textContent = text;
+         commentCounter.style.display = 'block';
      };
 
-     document.addEventListener('DOMContentLoaded', () => {
-         // The script is initialized to target the element with the ID 'content'.
-         // If your main content is in a different element, change 'content' to your element's ID.
-         initializeCommentingSystem('content');
+     const applyHighlight = (range, commentId) => {
+         if (!range || range.collapsed) return;
+         const comment = comments.find(c => c.id === commentId);
+         const authorColors = getAuthorColor(comment ? comment.author : null);
+
+         try {
+             const marker = document.createElement('mark');
+             marker.className = 'comment-highlight';
+             marker.dataset.commentId = commentId;
+             marker.style.backgroundColor = authorColors.background;
+             marker.style.borderBottomColor = authorColors.border;
+             range.surroundContents(marker);
+             addHighlightEventListeners(marker);
+         } catch (e) {
+             console.warn("surroundContents failed, likely a multi-element selection. Using robust fallback.", e);
+             const walker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_TEXT);
+             const textNodes = [];
+             while(walker.nextNode()) {
+                 if(range.intersectsNode(walker.currentNode)) { textNodes.push(walker.currentNode); }
+             }
+             for (const node of textNodes) {
+                 const highlightRange = document.createRange();
+                 highlightRange.setStart(node, node === range.startContainer ? range.startOffset : 0);
+                 highlightRange.setEnd(node, node === range.endContainer ? range.endOffset : node.textContent.length);
+                 if (!highlightRange.collapsed) {
+                     const marker = document.createElement('mark');
+                     marker.className = 'comment-highlight';
+                     marker.dataset.commentId = commentId;
+                     marker.style.backgroundColor = authorColors.background;
+                     marker.style.borderBottomColor = authorColors.border;
+                     highlightRange.surroundContents(marker);
+                     addHighlightEventListeners(marker);
+                 }
+             }
+         }
+     };
+
+     const saveCommentsToLocal = () => {
+         try { localStorage.setItem('userComments', JSON.stringify(comments)); }
+         catch (e) { console.error("Could not save comments to localStorage.", e); }
+     };
+
+     const applyAllHighlights = (commentsToApply) => {
+         let placementErrors = 0;
+         const itemsWithRanges = commentsToApply.map(comment => {
+             const range = deserializeRange(comment.range);
+             if (!range) { placementErrors++; }
+             return { comment, range };
+         });
+         itemsWithRanges.sort((a, b) => {
+             if (!a.range || !b.range) return 0;
+             return b.range.compareBoundaryPoints(Range.START_TO_START, a.range);
+         });
+         for (const item of itemsWithRanges) {
+             // MODIFICATION HERE: Check if the comment is resolved
+             if (item.range && !item.comment.isResolved) {
+                 try {
+                     applyHighlight(item.range, item.comment.id);
+                 } catch (e) {
+                     console.error("Failed to apply a highlight during import:", item.comment, e);
+                 }
+             }
+         }
+         return placementErrors;
+     };
+
+     const loadInitialComments = async () => {
+         const hash = window.location.hash.slice(1);
+         if (hash) {
+             console.log("Loading comments from URL...");
+             try {
+                 const buffer = fromUrlSafeBase64(hash);
+                 const data = await decompressData(buffer);
+                 if (data && Array.isArray(data)) {
+                     // NEW: Regenerate IDs for the ID-less data from the URL
+                     comments = data.map(comment => ({
+                         ...comment,
+                         id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+                     }));
+                     applyAllHighlights(comments);
+                     saveCommentsToLocal();
+                     history.replaceState(null, '', window.location.pathname + window.location.search);
+                 }
+             } catch (e) {
+                 console.error("Failed to load comments from URL:", e);
+                 // Fallback to localStorage if URL loading fails
+                 loadCommentsFromLocal();
+             }
+         } else {
+             console.log("Loading comments from localStorage...");
+             const savedCommentsJSON = localStorage.getItem('userComments');
+             if (savedCommentsJSON) {
+                 try {
+                     const savedComments = JSON.parse(savedCommentsJSON);
+                     if (Array.isArray(savedComments)) {
+                         comments = savedComments;
+                         applyAllHighlights(comments);
+                     }
+                 } catch (e) {
+                     console.error("Could not parse comments from localStorage.", e);
+                     localStorage.removeItem('userComments');
+                 }
+             }
+         }
+         updateCounter();
+         renderCommentSummary();
+     };
+
+     const deleteComment = (commentId) => {
+         if (!confirm('Are you sure you want to delete this comment?')) return;
+         const commentIndex = comments.findIndex(c => c.id === commentId);
+         if (commentIndex > -1) {
+             comments.splice(commentIndex, 1);
+             saveCommentsToLocal();
+             document.querySelectorAll(`.comment-highlight[data-comment-id="${commentId}"]`).forEach(removeHighlight);
+             updateCounter();
+             hideTooltip();
+             renderCommentSummary();
+         }
+     };
+
+     const resolveComment = (commentId) => {
+         const comment = comments.find(c => c.id === commentId);
+         if (comment) {
+             comment.isResolved = true;
+             saveCommentsToLocal();
+             const highlightEl = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
+             if (highlightEl) {
+                 removeHighlight(highlightEl);
+             }
+             hideTooltip();
+             renderCommentSummary();
+         }
+     };
+
+     const unresolveComment = (commentId) => {
+         const comment = comments.find(c => c.id === commentId);
+         if (comment) {
+             comment.isResolved = false;
+             saveCommentsToLocal();
+             
+             // Re-apply the highlight for this specific comment
+             const range = deserializeRange(comment.range);
+             if (range) {
+                 applyHighlight(range, comment.id);
+             }
+             renderCommentSummary();
+         }
+     };
+     
+     const showTooltip = (highlightEl) => {
+         const commentId = highlightEl.dataset.commentId;
+         const comment = comments.find(c => c.id === commentId);
+         if (!comment) return;
+         const authorName = comment.author || 'Anonymous';
+
+         tooltip.innerHTML = `
+             <small class="comment-author">By: ${authorName}</small>
+             <span>${comment.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
+             <br/>
+             <button class="resolve-comment-btn" data-comment-id="${commentId}">Resolve</button>
+             <button class="delete-comment-btn" data-comment-id="${commentId}">Delete</button>
+         `;
+         tooltip.querySelector('.resolve-comment-btn').addEventListener('click', (e) => {
+             e.stopPropagation();
+             resolveComment(e.target.dataset.commentId);
+         });
+         tooltip.querySelector('.delete-comment-btn').addEventListener('click', (e) => {
+             e.stopPropagation();
+             deleteComment(e.target.dataset.commentId);
+         });
+         tooltip.style.display = 'block';
+         tooltip.dataset.activeCommentId = commentId;
+         const rect = highlightEl.getBoundingClientRect();
+         tooltip.style.left = `${rect.left + window.scrollX}px`;
+         tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+         const tooltipRect = tooltip.getBoundingClientRect();
+         if (tooltipRect.right > window.innerWidth) {
+             tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10 + window.scrollX}px`;
+         }
+         if (tooltipRect.top < 0) {
+             tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height - 5}px`;
+         }
+     };
+
+     const hideTooltip = () => {
+         tooltip.style.display = 'none';
+         tooltip.dataset.activeCommentId = '';
+     };
+
+     const addHighlightEventListeners = (marker) => {
+         marker.addEventListener('click', (e) => {
+             e.stopPropagation();
+             if (tooltip.dataset.activeCommentId === marker.dataset.commentId) {
+                 hideTooltip();
+             } else {
+                 showTooltip(marker);
+             }
+         });
+     };
+
+     const removeHighlight = (el) => {
+         const parent = el.parentNode;
+         if (parent) {
+             // Move all children of the <mark> tag to be siblings, right before the <mark> tag
+             while (el.firstChild) {
+                 parent.insertBefore(el.firstChild, el);
+             }
+             // Now that the <mark> tag is empty, remove it from the DOM
+             parent.removeChild(el);
+         }
+     };
+
+     const resetUI = () => {
+         commentContainer.classList.remove('visible');
+         addCommentBtn.style.display = 'none';
+         addCommentHelpText.style.display = 'none';
+         commentForm.style.display = 'none';
+         commentInput.value = '';
+         currentSelectionData = null;
+     };
+
+     const handleSelectionEnd = (e) => {
+         if (commentContainer.contains(e.target) || e.target.closest('.comment-highlight') || e.target.closest('#comment-widget-container')) return;
+         setTimeout(() => {
+             const selection = window.getSelection();
+             if (selection && !selection.isCollapsed && selection.rangeCount > 0) {
+                 if (contentRoot.contains(selection.anchorNode) && contentRoot.contains(selection.focusNode)) {
+                     commentContainer.classList.add('visible');
+                     addCommentBtn.style.display = 'block';
+                     addCommentHelpText.style.display = 'block';
+                     commentForm.style.display = 'none';
+                 }
+             } else {
+                 if (document.activeElement !== commentInput) resetUI();
+             }
+         }, 10);
+     };
+
+     contentRoot.addEventListener('mouseup', handleSelectionEnd);
+     contentRoot.addEventListener('touchend', handleSelectionEnd);
+
+     addCommentBtn.addEventListener('click', () => {
+         getOrSetUser();
+         const selection = window.getSelection();
+         if (selection && !selection.isCollapsed) {
+             currentSelectionData = serializeRange(selection.getRangeAt(0));
+             addCommentBtn.style.display = 'none';
+             addCommentHelpText.style.display = 'none';
+             commentForm.style.display = 'flex';
+             commentInput.focus();
+         } else { resetUI(); }
      });
-    </script>
+
+     document.getElementById('cancel-comment-btn').addEventListener('click', () => {
+         resetUI();
+         if (window.getSelection) window.getSelection().removeAllRanges();
+     });
+
+     commentForm.addEventListener('submit', (e) => {
+         e.preventDefault();
+         const commentText = commentInput.value.trim();
+         if (commentText && currentSelectionData) {
+             const rangeToHighlight = deserializeRange(currentSelectionData);
+             if (!rangeToHighlight) { resetUI(); return; }
+             const newComment = {
+                 id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                 text: commentText,
+                 range: currentSelectionData,
+                 author: currentUser, // Add author to the new comment
+                 isResolved: false
+             };
+             comments.push(newComment);
+             saveCommentsToLocal();
+             applyHighlight(rangeToHighlight, newComment.id);
+             resetUI();
+             updateCounter();
+             renderCommentSummary();
+             if (window.getSelection) window.getSelection().removeAllRanges();
+         }
+     });
+
+     commentInput.addEventListener('focus', () => { document.body.style.overflow = 'hidden'; });
+     commentInput.addEventListener('blur', () => { document.body.style.overflow = ''; });
+
+     commentInput.addEventListener('keydown', (e) => {
+         if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); commentForm.requestSubmit(); }
+         if (e.key === 'Escape') {
+             e.preventDefault();
+             resetUI();
+             if (window.getSelection) window.getSelection().removeAllRanges();
+         }
+     });
+
+     exportBtn.addEventListener('click', () => {
+         if (comments.length === 0) { return; }
+         const dataStr = JSON.stringify(comments, null, 2);
+         const dataBlob = new Blob([dataStr], { type: 'application/json' });
+         const url = URL.createObjectURL(dataBlob);
+         const a = document.createElement('a'); a.href = url; a.download = 'comments.json';
+         document.body.appendChild(a); a.click(); document.body.removeChild(a);
+         URL.revokeObjectURL(url);
+     });
+
+     importInput.addEventListener('change', (e) => {
+         const file = e.target.files[0];
+         if (!file) return;
+         const reader = new FileReader();
+         reader.onload = (event) => {
+             try {
+                 const importedComments = JSON.parse(event.target.result);
+                 if (Array.isArray(importedComments)) {
+                     const existingIds = new Set(comments.map(c => c.id));
+                     let newCommentsAdded = 0;
+
+                     importedComments.forEach(importedComment => {
+                         // --- ROBUSTNESS CHECK ---
+                         // Skip if the comment is malformed or has no range data.
+                         if (!importedComment || !importedComment.range) {
+                             console.warn("Skipping invalid comment object during import:", importedComment);
+                             return;
+                         }
+
+                         // If an ID is missing, assign a new one. This handles data
+                         // from links or other sources that might lack IDs.
+                         if (!importedComment.id) {
+                             importedComment.id = `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                         }
+                         // --- END ROBUSTNESS CHECK ---
+
+                         // Now, proceed with the reliable merge logic.
+                         if (!existingIds.has(importedComment.id)) {
+                             comments.push(importedComment);
+                             newCommentsAdded++;
+                         }
+                     });
+
+                     if (newCommentsAdded > 0) {
+                         document.querySelectorAll('.comment-highlight').forEach(removeHighlight);
+                         const placementErrors = applyAllHighlights(comments);
+                         saveCommentsToLocal();
+                         updateCounter(placementErrors);
+                         renderCommentSummary();
+                         alert(`${newCommentsAdded} new comment(s) were successfully imported and merged.`);
+                     } else {
+                         alert("No new comments were found in the imported file.");
+                     }
+                 }
+             } catch (err) {
+                 console.error(err);
+                 alert('Error: Could not parse the JSON file.');
+             }
+         };
+         reader.readAsText(file);
+         e.target.value = '';
+     });
+
+     copyLinkBtn.addEventListener('click', async () => {
+         if (comments.length === 0) return;
+         const originalText = copyLinkBtn.textContent;
+         copyLinkBtn.textContent = 'Compressing...';
+         copyLinkBtn.disabled = true;
+
+         try {
+             // NEW: Create the lightweight, ID-less version for the URL
+             const lightweightComments = comments.map(({ text, range, author }) => ({ text, range, author }));
+
+             const compressed = await compressData(lightweightComments);
+             const base64 = toUrlSafeBase64(compressed);
+             const url = new URL(window.location);
+             url.hash = base64;
+
+             const URL_LENGTH_LIMIT = 37000;
+             if (url.href.length > URL_LENGTH_LIMIT) {
+                 alert("Warning: The generated link is very long and may not work in all browsers or applications.\n\nExporting a JSON file is recommended for many comments.");
+             }
+
+             await navigator.clipboard.writeText(url.href);
+             copyLinkBtn.textContent = 'Copied!';
+         } catch (err) {
+             console.error("Failed to copy link:", err);
+             copyLinkBtn.textContent = 'Error!';
+         } finally {
+             setTimeout(() => {
+                 copyLinkBtn.textContent = originalText;
+                 copyLinkBtn.disabled = false;
+             }, 2000);
+         }
+     });
+
+     document.addEventListener('click', (e) => {
+         if (!e.target.closest('.comment-highlight') && !e.target.closest('#comment-tooltip')) {
+             hideTooltip();
+         }
+     });
+
+     document.addEventListener('keydown', (e) => {
+         if (e.key === 'Enter' && e.shiftKey && document.activeElement !== commentInput) {
+             if (addCommentBtn.style.display === 'block') {
+                 e.preventDefault();
+                 addCommentBtn.click();
+             }
+         }
+     });
+
+     commentSummaryList.addEventListener('click', (e) => {
+         const deleteButton = e.target.closest('.summary-delete-btn');
+         const unresolveButton = e.target.closest('.summary-unresolve-btn');
+
+         if (deleteButton) {
+             e.stopPropagation();
+             deleteComment(deleteButton.dataset.commentId);
+             return;
+         }
+
+         if (unresolveButton) {
+             e.stopPropagation();
+             unresolveComment(unresolveButton.dataset.commentId);
+             return;
+         }
+         
+         const li = e.target.closest('li');
+         if (li && li.dataset.commentId && !li.classList.contains('resolved')) {
+             const commentId = li.dataset.commentId;
+             const highlightElement = document.querySelector(`.comment-highlight[data-comment-id="${commentId}"]`);
+             if (highlightElement) {
+                 highlightElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                 setTimeout(() => { showTooltip(highlightElement); }, 300);
+             }
+         }
+     });
+
+     commentWidgetContainer.addEventListener('click', (e) => {
+         // Prevent this action if a button inside the management flyout was clicked
+         if (e.target.closest('#comment-management-flyout')) {
+             return;
+         }
+
+         // Find all active highlights and sort them by their vertical position on the page
+         const highlights = Array.from(document.querySelectorAll('.comment-highlight'))
+                                 .sort((a, b) => a.offsetTop - b.offsetTop);
+
+         // If there are no highlights on the page, do nothing and reset the index
+         if (highlights.length === 0) {
+             nextHighlightIndex = 0;
+             return;
+         }
+
+         // If the current index is out of bounds (which can happen if comments are deleted),
+         // reset it to 0 to be safe.
+         if (nextHighlightIndex >= highlights.length) {
+             nextHighlightIndex = 0;
+         }
+
+         // Get the next highlight to scroll to
+         const nextHighlight = highlights[nextHighlightIndex];
+
+         // Scroll to that highlight and show its tooltip
+         if (nextHighlight) {
+             nextHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             setTimeout(() => { showTooltip(nextHighlight); }, 300); // Delay to wait for scroll animation
+         }
+
+         // Update the index for the *next* click, wrapping around to the beginning
+         // if we've reached the end of the list.
+         nextHighlightIndex = (nextHighlightIndex + 1) % highlights.length;
+     });
+
+     clearBtn.addEventListener('click', () => {
+         if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
+             // 1. Clear the data from localStorage
+             localStorage.removeItem('userComments');
+             
+             // 2. Clear the hash from the URL without creating a new history entry
+             history.replaceState(null, '', window.location.pathname + window.location.search);
+             
+             // 3. Force a page reload to ensure a completely clean state
+             location.reload();
+         }
+     });
+
+     initializeViewportPositioning();
+
+     loadInitialComments();
+
+     window.commentingSystemInitialized = true;
+     console.log("Commenting system initialized successfully.");
+ };
+
+ document.addEventListener('DOMContentLoaded', () => {
+     initializeCommentingSystem('content');
+ });
+</script>
+    
 </body>
 </html>

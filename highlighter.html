@@ -9,97 +9,100 @@
  }
 
  .comment-highlight {
-     background-color: var(--comment-highlight-bg);
-     border-bottom: 2px dashed var(--comment-ui-accent);
-     cursor: pointer;
-     color: inherit;
- }
+        background-color: var(--comment-highlight-bg);
+        border-bottom: 2px dashed var(--comment-ui-accent);
+        cursor: pointer;
+        color: inherit;
+    }
 
- /* --- Main Comment Creation Drawer --- */
- #comment-ui-container {
-     position: fixed;
-     bottom: 0;
-     left: 0;
-     width: 100%;
-     background-color: var(--comment-ui-bg);
-     color: var(--comment-ui-text);
-     box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-     z-index: 10000;
-     transform: translateY(100%);
-     transition: transform 0.3s ease-in-out;
-     padding: 1rem;
-     box-sizing: border-box;
-     display: flex;
-     flex-direction: column;
-     gap: 0.75rem;
-     border-top: 1px solid var(--comment-ui-border);
- }
+  /* --- Main Comment Creation Drawer --- */
+    /* Positioned ABSOLUTELY within the FIXED root for stability */
+    #comment-ui-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--comment-ui-bg);
+        color: var(--comment-ui-text);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+        z-index: 10000;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out;
+        padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        border-top: 1px solid var(--comment-ui-border);
+    }
+
 
  #comment-ui-container.visible {
      transform: translateY(0);
  }
 
  #comment-ui-container button {
-     background-color: var(--comment-ui-accent);
-     color: var(--bg-color);
-     font-weight: bold;
-     border: none;
-     padding: 0.6rem 1rem;
-     border-radius: 5px;
-     cursor: pointer;
-     font-size: 0.9rem;
-     font-family: sans-serif;
-     text-align: center;
- }
- #comment-ui-container button.secondary {
-     background-color: var(--comment-ui-border);
-     color: var(--comment-ui-text);
-     font-weight: normal;
- }
- #comment-ui-container button:hover { opacity: 0.85; }
+        background-color: var(--comment-ui-accent);
+        color: var(--bg-color);
+        font-weight: bold;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-family: sans-serif;
+        text-align: center;
+    }
+    #comment-ui-container button.secondary {
+        background-color: var(--comment-ui-border);
+        color: var(--comment-ui-text);
+        font-weight: normal;
+    }
+    #comment-ui-container button:hover { opacity: 0.85; }
+
 
  #comment-input-area {
-     width: 100%;
-     background-color: #0c140c;
-     color: var(--comment-ui-text);
-     border: 1px solid var(--comment-ui-border);
-     border-radius: 5px;
-     padding: 0.5rem;
-     font-size: 1rem;
-     font-family: sans-serif;
-     min-height: 80px;
-     box-sizing: border-box;
-     resize: vertical;
- }
+        width: 100%;
+        background-color: #0c140c;
+        color: var(--comment-ui-text);
+        border: 1px solid var(--comment-ui-border);
+        border-radius: 5px;
+        padding: 0.5rem;
+        font-size: 1rem;
+        font-family: sans-serif;
+        min-height: 80px;
+        box-sizing: border-box;
+        resize: vertical;
+    }
 
- #comment-form {
-     display: none;
-     flex-direction: column;
-     gap: 0.75rem;
- }
- #comment-form .form-buttons {
-     display: flex;
-     gap: 0.5rem;
-     justify-content: flex-end;
- }
+    #comment-form {
+        display: none;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    #comment-form .form-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
 
- /* --- Tooltip --- */
- #comment-tooltip {
-     position: absolute;
-     display: none;
-     background-color: var(--comment-ui-bg);
-     color: var(--comment-ui-text);
-     border: 1px solid var(--comment-ui-border);
-     border-radius: 5px;
-     padding: 0.8rem;
-     max-width: 300px;
-     font-size: 0.9rem;
-     z-index: 10001;
-     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-     overflow-wrap: break-word;
-     font-family: sans-serif;
-     line-height: 1.5;
- }
+    /* --- Tooltip --- */
+    #comment-tooltip {
+        position: absolute; /* Relative to root */
+        display: none;
+        background-color: var(--comment-ui-bg);
+        color: var(--comment-ui-text);
+        border: 1px solid var(--comment-ui-border);
+        border-radius: 5px;
+        padding: 0.8rem;
+        max-width: 300px;
+        font-size: 0.9rem;
+        z-index: 10001;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        overflow-wrap: break-word;
+        font-family: sans-serif;
+        line-height: 1.5;
+    }
 
  .delete-comment-btn {
      background: var(--comment-ui-border);
@@ -116,31 +119,31 @@
  .delete-comment-btn:hover { background: #c13434; }
 
  /* --- Management Widget in Corner --- */
- #comment-widget-container {
-     position: fixed;
-     bottom: 15px;
-     right: 15px;
-     z-index: 9999;
-     display: flex;
-     flex-direction: column-reverse;
-     align-items: flex-end;
- }
+  #comment-widget-container {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
 
- #comment-counter {
-     background-color: rgba(26, 42, 26, 0.8);
-     backdrop-filter: blur(5px);
-     color: var(--comment-ui-text);
-     padding: 5px 12px;
-     margin-top: 8px;
-     border-radius: 15px;
-     font-size: 0.85rem;
-     font-family: sans-serif;
-     display: none;
-     box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-     border: 1px solid var(--comment-ui-border);
-     cursor: default;
-     transition: transform 0.2s ease-out;
- }
+    #comment-counter {
+        background-color: rgba(26, 42, 26, 0.8);
+        backdrop-filter: blur(5px);
+        color: var(--comment-ui-text);
+        padding: 5px 12px;
+        margin-top: 8px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-family: sans-serif;
+        display: none;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        border: 1px solid var(--comment-ui-border);
+        cursor: default;
+        transition: transform 0.2s ease-out;
+    }
 
 
  #comment-management-wrapper {
@@ -291,16 +294,17 @@
  }
 
  /* --- Mobile Responsiveness --- */
- @media (min-width: 600px) {
-     #comment-ui-container {
-         width: auto;
-         left: 50%;
-         transform: translateX(-50%) translateY(120%);
-         border-top-left-radius: 8px;
-         border-top-right-radius: 8px;
-     }
-     #comment-ui-container.visible { transform: translateX(-50%) translateY(0); }
- }
+@media (min-width: 600px) {
+      #comment-ui-container {
+        width: 500px; 
+        max-width: 90%;
+        left: 50%;
+        transform: translateX(-50%) translateY(120%);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      #comment-ui-container.visible { transform: translateX(-50%) translateY(0); }
+    }
  /* --- Style for the new Resolve button in the tooltip --- */
  
  /* --- Style for the new Resolve button in the tooltip --- */
@@ -356,45 +360,66 @@
      font-family: sans-serif;
      font-size: 0.9em;
  }
+/* --- Sandboxed Root Container (Desktop-First) --- */
+#commenting-system-root {
+    /* Default to the simple, performant 'fixed' for desktop */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2147483647; 
+    pointer-events: none;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Re-enable pointer events on the actual UI components */
+#commenting-system-root > * {
+    pointer-events: auto;
+}
 </style>
 
-<!-- The Tooltip and Counter now live outside the main UI container -->
-<div id="comment-tooltip"></div>
+<div id="commenting-system-root">
+    <!-- The Tooltip and Counter now live outside the main UI container -->
+    <div id="comment-tooltip"></div>
 
-<!-- New Widget Container -->
-<div id="comment-widget-container">
-    <div id="comment-counter"></div>
-    <div id="comment-management-wrapper">
-        <div id="comment-management-flyout">
-            <!-- NEW BUTTON HERE -->
-            <button id="copy-link-btn">Copy Link</button>
-            <label for="import-comments-input" class="file-input-label">Import</label>
-            <input type="file" id="import-comments-input" accept=".json"/>
-            <button id="export-comments-btn">Export</button>
-            <button id="clear-comments-btn" class="secondary">Clear All</button>
+    <!-- New Widget Container -->
+    <div id="comment-widget-container">
+        <div id="comment-counter"></div>
+        <div id="comment-management-wrapper">
+            <div id="comment-management-flyout">
+                <!-- NEW BUTTON HERE -->
+                <button id="copy-link-btn">Copy Link</button>
+                <label for="import-comments-input" class="file-input-label">Import</label>
+                <input type="file" id="import-comments-input" accept=".json"/>
+                <button id="export-comments-btn">Export</button>
+                <button id="clear-comments-btn" class="secondary">Clear All</button>
+            </div>
+            <small id="comment-management-help-text">
+                Comments are stored locally in your browser. Use Export/Import or Copy Link to share.
+            </small>
         </div>
-        <small id="comment-management-help-text">
-            Comments are stored locally in your browser. Use Export/Import or Copy Link to share.
-        </small>
     </div>
-</div>
 
-<!-- Simplified Comment Creation Drawer -->
-<div id="comment-ui-container">
-    <button id="add-comment-btn" style="display: none;">Add Comment</button>
-    <div id="add-comment-help-text" class="comment-help-text" style="display: none;">
-        Press <kbd>Shift</kbd> + <kbd>Enter</kbd> to add comment
-    </div>
-    <form id="comment-form">
-        <textarea id="comment-input-area" placeholder="Type your comment here..."></textarea>
-        <div class="comment-help-text">
-            <kbd>Shift</kbd> + <kbd>Enter</kbd> to save, <kbd>Esc</kbd> to cancel
+    <!-- Simplified Comment Creation Drawer -->
+    <div id="comment-ui-container">
+        <button id="add-comment-btn" style="display: none;">Add Comment</button>
+        <div id="add-comment-help-text" class="comment-help-text" style="display: none;">
+            Press <kbd>Shift</kbd> + <kbd>Enter</kbd> to add comment
         </div>
-        <div class="form-buttons">
-            <button type="button" id="cancel-comment-btn" class="secondary">Cancel</button>
-            <button type="submit" id="save-comment-btn">Save</button>
-        </div>
-    </form>
+        <form id="comment-form">
+            <textarea id="comment-input-area" placeholder="Type your comment here..."></textarea>
+            <div class="comment-help-text">
+                <kbd>Shift</kbd> + <kbd>Enter</kbd> to save, <kbd>Esc</kbd> to cancel
+            </div>
+            <div class="form-buttons">
+                <button type="button" id="cancel-comment-btn" class="secondary">Cancel</button>
+                <button type="submit" id="save-comment-btn">Save</button>
+            </div>
+        </form>
+    </div>    
 </div>
 
 <section id="comment-summary-section" style="display: none;">
@@ -418,6 +443,8 @@
      let currentSelectionData = null;
 
      // --- DOM ELEMENTS ---
+    
+     const commentingRoot = document.getElementById('commenting-system-root');
      const commentWidgetContainer = document.getElementById('comment-widget-container');
      const commentContainer = document.getElementById('comment-ui-container');
      const addCommentBtn = document.getElementById('add-comment-btn');
@@ -472,6 +499,50 @@
 
 
      // --- CORE FUNCTIONS ---
+     const syncRootWithViewport = () => {
+         // Check if visualViewport is supported for safety
+         if (!window.visualViewport) return;
+
+         const { offsetTop, offsetLeft, width, height } = window.visualViewport;
+
+         // We use the page scroll values (window.scrollY) plus the viewport's own
+         // offset to find the true top-left corner of the visible area.
+         const trueTop = offsetTop + window.scrollY;
+         const trueLeft = offsetLeft + window.scrollX;
+
+         // Apply the calculated position and size to our root element.
+         // This makes our 'absolute' container perfectly match the visible screen area.
+         commentingRoot.style.transform = `translate(${trueLeft}px, ${trueTop}px)`;
+         commentingRoot.style.width = `${width}px`;
+         commentingRoot.style.height = `${height}px`;
+     };
+
+     const initializeViewportPositioning = () => {
+         // --- The Correct Heuristic ---
+         // We check for touch capability as the primary indicator of a mobile-like device
+         // where `position: fixed` is unreliable. `navigator.maxTouchPoints > 0` is the
+         // modern standard for this.
+         const isMobileLike = navigator.maxTouchPoints > 0;
+
+         // We proceed only if it's a mobile-like device AND the visualViewport API exists.
+         if (isMobileLike && window.visualViewport) {
+             console.log("Touch device detected. Upgrading to JS-driven positioning for reliability.");
+
+             // 1. Switch the positioning mode from 'fixed' to 'absolute'
+             commentingRoot.style.position = 'absolute';
+             
+             // 2. Attach the event listeners that power the JS positioning
+             window.visualViewport.addEventListener('resize', syncRootWithViewport);
+             window.visualViewport.addEventListener('scroll', syncRootWithViewport);
+             
+             // 3. Run it once to set the initial position correctly
+             syncRootWithViewport();
+         }
+         // --- End of Heuristic Logic ---
+         
+         // On any non-touch device (like a standard desktop), this `if` block is skipped,
+         // and the UI correctly uses the default `position: fixed` from the CSS.
+     };
 
      const getNodePath = (node) => {
          const path = [];
@@ -1049,7 +1120,7 @@
 
          try {
              // NEW: Create the lightweight, ID-less version for the URL
-             const lightweightComments = comments.map(({ text, range }) => ({ text, range }));
+             const lightweightComments = comments.map(({ text, range, author }) => ({ text, range, author }));
 
              const compressed = await compressData(lightweightComments);
              const base64 = toUrlSafeBase64(compressed);
@@ -1164,6 +1235,8 @@
              location.reload();
          }
      });
+
+     initializeViewportPositioning();
 
      loadInitialComments();
 
