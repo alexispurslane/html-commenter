@@ -1,5 +1,4 @@
 <style>
- /* --- Commenting UI Styles --- */
  :root {
      --comment-highlight-bg: rgba(51, 255, 153, 0.4);
      --comment-ui-bg: #1a2a1a;
@@ -9,100 +8,102 @@
  }
 
  .comment-highlight {
-        background-color: var(--comment-highlight-bg);
-        border-bottom: 2px dashed var(--comment-ui-accent);
-        cursor: pointer;
-        color: inherit;
-    }
+     background-color: var(--comment-highlight-bg);
+     border-bottom: 2px dashed var(--comment-ui-accent);
+     cursor: pointer;
+     color: inherit;
+ }
 
-  /* --- Main Comment Creation Drawer --- */
-    /* Positioned ABSOLUTELY within the FIXED root for stability */
-    #comment-ui-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: var(--comment-ui-bg);
-        color: var(--comment-ui-text);
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-        z-index: 10000;
-        transform: translateY(100%);
-        transition: transform 0.3s ease-in-out;
-        padding: 1rem;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        border-top: 1px solid var(--comment-ui-border);
-    }
-
+ /* Main Comment Creation Drawer */
+ #comment-ui-container {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     background-color: var(--comment-ui-bg);
+     color: var(--comment-ui-text);
+     box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+     z-index: 10000;
+     transform: translateY(100%);
+     transition: transform 0.3s ease-in-out;
+     padding: 1rem;
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     gap: 0.75rem;
+     border-top: 1px solid var(--comment-ui-border);
+ }
 
  #comment-ui-container.visible {
      transform: translateY(0);
  }
 
  #comment-ui-container button {
-        background-color: var(--comment-ui-accent);
-        color: var(--bg-color);
-        font-weight: bold;
-        border: none;
-        padding: 0.6rem 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-family: sans-serif;
-        text-align: center;
-    }
-    #comment-ui-container button.secondary {
-        background-color: var(--comment-ui-border);
-        color: var(--comment-ui-text);
-        font-weight: normal;
-    }
-    #comment-ui-container button:hover { opacity: 0.85; }
+     background-color: var(--comment-ui-accent);
+     color: var(--bg-color);
+     font-weight: bold;
+     border: none;
+     padding: 0.6rem 1rem;
+     border-radius: 5px;
+     cursor: pointer;
+     font-size: 0.9rem;
+     font-family: sans-serif;
+     text-align: center;
+ }
 
+ #comment-ui-container button.secondary {
+     background-color: var(--comment-ui-border);
+     color: var(--comment-ui-text);
+     font-weight: normal;
+ }
+
+ #comment-ui-container button:hover {
+     opacity: 0.85;
+ }
 
  #comment-input-area {
-        width: 100%;
-        background-color: #0c140c;
-        color: var(--comment-ui-text);
-        border: 1px solid var(--comment-ui-border);
-        border-radius: 5px;
-        padding: 0.5rem;
-        font-size: 1rem;
-        font-family: sans-serif;
-        min-height: 80px;
-        box-sizing: border-box;
-        resize: vertical;
-    }
+     width: 100%;
+     background-color: #0c140c;
+     color: var(--comment-ui-text);
+     border: 1px solid var(--comment-ui-border);
+     border-radius: 5px;
+     padding: 0.5rem;
+     font-size: 1rem;
+     font-family: sans-serif;
+     min-height: 80px;
+     box-sizing: border-box;
+     resize: vertical;
+ }
 
-    #comment-form {
-        display: none;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    #comment-form .form-buttons {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: flex-end;
-    }
+ #comment-form {
+     display: none;
+     flex-direction: column;
+     gap: 0.75rem;
+ }
 
-    /* --- Tooltip --- */
-    #comment-tooltip {
-        position: absolute; /* Relative to root */
-        display: none;
-        background-color: var(--comment-ui-bg);
-        color: var(--comment-ui-text);
-        border: 1px solid var(--comment-ui-border);
-        border-radius: 5px;
-        padding: 0.8rem;
-        max-width: 300px;
-        font-size: 0.9rem;
-        z-index: 10001;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        overflow-wrap: break-word;
-        font-family: sans-serif;
-        line-height: 1.5;
-    }
+ #comment-form .form-buttons {
+     display: flex;
+     gap: 0.5rem;
+     justify-content: flex-end;
+ }
+
+ /* Tooltip */
+ #comment-tooltip {
+     position: absolute;
+     display: none;
+     background-color: var(--comment-ui-bg);
+     color: var(--comment-ui-text);
+     border: 1px solid var(--comment-ui-border);
+     border-radius: 5px;
+     padding: 0.8rem;
+     max-width: 300px;
+     font-size: 0.9rem;
+     z-index: 10001;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+     overflow-wrap: break-word;
+     font-family: sans-serif;
+     line-height: 1.5;
+ }
 
  .delete-comment-btn {
      background: var(--comment-ui-border);
@@ -116,35 +117,37 @@
      width: 100%;
      font-size: 0.8rem;
  }
- .delete-comment-btn:hover { background: #c13434; }
 
- /* --- Management Widget in Corner --- */
-  #comment-widget-container {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: flex-end;
-    }
+ .delete-comment-btn:hover {
+     background: #c13434;
+ }
 
-    #comment-counter {
-        background-color: rgba(26, 42, 26, 0.8);
-        backdrop-filter: blur(5px);
-        color: var(--comment-ui-text);
-        padding: 5px 12px;
-        margin-top: 8px;
-        border-radius: 15px;
-        font-size: 0.85rem;
-        font-family: sans-serif;
-        display: none;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-        border: 1px solid var(--comment-ui-border);
-        cursor: default;
-        transition: transform 0.2s ease-out;
-    }
+ /* Management Widget in Corner */
+ #comment-widget-container {
+     position: absolute;
+     bottom: 15px;
+     right: 15px;
+     z-index: 9999;
+     display: flex;
+     flex-direction: column-reverse;
+     align-items: flex-end;
+ }
 
+ #comment-counter {
+     background-color: rgba(26, 42, 26, 0.8);
+     backdrop-filter: blur(5px);
+     color: var(--comment-ui-text);
+     padding: 5px 12px;
+     margin-top: 8px;
+     border-radius: 15px;
+     font-size: 0.85rem;
+     font-family: sans-serif;
+     display: none;
+     box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+     border: 1px solid var(--comment-ui-border);
+     cursor: default;
+     transition: transform 0.2s ease-out;
+ }
 
  #comment-management-wrapper {
      display: flex;
@@ -181,6 +184,7 @@
      visibility: visible;
      transform: translateY(0);
  }
+
  #comment-widget-container:hover #comment-counter {
      transform: scale(1.05);
  }
@@ -197,34 +201,38 @@
      font-size: 0.8rem;
      font-family: sans-serif;
      white-space: nowrap;
-     /* Ensure consistent size */
      display: flex;
      align-items: center;
      justify-content: center;
  }
+
  #comment-management-flyout button.secondary {
      background-color: var(--comment-ui-border);
      color: var(--comment-ui-text);
      font-weight: normal;
  }
+
  #comment-management-flyout button:hover,
  #comment-management-flyout .file-input-label:hover {
      opacity: 0.85;
  }
 
  #copy-link-btn {
-     background-color: #4A5D4A; /* A slightly different shade */
+     background-color: #4A5D4A;
  }
 
- #import-comments-input { display: none; }
+ #import-comments-input {
+     display: none;
+ }
 
- /* --- Help Text and Keybinding Styles --- */
+ /* Help Text and Keybinding Styles */
  .comment-help-text {
      font-size: 0.8rem;
      color: var(--comment-ui-border);
      text-align: center;
      width: 100%;
  }
+
  .comment-help-text kbd {
      background-color: #0c140c;
      border: 1px solid var(--comment-ui-border);
@@ -234,7 +242,7 @@
      font-size: 0.75rem;
  }
 
- /* --- Comment Summary Section Styles --- */
+ /* Comment Summary Section Styles */
  #comment-summary-section {
      max-width: 60em;
      margin: 5em auto;
@@ -242,6 +250,7 @@
      border-top: 2px solid var(--comment-ui-border);
      color: var(--comment-ui-text);
  }
+
  #comment-summary-section h2 {
      font-family: var(--font-heading);
      color: var(--comment-ui-accent);
@@ -250,11 +259,13 @@
      border-bottom: none;
      margin-bottom: 1em;
  }
+
  #comment-summary-list {
      list-style: none;
      padding: 0;
      margin: 0;
  }
+
  #comment-summary-list li {
      padding: 1.5em;
      border-bottom: 1px solid var(--comment-ui-border);
@@ -262,9 +273,11 @@
      transition: background-color 0.2s ease;
      position: relative;
  }
+
  #comment-summary-list li:hover {
      background-color: var(--comment-ui-bg);
  }
+
  #comment-summary-list li blockquote {
      margin: 0 0 0.5em 0;
      padding-left: 1em;
@@ -273,6 +286,7 @@
      font-style: italic;
      opacity: 0.8;
  }
+
  #comment-summary-list li p {
      margin: 0;
      color: var(--comment-ui-text);
@@ -289,29 +303,32 @@
      line-height: 1;
      padding: 10px;
  }
+
  .summary-delete-btn:hover {
      color: #c13434;
  }
 
- /* --- Mobile Responsiveness --- */
-@media (min-width: 600px) {
-      #comment-ui-container {
-        width: 500px; 
-        max-width: 90%;
-        left: 50%;
-        transform: translateX(-50%) translateY(120%);
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-      }
-      #comment-ui-container.visible { transform: translateX(-50%) translateY(0); }
-    }
- /* --- Style for the new Resolve button in the tooltip --- */
- 
- /* --- Style for the new Resolve button in the tooltip --- */
+ /* Mobile Responsiveness */
+ @media (min-width: 600px) {
+     #comment-ui-container {
+         width: 500px;
+         max-width: 90%;
+         left: 50%;
+         transform: translateX(-50%) translateY(120%);
+         border-top-left-radius: 8px;
+         border-top-right-radius: 8px;
+     }
+
+     #comment-ui-container.visible {
+         transform: translateX(-50%) translateY(0);
+     }
+ }
+
+ /* Style for Resolve button in tooltip and summary */
  .resolve-comment-btn {
-     background-color: var(--comment-ui-accent); /* Match primary action color */
-     color: var(--bg-color);                     /* Match primary text color */
-     font-weight: bold;                          /* Match primary font weight */
+     background-color: var(--comment-ui-accent);
+     color: var(--bg-color);
+     font-weight: bold;
      border: none;
      padding: 4px 8px;
      margin-top: 8px;
@@ -320,13 +337,15 @@
      cursor: pointer;
      font-size: 0.8rem;
  }
- .resolve-comment-btn:hover { opacity: 0.85; } /* Match primary hover effect */
 
- /* (In the summary list) */
+ .resolve-comment-btn:hover {
+     opacity: 0.85;
+ }
+
  .summary-unresolve-btn {
-     background-color: var(--comment-ui-accent); /* Match primary action color */
-     color: var(--bg-color);                     /* Match primary text color */
-     font-weight: bold;                          /* Match primary font weight */
+     background-color: var(--comment-ui-accent);
+     color: var(--bg-color);
+     font-weight: bold;
      border: none;
      padding: 6px 12px;
      border-radius: 4px;
@@ -335,13 +354,17 @@
      margin-top: 10px;
      display: inline-block;
  }
- .summary-unresolve-btn:hover { opacity: 0.85; } /* Match primary hover effect */
+
+ .summary-unresolve-btn:hover {
+     opacity: 0.85;
+ }
 
  /* Make the counter look clickable */
  #comment-counter.has-comments {
      cursor: pointer;
  }
- /* --- Author Attribution Styles --- */
+
+ /* Author Attribution Styles */
  .comment-author {
      display: block;
      font-size: 0.8rem;
@@ -360,37 +383,33 @@
      font-family: sans-serif;
      font-size: 0.9em;
  }
-/* --- Sandboxed Root Container (Desktop-First) --- */
-#commenting-system-root {
-    /* Default to the simple, performant 'fixed' for desktop */
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2147483647; 
-    pointer-events: none;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-}
 
-/* Re-enable pointer events on the actual UI components */
-#commenting-system-root > * {
-    pointer-events: auto;
-}
+ /* Sandboxed Root Container */
+ #commenting-system-root {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 2147483647;
+     pointer-events: none;
+     font-family: sans-serif;
+     font-size: 16px;
+     line-height: 1.5;
+ }
+
+ #commenting-system-root > * {
+     pointer-events: auto;
+ }
 </style>
 
 <div id="commenting-system-root">
-    <!-- The Tooltip and Counter now live outside the main UI container -->
     <div id="comment-tooltip"></div>
 
-    <!-- New Widget Container -->
     <div id="comment-widget-container">
         <div id="comment-counter"></div>
         <div id="comment-management-wrapper">
             <div id="comment-management-flyout">
-                <!-- NEW BUTTON HERE -->
                 <button id="copy-link-btn">Copy Link</button>
                 <label for="import-comments-input" class="file-input-label">Import</label>
                 <input type="file" id="import-comments-input" accept=".json"/>
@@ -403,7 +422,6 @@
         </div>
     </div>
 
-    <!-- Simplified Comment Creation Drawer -->
     <div id="comment-ui-container">
         <button id="add-comment-btn" style="display: none;">Add Comment</button>
         <div id="add-comment-help-text" class="comment-help-text" style="display: none;">
@@ -419,7 +437,7 @@
                 <button type="submit" id="save-comment-btn">Save</button>
             </div>
         </form>
-    </div>    
+    </div>
 </div>
 
 <section id="comment-summary-section" style="display: none;">
@@ -436,14 +454,13 @@
          return;
      }
 
-     // --- STATE MANAGEMENT ---
+     // State management
      let comments = [];
-     let currentUser = 'Anonymous';     
+     let currentUser = 'Anonymous';
      let nextHighlightIndex = 0;
      let currentSelectionData = null;
 
-     // --- DOM ELEMENTS ---
-    
+     // DOM elements
      const commentingRoot = document.getElementById('commenting-system-root');
      const commentWidgetContainer = document.getElementById('comment-widget-container');
      const commentContainer = document.getElementById('comment-ui-container');
@@ -461,8 +478,7 @@
      const commentSummaryList = document.getElementById('comment-summary-list');
      const contentRoot = document.getElementById(rootElementId) || document.body;
 
-     // --- URL Data Handling & Compression Helpers ---
-
+     // URL data handling & compression helpers
      const toUrlSafeBase64 = (buffer) => {
          return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
              .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -497,51 +513,29 @@
          }
      };
 
-
-     // --- CORE FUNCTIONS ---
+     // Core functions
      const syncRootWithViewport = () => {
-         // Check if visualViewport is supported for safety
          if (!window.visualViewport) return;
 
          const { offsetTop, offsetLeft, width, height } = window.visualViewport;
-
-         // We use the page scroll values (window.scrollY) plus the viewport's own
-         // offset to find the true top-left corner of the visible area.
          const trueTop = offsetTop + window.scrollY;
          const trueLeft = offsetLeft + window.scrollX;
 
-         // Apply the calculated position and size to our root element.
-         // This makes our 'absolute' container perfectly match the visible screen area.
          commentingRoot.style.transform = `translate(${trueLeft}px, ${trueTop}px)`;
          commentingRoot.style.width = `${width}px`;
          commentingRoot.style.height = `${height}px`;
      };
 
      const initializeViewportPositioning = () => {
-         // --- The Correct Heuristic ---
-         // We check for touch capability as the primary indicator of a mobile-like device
-         // where `position: fixed` is unreliable. `navigator.maxTouchPoints > 0` is the
-         // modern standard for this.
          const isMobileLike = navigator.maxTouchPoints > 0;
 
-         // We proceed only if it's a mobile-like device AND the visualViewport API exists.
          if (isMobileLike && window.visualViewport) {
              console.log("Touch device detected. Upgrading to JS-driven positioning for reliability.");
-
-             // 1. Switch the positioning mode from 'fixed' to 'absolute'
              commentingRoot.style.position = 'absolute';
-             
-             // 2. Attach the event listeners that power the JS positioning
              window.visualViewport.addEventListener('resize', syncRootWithViewport);
              window.visualViewport.addEventListener('scroll', syncRootWithViewport);
-             
-             // 3. Run it once to set the initial position correctly
              syncRootWithViewport();
          }
-         // --- End of Heuristic Logic ---
-         
-         // On any non-touch device (like a standard desktop), this `if` block is skipped,
-         // and the UI correctly uses the default `position: fixed` from the CSS.
      };
 
      const getNodePath = (node) => {
@@ -581,13 +575,12 @@
      };
 
      const getAuthorColor = (author) => {
-         if (!author) return 'rgba(51, 255, 153, 0.4)'; // Fallback to default
+         if (!author) return 'rgba(51, 255, 153, 0.4)';
          let hash = 0;
          for (let i = 0; i < author.length; i++) {
              hash = author.charCodeAt(i) + ((hash << 5) - hash);
          }
          const h = hash % 360;
-         // Using HSL for consistent, pleasant colors. 70% saturation, 40% lightness for the border, 85% for the background
          return {
              border: `hsl(${h}, 70%, 40%)`,
              background: `hsla(${h}, 70%, 85%, 0.4)`
@@ -656,7 +649,7 @@
              if (!a.el || !b.el) return 0;
              return a.el.offsetTop - b.el.offsetTop;
          });
-         
+
          commentsWithElements.forEach(({ comment }) => {
              const li = document.createElement('li');
              li.dataset.commentId = comment.id;
@@ -672,7 +665,7 @@
              deleteBtn.className = 'summary-delete-btn';
              deleteBtn.innerHTML = '&times;';
              deleteBtn.dataset.commentId = comment.id;
-             
+
              const blockquote = document.createElement('blockquote');
              const quoteText = comment.range.text.length > 100 ? comment.range.text.substring(0, 97) + '...' : comment.range.text;
              blockquote.textContent = quoteText;
@@ -682,7 +675,7 @@
              p.textContent = comment.text;
 
              li.appendChild(deleteBtn);
-             li.appendChild(authorEl); // Add the author element
+             li.appendChild(authorEl);
              li.appendChild(blockquote);
              li.appendChild(p);
 
@@ -711,15 +704,11 @@
          return Math.min(100, Math.round(percentage));
      };
 
-
      const updateCounter = (placementErrors = 0) => {
          const totalCount = comments.length;
          const placedCount = totalCount - placementErrors;
-
-         // Check if there are any visible highlights on the page
          const hasVisibleHighlights = document.querySelector('.comment-highlight') !== null;
 
-         // Add or remove the clickable class based on visible highlights
          if (hasVisibleHighlights) {
              commentCounter.classList.add('has-comments');
          } else {
@@ -809,7 +798,6 @@
              return b.range.compareBoundaryPoints(Range.START_TO_START, a.range);
          });
          for (const item of itemsWithRanges) {
-             // MODIFICATION HERE: Check if the comment is resolved
              if (item.range && !item.comment.isResolved) {
                  try {
                      applyHighlight(item.range, item.comment.id);
@@ -829,7 +817,6 @@
                  const buffer = fromUrlSafeBase64(hash);
                  const data = await decompressData(buffer);
                  if (data && Array.isArray(data)) {
-                     // NEW: Regenerate IDs for the ID-less data from the URL
                      comments = data.map(comment => ({
                          ...comment,
                          id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -840,7 +827,6 @@
                  }
              } catch (e) {
                  console.error("Failed to load comments from URL:", e);
-                 // Fallback to localStorage if URL loading fails
                  loadCommentsFromLocal();
              }
          } else {
@@ -895,8 +881,6 @@
          if (comment) {
              comment.isResolved = false;
              saveCommentsToLocal();
-             
-             // Re-apply the highlight for this specific comment
              const range = deserializeRange(comment.range);
              if (range) {
                  applyHighlight(range, comment.id);
@@ -904,7 +888,7 @@
              renderCommentSummary();
          }
      };
-     
+
      const showTooltip = (highlightEl) => {
          const commentId = highlightEl.dataset.commentId;
          const comment = comments.find(c => c.id === commentId);
@@ -959,11 +943,9 @@
      const removeHighlight = (el) => {
          const parent = el.parentNode;
          if (parent) {
-             // Move all children of the <mark> tag to be siblings, right before the <mark> tag
              while (el.firstChild) {
                  parent.insertBefore(el.firstChild, el);
              }
-             // Now that the <mark> tag is empty, remove it from the DOM
              parent.removeChild(el);
          }
      };
@@ -1024,7 +1006,7 @@
                  id: `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                  text: commentText,
                  range: currentSelectionData,
-                 author: currentUser, // Add author to the new comment
+                 author: currentUser,
                  isResolved: false
              };
              comments.push(newComment);
@@ -1071,21 +1053,15 @@
                      let newCommentsAdded = 0;
 
                      importedComments.forEach(importedComment => {
-                         // --- ROBUSTNESS CHECK ---
-                         // Skip if the comment is malformed or has no range data.
                          if (!importedComment || !importedComment.range) {
                              console.warn("Skipping invalid comment object during import:", importedComment);
                              return;
                          }
 
-                         // If an ID is missing, assign a new one. This handles data
-                         // from links or other sources that might lack IDs.
                          if (!importedComment.id) {
                              importedComment.id = `comment-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
                          }
-                         // --- END ROBUSTNESS CHECK ---
 
-                         // Now, proceed with the reliable merge logic.
                          if (!existingIds.has(importedComment.id)) {
                              comments.push(importedComment);
                              newCommentsAdded++;
@@ -1119,7 +1095,6 @@
          copyLinkBtn.disabled = true;
 
          try {
-             // NEW: Create the lightweight, ID-less version for the URL
              const lightweightComments = comments.map(({ text, range, author }) => ({ text, range, author }));
 
              const compressed = await compressData(lightweightComments);
@@ -1175,7 +1150,7 @@
              unresolveComment(unresolveButton.dataset.commentId);
              return;
          }
-         
+
          const li = e.target.closest('li');
          if (li && li.dataset.commentId && !li.classList.contains('resolved')) {
              const commentId = li.dataset.commentId;
@@ -1188,56 +1163,41 @@
      });
 
      commentWidgetContainer.addEventListener('click', (e) => {
-         // Prevent this action if a button inside the management flyout was clicked
          if (e.target.closest('#comment-management-flyout')) {
              return;
          }
 
-         // Find all active highlights and sort them by their vertical position on the page
          const highlights = Array.from(document.querySelectorAll('.comment-highlight'))
                                  .sort((a, b) => a.offsetTop - b.offsetTop);
 
-         // If there are no highlights on the page, do nothing and reset the index
          if (highlights.length === 0) {
              nextHighlightIndex = 0;
              return;
          }
 
-         // If the current index is out of bounds (which can happen if comments are deleted),
-         // reset it to 0 to be safe.
          if (nextHighlightIndex >= highlights.length) {
              nextHighlightIndex = 0;
          }
 
-         // Get the next highlight to scroll to
          const nextHighlight = highlights[nextHighlightIndex];
 
-         // Scroll to that highlight and show its tooltip
          if (nextHighlight) {
              nextHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
-             setTimeout(() => { showTooltip(nextHighlight); }, 300); // Delay to wait for scroll animation
+             setTimeout(() => { showTooltip(nextHighlight); }, 300);
          }
 
-         // Update the index for the *next* click, wrapping around to the beginning
-         // if we've reached the end of the list.
          nextHighlightIndex = (nextHighlightIndex + 1) % highlights.length;
      });
 
      clearBtn.addEventListener('click', () => {
          if (confirm('Are you sure you want to permanently delete all comments from this page? This will reload the page.')) {
-             // 1. Clear the data from localStorage
              localStorage.removeItem('userComments');
-             
-             // 2. Clear the hash from the URL without creating a new history entry
              history.replaceState(null, '', window.location.pathname + window.location.search);
-             
-             // 3. Force a page reload to ensure a completely clean state
              location.reload();
          }
      });
 
      initializeViewportPositioning();
-
      loadInitialComments();
 
      window.commentingSystemInitialized = true;

@@ -70,9 +70,9 @@ h1, h2, h3, h4, h5, h6 { text-align: center; }
             <li><p><strong>Add the JavaScript:</strong> Copy the entire final <code>&lt;script&gt;...&lt;/script&gt;</code> block and paste it at the very end of your file, right before the closing <code>&lt;/body&gt;</code> tag and after the UI HTML.</p>
             <p><strong>Important:</strong> The script initializes itself by targeting the element with the ID <code>content</code>. If your main text container has a different ID, simply change the last line of the script:</p>
             <pre><code class="lang-javascript"><span class="hljs-regexp">//</span> Change <span class="hljs-string">'content'</span> to the ID <span class="hljs-keyword">of</span> your main text container
-        <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
         initializeCommentingSystem(<span class="hljs-string">'your-content-id-here'</span>);
-        });
+});
         </code></pre>
             </li>
         </ol>
