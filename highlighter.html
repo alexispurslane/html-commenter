@@ -910,18 +910,49 @@
              e.stopPropagation();
              deleteComment(e.target.dataset.commentId);
          });
+
+         // --- START OF POSITIONING LOGIC ---
+
+         // Reset display and position before calculating size
          tooltip.style.display = 'block';
+         tooltip.style.left = '0px';
+         tooltip.style.top = '0px';
          tooltip.dataset.activeCommentId = commentId;
-         const rect = highlightEl.getBoundingClientRect();
-         tooltip.style.left = `${rect.left + window.scrollX}px`;
-         tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+
+         // Get the position of the highlight AND the tooltip's own size
+         const highlightRect = highlightEl.getBoundingClientRect();
          const tooltipRect = tooltip.getBoundingClientRect();
-         if (tooltipRect.right > window.innerWidth) {
-             tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10 + window.scrollX}px`;
+         const viewportWidth = window.innerWidth;
+         const viewportHeight = window.innerHeight;
+
+         // 1. Calculate horizontal position
+         let newLeft = highlightRect.left;
+         // Check if it overflows the right edge of the viewport
+         if (newLeft + tooltipRect.width > viewportWidth) {
+             newLeft = viewportWidth - tooltipRect.width - 10; // Add 10px padding
          }
-         if (tooltipRect.top < 0) {
-             tooltip.style.top = `${rect.top + window.scrollY - tooltipRect.height - 5}px`;
+         // Ensure it doesn't go off the left edge
+         if (newLeft < 0) {
+             newLeft = 10;
          }
+
+         // 2. Calculate vertical position (try below first)
+         let newTop = highlightRect.bottom + 5; // 5px margin below the highlight
+         // Check if it overflows the bottom edge of the viewport
+         if (newTop + tooltipRect.height > viewportHeight) {
+             // If it overflows, flip it to be above the highlight instead
+             newTop = highlightRect.top - tooltipRect.height - 5; // 5px margin above
+         }
+         // As a final fallback, ensure it's not off the top of the screen
+         if (newTop < 0) {
+             newTop = 10;
+         }
+
+         // 3. Apply the final calculated positions
+         tooltip.style.left = `${newLeft}px`;
+         tooltip.style.top = `${newTop}px`;
+
+         // --- END OF POSITIONING LOGIC ---
      };
 
      const hideTooltip = () => {
