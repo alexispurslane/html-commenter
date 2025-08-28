@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5, h6 { text-align: center; }
 <p>When I do AI-assisted coding I use agentic systems to maintain tigher control with finer-grained changes, and I usually read every diff, design every architecture and algorithm decision before I even talk to the LLM, and I&#39;m very careful and picky. Not so here. I did this straight in a Gemini 2.5 Pro chat and literally didn&#39;t look at the code at all. So take that as you will. I&#39;m not claiming this is my work, just that it&#39;s a really useful little tool for me, to replace the only thing I use Google Docs for, and someone might find it useful too.</p>
 
     </main>
-    <style>
+<style>
  :root {
      --comment-highlight-bg: rgba(51, 255, 153, 0.4);
      --comment-ui-bg: #1a2a1a;
@@ -493,52 +493,52 @@ h1, h2, h3, h4, h5, h6 { text-align: center; }
  #commenting-system-root > * {
      pointer-events: auto;
  }
-    </style>
+</style>
 
-    <div id="commenting-system-root">
-      <div id="comment-tooltip"></div>
+<div id="commenting-system-root">
+    <div id="comment-tooltip"></div>
 
-      <div id="comment-widget-container">
+    <div id="comment-widget-container">
         <div id="comment-counter"></div>
         <div id="comment-management-wrapper">
-          <div id="comment-management-flyout">
-            <button id="copy-link-btn">Copy Link</button>
-            <label for="import-comments-input" class="file-input-label">Import</label>
-            <input type="file" id="import-comments-input" accept=".json"/>
-            <button id="export-comments-btn">Export</button>
-            <button id="clear-comments-btn" class="secondary">Clear All</button>
-          </div>
-          <small id="comment-management-help-text">
-            Comments are stored locally in your browser. Use Export/Import or Copy Link to share.
-          </small>
+            <div id="comment-management-flyout">
+                <button id="copy-link-btn">Copy Link</button>
+                <label for="import-comments-input" class="file-input-label">Import</label>
+                <input type="file" id="import-comments-input" accept=".json"/>
+                <button id="export-comments-btn">Export</button>
+                <button id="clear-comments-btn" class="secondary">Clear All</button>
+            </div>
+            <small id="comment-management-help-text">
+                Comments are stored locally in your browser. Use Export/Import or Copy Link to share.
+            </small>
         </div>
-      </div>
-
-      <div id="comment-ui-container">
-        <button id="add-comment-btn" style="display: none;">Add Comment</button>
-        <div id="add-comment-help-text" class="comment-help-text" style="display: none;">
-          Press <kbd>Shift</kbd> + <kbd>Enter</kbd> to add comment
-        </div>
-        <form id="comment-form">
-          <textarea id="comment-input-area" placeholder="Type your comment here..."></textarea>
-          <div class="comment-help-text">
-            <kbd>Shift</kbd> + <kbd>Enter</kbd> to save, <kbd>Esc</kbd> to cancel
-          </div>
-          <div class="form-buttons">
-            <button type="button" id="cancel-comment-btn" class="secondary">Cancel</button>
-            <button type="submit" id="save-comment-btn">Save</button>
-          </div>
-        </form>
-      </div>
     </div>
 
-    <section id="comment-summary-section" style="display: none;">
-      <h2>Comment Summary</h2>
-      <ol id="comment-summary-list"></ol>
-    </section>
+    <div id="comment-ui-container">
+        <button id="add-comment-btn" style="display: none;">Add Comment</button>
+        <div id="add-comment-help-text" class="comment-help-text" style="display: none;">
+            Press <kbd>Shift</kbd> + <kbd>Enter</kbd> to add comment
+        </div>
+        <form id="comment-form">
+            <textarea id="comment-input-area" placeholder="Type your comment here..."></textarea>
+            <div class="comment-help-text">
+                <kbd>Shift</kbd> + <kbd>Enter</kbd> to save, <kbd>Esc</kbd> to cancel
+            </div>
+            <div class="form-buttons">
+                <button type="button" id="cancel-comment-btn" class="secondary">Cancel</button>
+                <button type="submit" id="save-comment-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<section id="comment-summary-section" style="display: none;">
+    <h2>Comment Summary</h2>
+    <ol id="comment-summary-list"></ol>
+</section>
 
 
-    <script>
+<script>
 (function() {
     'use strict';
 
@@ -1007,7 +1007,10 @@ h1, h2, h3, h4, h5, h6 { text-align: center; }
             },
             bindEventListeners() {
                 const { contentRoot } = this.modules.DOM.elements;
+
                 contentRoot.addEventListener('mouseup', this.handleSelectionEnd.bind(this));
+                contentRoot.addEventListener('touchend', this.handleSelectionEnd.bind(this));
+
                 this.modules.DOM.elements.addCommentBtn.addEventListener('click', this.handleAddCommentClick.bind(this));
                 this.modules.DOM.elements.commentForm.addEventListener('submit', this.handleSaveComment.bind(this));
                 document.getElementById('cancel-comment-btn').addEventListener('click', () => this.modules.DOM.resetUI());
@@ -1171,7 +1174,7 @@ h1, h2, h3, h4, h5, h6 { text-align: center; }
     });
 
 })();
-    </script>
+</script>
     
   </body>
 </html>

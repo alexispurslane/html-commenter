@@ -915,7 +915,10 @@
             },
             bindEventListeners() {
                 const { contentRoot } = this.modules.DOM.elements;
+
                 contentRoot.addEventListener('mouseup', this.handleSelectionEnd.bind(this));
+                contentRoot.addEventListener('touchend', this.handleSelectionEnd.bind(this));
+
                 this.modules.DOM.elements.addCommentBtn.addEventListener('click', this.handleAddCommentClick.bind(this));
                 this.modules.DOM.elements.commentForm.addEventListener('submit', this.handleSaveComment.bind(this));
                 document.getElementById('cancel-comment-btn').addEventListener('click', () => this.modules.DOM.resetUI());
