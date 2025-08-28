@@ -1,0 +1,152 @@
+[
+  {
+    "cid": "cid-10comments1",
+    "text": "Comment on HTML Commenter heading",
+    "range": {
+      "startPath": [3, 0, 0, 0],
+      "startOffset": 0,
+      "endPath": [3, 0, 0, 0],
+      "endOffset": 4,
+      "text": "HTML"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1632123456789,
+    "updatedAt": 1632123456789
+  },
+  {
+    "cid": "cid-10comments2",
+    "text": "Comment on vanilla JS description",
+    "range": {
+      "startPath": [3, 0, 1, 0, 0],
+      "startOffset": 2,
+      "endPath": [3, 0, 1, 0, 0],
+      "endOffset": 10,
+      "text": "vanilla JS"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1632123457789,
+    "updatedAt": 1632123457789
+  },
+  {
+    "cid": "cid-10comments3",
+    "text": "Comment on zero-dependency feature",
+    "range": {
+      "startPath": [3, 0, 4, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 4, 0, 0, 0, 0],
+      "endOffset": 22,
+      "text": "Zero Dependencies"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1632123458789,
+    "updatedAt": 1632123458789
+  },
+  {
+    "cid": "cid-10comments4",
+    "text": "Comment on client-side feature",
+    "range": {
+      "startPath": [3, 0, 5, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 5, 0, 0, 0, 0],
+      "endOffset": 21,
+      "text": "Purely Client-Side"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1632123459789,
+    "updatedAt": 1632123459789
+  },
+  {
+    "cid": "cid-10comments5",
+    "text": "Comment on local storage feature",
+    "range": {
+      "startPath": [3, 0, 6, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 6, 0, 0, 0, 0],
+      "endOffset": 30,
+      "text": "Persistent Local Storage"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1632123460789,
+    "updatedAt": 1632123460789
+  },
+  {
+    "cid": "cid-10comments6",
+    "text": "Comment on robust highlighting feature",
+    "range": {
+      "startPath": [3, 0, 7, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 7, 0, 0, 0, 0],
+      "endOffset": 25,
+      "text": "Robust Highlighting"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1632123461789,
+    "updatedAt": 1632123461789
+  },
+  {
+    "cid": "cid-10comments7",
+    "text": "Comment on shareable links feature",
+    "range": {
+      "startPath": [3, 0, 8, 0, 0, 0, 1, 0, 0, 0, 0],
+      "startOffset": 12,
+      "endPath": [3, 0, 8, 0, 0, 0, 1, 0, 0, 0, 0],
+      "endOffset": 27,
+      "text": "Shareable Links"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1632123462789,
+    "updatedAt": 1632123462789
+  },
+  {
+    "cid": "cid-10comments8",
+    "text": "Comment on import/export feature",
+    "range": {
+      "startPath": [3, 0, 8, 0, 0, 0, 3, 0, 0, 0, 0],
+      "startOffset": 12,
+      "endPath": [3, 0, 8, 0, 0, 0, 3, 0, 0, 0, 0],
+      "endOffset": 24,
+      "text": "Import/Export"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1632123463789,
+    "updatedAt": 1632123463789
+  },
+  {
+    "cid": "cid-10comments9",
+    "text": "Comment on collaboration features",
+    "range": {
+      "startPath": [3, 0, 9, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 9, 0, 0, 0, 0],
+      "endOffset": 31,
+      "text": "Best-case Collaboration Features"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1632123464789,
+    "updatedAt": 1632123464789
+  },
+  {
+    "cid": "cid-10comments10",
+    "text": "Comment on intuitive UI/UX features",
+    "range": {
+      "startPath": [3, 0, 10, 0, 0, 0, 0],
+      "startOffset": 8,
+      "endPath": [3, 0, 10, 0, 0, 0, 0],
+      "endOffset": 21,
+      "text": "Intuitive UI & UX"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1632123465789,
+    "updatedAt": 1632123465789
+  }
+]

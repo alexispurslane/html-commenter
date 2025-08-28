@@ -1,0 +1,4066 @@
+[
+  {
+    "cid": "cid-i3m17d",
+    "text": "This is test comment #1 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 1",
+    "isResolved": true,
+    "createdAt": 1756403619707,
+    "updatedAt": 1756403620207
+  },
+  {
+    "cid": "cid-rd19dp",
+    "text": "This is test comment #2 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403620707,
+    "updatedAt": 1756403621207
+  },
+  {
+    "cid": "cid-w0venx",
+    "text": "This is test comment #3 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403621707,
+    "updatedAt": 1756403622207
+  },
+  {
+    "cid": "cid-6w41gs",
+    "text": "This is test comment #4 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403622707,
+    "updatedAt": 1756403623207
+  },
+  {
+    "cid": "cid-g2ho23",
+    "text": "This is test comment #5 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403623707,
+    "updatedAt": 1756403624207
+  },
+  {
+    "cid": "cid-onxp50",
+    "text": "This is test comment #6 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403624707,
+    "updatedAt": 1756403625207
+  },
+  {
+    "cid": "cid-vj7hxn",
+    "text": "This is test comment #7 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403625707,
+    "updatedAt": 1756403626207
+  },
+  {
+    "cid": "cid-hjgoze",
+    "text": "This is test comment #8 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403626707,
+    "updatedAt": 1756403627207
+  },
+  {
+    "cid": "cid-4dwbea",
+    "text": "This is test comment #9 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403627707,
+    "updatedAt": 1756403628207
+  },
+  {
+    "cid": "cid-jkklbf",
+    "text": "This is test comment #10 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 1",
+    "isResolved": false,
+    "createdAt": 1756403628707,
+    "updatedAt": 1756403629207
+  },
+  {
+    "cid": "cid-oekwlh",
+    "text": "This is test comment #11 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 2",
+    "isResolved": true,
+    "createdAt": 1756403629707,
+    "updatedAt": 1756403630207
+  },
+  {
+    "cid": "cid-w3jhqc",
+    "text": "This is test comment #12 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403630707,
+    "updatedAt": 1756403631207
+  },
+  {
+    "cid": "cid-m64ed8",
+    "text": "This is test comment #13 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403631707,
+    "updatedAt": 1756403632207
+  },
+  {
+    "cid": "cid-c71ft5",
+    "text": "This is test comment #14 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403632707,
+    "updatedAt": 1756403633207
+  },
+  {
+    "cid": "cid-y3k4wr",
+    "text": "This is test comment #15 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403633707,
+    "updatedAt": 1756403634207
+  },
+  {
+    "cid": "cid-86588q",
+    "text": "This is test comment #16 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403634707,
+    "updatedAt": 1756403635207
+  },
+  {
+    "cid": "cid-73lzxo",
+    "text": "This is test comment #17 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403635707,
+    "updatedAt": 1756403636207
+  },
+  {
+    "cid": "cid-cifd9i",
+    "text": "This is test comment #18 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403636707,
+    "updatedAt": 1756403637207
+  },
+  {
+    "cid": "cid-wo5zxf",
+    "text": "This is test comment #19 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403637707,
+    "updatedAt": 1756403638207
+  },
+  {
+    "cid": "cid-a1l4vj",
+    "text": "This is test comment #20 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 2",
+    "isResolved": false,
+    "createdAt": 1756403638707,
+    "updatedAt": 1756403639207
+  },
+  {
+    "cid": "cid-lt0qqb",
+    "text": "This is test comment #21 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 3",
+    "isResolved": true,
+    "createdAt": 1756403639707,
+    "updatedAt": 1756403640207
+  },
+  {
+    "cid": "cid-pfpwll",
+    "text": "This is test comment #22 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403640707,
+    "updatedAt": 1756403641207
+  },
+  {
+    "cid": "cid-nxo31t",
+    "text": "This is test comment #23 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403641707,
+    "updatedAt": 1756403642207
+  },
+  {
+    "cid": "cid-ezbd2w",
+    "text": "This is test comment #24 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403642707,
+    "updatedAt": 1756403643207
+  },
+  {
+    "cid": "cid-dxg83n",
+    "text": "This is test comment #25 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403643707,
+    "updatedAt": 1756403644207
+  },
+  {
+    "cid": "cid-sow1jo",
+    "text": "This is test comment #26 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403644707,
+    "updatedAt": 1756403645207
+  },
+  {
+    "cid": "cid-oxyx3r",
+    "text": "This is test comment #27 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403645707,
+    "updatedAt": 1756403646207
+  },
+  {
+    "cid": "cid-crvn80",
+    "text": "This is test comment #28 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403646707,
+    "updatedAt": 1756403647207
+  },
+  {
+    "cid": "cid-pp8kig",
+    "text": "This is test comment #29 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403647707,
+    "updatedAt": 1756403648207
+  },
+  {
+    "cid": "cid-oiglw5",
+    "text": "This is test comment #30 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 3",
+    "isResolved": false,
+    "createdAt": 1756403648707,
+    "updatedAt": 1756403649207
+  },
+  {
+    "cid": "cid-2jhy63",
+    "text": "This is test comment #31 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 4",
+    "isResolved": true,
+    "createdAt": 1756403649707,
+    "updatedAt": 1756403650207
+  },
+  {
+    "cid": "cid-bzhph8",
+    "text": "This is test comment #32 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403650707,
+    "updatedAt": 1756403651207
+  },
+  {
+    "cid": "cid-4rygec",
+    "text": "This is test comment #33 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403651707,
+    "updatedAt": 1756403652207
+  },
+  {
+    "cid": "cid-vvzref",
+    "text": "This is test comment #34 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403652707,
+    "updatedAt": 1756403653207
+  },
+  {
+    "cid": "cid-75ha57",
+    "text": "This is test comment #35 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403653707,
+    "updatedAt": 1756403654207
+  },
+  {
+    "cid": "cid-irxmiu",
+    "text": "This is test comment #36 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403654707,
+    "updatedAt": 1756403655207
+  },
+  {
+    "cid": "cid-y1oup8",
+    "text": "This is test comment #37 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403655707,
+    "updatedAt": 1756403656207
+  },
+  {
+    "cid": "cid-vklty2",
+    "text": "This is test comment #38 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403656707,
+    "updatedAt": 1756403657207
+  },
+  {
+    "cid": "cid-5q355v",
+    "text": "This is test comment #39 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403657707,
+    "updatedAt": 1756403658207
+  },
+  {
+    "cid": "cid-gwhpw1",
+    "text": "This is test comment #40 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 4",
+    "isResolved": false,
+    "createdAt": 1756403658707,
+    "updatedAt": 1756403659207
+  },
+  {
+    "cid": "cid-ma0gh9",
+    "text": "This is test comment #41 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 5",
+    "isResolved": true,
+    "createdAt": 1756403659707,
+    "updatedAt": 1756403660207
+  },
+  {
+    "cid": "cid-ing9ah",
+    "text": "This is test comment #42 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403660707,
+    "updatedAt": 1756403661207
+  },
+  {
+    "cid": "cid-k5d45r",
+    "text": "This is test comment #43 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403661707,
+    "updatedAt": 1756403662207
+  },
+  {
+    "cid": "cid-byrhoo",
+    "text": "This is test comment #44 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403662707,
+    "updatedAt": 1756403663207
+  },
+  {
+    "cid": "cid-u5kz3x",
+    "text": "This is test comment #45 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403663707,
+    "updatedAt": 1756403664207
+  },
+  {
+    "cid": "cid-fe55nw",
+    "text": "This is test comment #46 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403664707,
+    "updatedAt": 1756403665207
+  },
+  {
+    "cid": "cid-203xnt",
+    "text": "This is test comment #47 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403665707,
+    "updatedAt": 1756403666207
+  },
+  {
+    "cid": "cid-vb5jzk",
+    "text": "This is test comment #48 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403666707,
+    "updatedAt": 1756403667207
+  },
+  {
+    "cid": "cid-idsmp4",
+    "text": "This is test comment #49 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403667707,
+    "updatedAt": 1756403668207
+  },
+  {
+    "cid": "cid-2fm8vf",
+    "text": "This is test comment #50 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 5",
+    "isResolved": false,
+    "createdAt": 1756403668707,
+    "updatedAt": 1756403669207
+  },
+  {
+    "cid": "cid-thksxn",
+    "text": "This is test comment #51 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 6",
+    "isResolved": true,
+    "createdAt": 1756403669707,
+    "updatedAt": 1756403670207
+  },
+  {
+    "cid": "cid-eyl5ac",
+    "text": "This is test comment #52 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403670707,
+    "updatedAt": 1756403671207
+  },
+  {
+    "cid": "cid-vq1b5w",
+    "text": "This is test comment #53 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403671707,
+    "updatedAt": 1756403672207
+  },
+  {
+    "cid": "cid-4xwwmv",
+    "text": "This is test comment #54 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403672707,
+    "updatedAt": 1756403673207
+  },
+  {
+    "cid": "cid-jslkmd",
+    "text": "This is test comment #55 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403673707,
+    "updatedAt": 1756403674207
+  },
+  {
+    "cid": "cid-pb3koq",
+    "text": "This is test comment #56 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403674707,
+    "updatedAt": 1756403675207
+  },
+  {
+    "cid": "cid-a1ccic",
+    "text": "This is test comment #57 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403675707,
+    "updatedAt": 1756403676207
+  },
+  {
+    "cid": "cid-4miz6i",
+    "text": "This is test comment #58 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403676707,
+    "updatedAt": 1756403677207
+  },
+  {
+    "cid": "cid-l7zplp",
+    "text": "This is test comment #59 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403677707,
+    "updatedAt": 1756403678207
+  },
+  {
+    "cid": "cid-r6jhbj",
+    "text": "This is test comment #60 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 6",
+    "isResolved": false,
+    "createdAt": 1756403678707,
+    "updatedAt": 1756403679207
+  },
+  {
+    "cid": "cid-4o2eab",
+    "text": "This is test comment #61 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 7",
+    "isResolved": true,
+    "createdAt": 1756403679707,
+    "updatedAt": 1756403680207
+  },
+  {
+    "cid": "cid-bv6lzd",
+    "text": "This is test comment #62 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403680707,
+    "updatedAt": 1756403681207
+  },
+  {
+    "cid": "cid-6spqlt",
+    "text": "This is test comment #63 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403681707,
+    "updatedAt": 1756403682207
+  },
+  {
+    "cid": "cid-w49piw",
+    "text": "This is test comment #64 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403682707,
+    "updatedAt": 1756403683207
+  },
+  {
+    "cid": "cid-37i4cd",
+    "text": "This is test comment #65 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403683707,
+    "updatedAt": 1756403684207
+  },
+  {
+    "cid": "cid-bjxp3o",
+    "text": "This is test comment #66 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403684707,
+    "updatedAt": 1756403685207
+  },
+  {
+    "cid": "cid-sy6sfd",
+    "text": "This is test comment #67 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403685707,
+    "updatedAt": 1756403686207
+  },
+  {
+    "cid": "cid-4d2p80",
+    "text": "This is test comment #68 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403686707,
+    "updatedAt": 1756403687207
+  },
+  {
+    "cid": "cid-8ka82g",
+    "text": "This is test comment #69 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403687707,
+    "updatedAt": 1756403688207
+  },
+  {
+    "cid": "cid-tdp3mz",
+    "text": "This is test comment #70 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 7",
+    "isResolved": false,
+    "createdAt": 1756403688707,
+    "updatedAt": 1756403689207
+  },
+  {
+    "cid": "cid-elge9x",
+    "text": "This is test comment #71 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 8",
+    "isResolved": true,
+    "createdAt": 1756403689707,
+    "updatedAt": 1756403690207
+  },
+  {
+    "cid": "cid-t4g1x8",
+    "text": "This is test comment #72 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403690707,
+    "updatedAt": 1756403691207
+  },
+  {
+    "cid": "cid-cczw1o",
+    "text": "This is test comment #73 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403691707,
+    "updatedAt": 1756403692207
+  },
+  {
+    "cid": "cid-m05y4p",
+    "text": "This is test comment #74 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403692707,
+    "updatedAt": 1756403693207
+  },
+  {
+    "cid": "cid-oafml7",
+    "text": "This is test comment #75 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403693707,
+    "updatedAt": 1756403694207
+  },
+  {
+    "cid": "cid-1mza2u",
+    "text": "This is test comment #76 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403694707,
+    "updatedAt": 1756403695207
+  },
+  {
+    "cid": "cid-gwqi98",
+    "text": "This is test comment #77 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403695707,
+    "updatedAt": 1756403696207
+  },
+  {
+    "cid": "cid-mbjvl2",
+    "text": "This is test comment #78 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403696707,
+    "updatedAt": 1756403697207
+  },
+  {
+    "cid": "cid-mv1hlv",
+    "text": "This is test comment #79 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403697707,
+    "updatedAt": 1756403698207
+  },
+  {
+    "cid": "cid-8gmjz",
+    "text": "This is test comment #80 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 8",
+    "isResolved": false,
+    "createdAt": 1756403698707,
+    "updatedAt": 1756403699207
+  },
+  {
+    "cid": "cid-vm591v",
+    "text": "This is test comment #81 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 9",
+    "isResolved": true,
+    "createdAt": 1756403699707,
+    "updatedAt": 1756403700207
+  },
+  {
+    "cid": "cid-52wyo9",
+    "text": "This is test comment #82 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403700707,
+    "updatedAt": 1756403701207
+  },
+  {
+    "cid": "cid-xqsldd",
+    "text": "This is test comment #83 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403701707,
+    "updatedAt": 1756403702207
+  },
+  {
+    "cid": "cid-566urc",
+    "text": "This is test comment #84 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403702707,
+    "updatedAt": 1756403703207
+  },
+  {
+    "cid": "cid-nqkqf7",
+    "text": "This is test comment #85 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403703707,
+    "updatedAt": 1756403704207
+  },
+  {
+    "cid": "cid-wj3i3w",
+    "text": "This is test comment #86 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403704707,
+    "updatedAt": 1756403705207
+  },
+  {
+    "cid": "cid-f4ues7",
+    "text": "This is test comment #87 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403705707,
+    "updatedAt": 1756403706207
+  },
+  {
+    "cid": "cid-ml05jk",
+    "text": "This is test comment #88 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403706707,
+    "updatedAt": 1756403707207
+  },
+  {
+    "cid": "cid-zid2u0",
+    "text": "This is test comment #89 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403707707,
+    "updatedAt": 1756403708207
+  },
+  {
+    "cid": "cid-epc3kl",
+    "text": "This is test comment #90 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 9",
+    "isResolved": false,
+    "createdAt": 1756403708707,
+    "updatedAt": 1756403709207
+  },
+  {
+    "cid": "cid-hp5sik",
+    "text": "This is test comment #91 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 10",
+    "isResolved": true,
+    "createdAt": 1756403709707,
+    "updatedAt": 1756403710207
+  },
+  {
+    "cid": "cid-hfaawt",
+    "text": "This is test comment #92 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403710707,
+    "updatedAt": 1756403711207
+  },
+  {
+    "cid": "cid-y86m3p",
+    "text": "This is test comment #93 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403711707,
+    "updatedAt": 1756403712207
+  },
+  {
+    "cid": "cid-l93jci",
+    "text": "This is test comment #94 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403712707,
+    "updatedAt": 1756403713207
+  },
+  {
+    "cid": "cid-l3slm6",
+    "text": "This is test comment #95 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403713707,
+    "updatedAt": 1756403714207
+  },
+  {
+    "cid": "cid-i0pyct",
+    "text": "This is test comment #96 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403714707,
+    "updatedAt": 1756403715207
+  },
+  {
+    "cid": "cid-f8x8yj",
+    "text": "This is test comment #97 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403715707,
+    "updatedAt": 1756403716207
+  },
+  {
+    "cid": "cid-wcnfib",
+    "text": "This is test comment #98 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403716707,
+    "updatedAt": 1756403717207
+  },
+  {
+    "cid": "cid-1wzmza",
+    "text": "This is test comment #99 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403717707,
+    "updatedAt": 1756403718207
+  },
+  {
+    "cid": "cid-tlkjb7",
+    "text": "This is test comment #100 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 10",
+    "isResolved": false,
+    "createdAt": 1756403718707,
+    "updatedAt": 1756403719207
+  },
+  {
+    "cid": "cid-wxbwdf",
+    "text": "This is test comment #101 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 11",
+    "isResolved": true,
+    "createdAt": 1756403719707,
+    "updatedAt": 1756403720207
+  },
+  {
+    "cid": "cid-j1m7ev",
+    "text": "This is test comment #102 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403720707,
+    "updatedAt": 1756403721207
+  },
+  {
+    "cid": "cid-ea275t",
+    "text": "This is test comment #103 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403721707,
+    "updatedAt": 1756403722207
+  },
+  {
+    "cid": "cid-omx8yw",
+    "text": "This is test comment #104 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403722707,
+    "updatedAt": 1756403723207
+  },
+  {
+    "cid": "cid-a3i4er",
+    "text": "This is test comment #105 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403723707,
+    "updatedAt": 1756403724207
+  },
+  {
+    "cid": "cid-s7yftw",
+    "text": "This is test comment #106 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403724707,
+    "updatedAt": 1756403725207
+  },
+  {
+    "cid": "cid-yfi11j",
+    "text": "This is test comment #107 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403725707,
+    "updatedAt": 1756403726207
+  },
+  {
+    "cid": "cid-rdopgg",
+    "text": "This is test comment #108 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403726707,
+    "updatedAt": 1756403727207
+  },
+  {
+    "cid": "cid-8w8n4o",
+    "text": "This is test comment #109 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403727707,
+    "updatedAt": 1756403728207
+  },
+  {
+    "cid": "cid-3g8qpn",
+    "text": "This is test comment #110 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 11",
+    "isResolved": false,
+    "createdAt": 1756403728707,
+    "updatedAt": 1756403729207
+  },
+  {
+    "cid": "cid-nmrknr",
+    "text": "This is test comment #111 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 12",
+    "isResolved": true,
+    "createdAt": 1756403729707,
+    "updatedAt": 1756403730207
+  },
+  {
+    "cid": "cid-88q6ry",
+    "text": "This is test comment #112 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403730707,
+    "updatedAt": 1756403731207
+  },
+  {
+    "cid": "cid-9t2p6a",
+    "text": "This is test comment #113 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403731707,
+    "updatedAt": 1756403732207
+  },
+  {
+    "cid": "cid-acj2bb",
+    "text": "This is test comment #114 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403732707,
+    "updatedAt": 1756403733207
+  },
+  {
+    "cid": "cid-uqa6dv",
+    "text": "This is test comment #115 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403733707,
+    "updatedAt": 1756403734207
+  },
+  {
+    "cid": "cid-jejyx8",
+    "text": "This is test comment #116 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403734707,
+    "updatedAt": 1756403735207
+  },
+  {
+    "cid": "cid-d9m5ba",
+    "text": "This is test comment #117 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403735707,
+    "updatedAt": 1756403736207
+  },
+  {
+    "cid": "cid-b4sx78",
+    "text": "This is test comment #118 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403736707,
+    "updatedAt": 1756403737207
+  },
+  {
+    "cid": "cid-bpdle3",
+    "text": "This is test comment #119 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403737707,
+    "updatedAt": 1756403738207
+  },
+  {
+    "cid": "cid-6h6vcx",
+    "text": "This is test comment #120 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 12",
+    "isResolved": false,
+    "createdAt": 1756403738707,
+    "updatedAt": 1756403739207
+  },
+  {
+    "cid": "cid-35fiap",
+    "text": "This is test comment #121 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 13",
+    "isResolved": true,
+    "createdAt": 1756403739707,
+    "updatedAt": 1756403740207
+  },
+  {
+    "cid": "cid-nqafib",
+    "text": "This is test comment #122 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403740707,
+    "updatedAt": 1756403741207
+  },
+  {
+    "cid": "cid-lsp7ib",
+    "text": "This is test comment #123 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403741707,
+    "updatedAt": 1756403742207
+  },
+  {
+    "cid": "cid-abfec4",
+    "text": "This is test comment #124 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403742707,
+    "updatedAt": 1756403743207
+  },
+  {
+    "cid": "cid-pz9a9d",
+    "text": "This is test comment #125 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403743707,
+    "updatedAt": 1756403744207
+  },
+  {
+    "cid": "cid-7usyu8",
+    "text": "This is test comment #126 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403744707,
+    "updatedAt": 1756403745207
+  },
+  {
+    "cid": "cid-ium9h",
+    "text": "This is test comment #127 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        5,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403745707,
+    "updatedAt": 1756403746207
+  },
+  {
+    "cid": "cid-8p2p7o",
+    "text": "This is test comment #128 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403746707,
+    "updatedAt": 1756403747207
+  },
+  {
+    "cid": "cid-q2406c",
+    "text": "This is test comment #129 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        1
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403747707,
+    "updatedAt": 1756403748207
+  },
+  {
+    "cid": "cid-wminyh",
+    "text": "This is test comment #130 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        2
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 13",
+    "isResolved": false,
+    "createdAt": 1756403748707,
+    "updatedAt": 1756403749207
+  },
+  {
+    "cid": "cid-bbl2n9",
+    "text": "This is test comment #131 about: Shareable Links: Generates a c...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        3
+      ],
+      "endOffset": 10,
+      "text": "Shareable "
+    },
+    "author": "Test User 14",
+    "isResolved": true,
+    "createdAt": 1756403749707,
+    "updatedAt": 1756403750207
+  },
+  {
+    "cid": "cid-qpmgj2",
+    "text": "This is test comment #132 about: Import/Export: Users can downl...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        4
+      ],
+      "endOffset": 10,
+      "text": "Import/Exp"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403750707,
+    "updatedAt": 1756403751207
+  },
+  {
+    "cid": "cid-q9ophu",
+    "text": "This is test comment #133 about: Best-case Collaboration Featur...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        5
+      ],
+      "endOffset": 10,
+      "text": "Best-case "
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403751707,
+    "updatedAt": 1756403752207
+  },
+  {
+    "cid": "cid-pq8cct",
+    "text": "This is test comment #134 about: Intuitive UI & UX: An immersiv...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        6,
+        0,
+        6
+      ],
+      "endOffset": 10,
+      "text": "Intuitive "
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403752707,
+    "updatedAt": 1756403753207
+  },
+  {
+    "cid": "cid-5ch8a9",
+    "text": "This is test comment #135 about: Resilient Data Model: Annotati...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        23,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Resilient "
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403753707,
+    "updatedAt": 1756403754207
+  },
+  {
+    "cid": "cid-fjsods",
+    "text": "This is test comment #136 about: Add the HTML: Copy the HTML fo...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        24,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the HT"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403754707,
+    "updatedAt": 1756403755207
+  },
+  {
+    "cid": "cid-loqhzq",
+    "text": "This is test comment #137 about: Add the CSS: Copy the entire <...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the CS"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403755707,
+    "updatedAt": 1756403756207
+  },
+  {
+    "cid": "cid-oxyhgw",
+    "text": "This is test comment #138 about: Add the JavaScript: Copy the e...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Add the Ja"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403756707,
+    "updatedAt": 1756403757207
+  },
+  {
+    "cid": "cid-oddta1",
+    "text": "This is test comment #139 about: Vibe Coding Disclaimer: When I...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        25,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Vibe Codin"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403757707,
+    "updatedAt": 1756403758207
+  },
+  {
+    "cid": "cid-sh5ry3",
+    "text": "This is test comment #140 about: zero-dependency, self-containe...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        27,
+        0
+      ],
+      "endOffset": 10,
+      "text": "zero-depen"
+    },
+    "author": "Test User 14",
+    "isResolved": false,
+    "createdAt": 1756403758707,
+    "updatedAt": 1756403759207
+  },
+  {
+    "cid": "cid-vsx50b",
+    "text": "This is test comment #141 about: HTML Commenter is a zero-depen...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "HTML Comme"
+    },
+    "author": "Test User 15",
+    "isResolved": true,
+    "createdAt": 1756403759707,
+    "updatedAt": 1756403760207
+  },
+  {
+    "cid": "cid-seynlr",
+    "text": "This is test comment #142 about: don't want to use SaaS...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403760707,
+    "updatedAt": 1756403761207
+  },
+  {
+    "cid": "cid-d5nfsp",
+    "text": "This is test comment #143 about: don't want to have to install ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403761707,
+    "updatedAt": 1756403762207
+  },
+  {
+    "cid": "cid-prc0c0",
+    "text": "This is test comment #144 about: don't want to ask users to ins...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "don't want"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403762707,
+    "updatedAt": 1756403763207
+  },
+  {
+    "cid": "cid-8z3d1n",
+    "text": "This is test comment #145 about: prefer writing in plain markup...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      "endOffset": 10,
+      "text": "prefer wri"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403763707,
+    "updatedAt": 1756403764207
+  },
+  {
+    "cid": "cid-r3jogs",
+    "text": "This is test comment #146 about: Self-Contained: The entire sys...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Self-Conta"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403764707,
+    "updatedAt": 1756403765207
+  },
+  {
+    "cid": "cid-zh79kh",
+    "text": "This is test comment #147 about: Zero Dependencies: Written in ...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        3,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Zero Depen"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403765707,
+    "updatedAt": 1756403766207
+  },
+  {
+    "cid": "cid-q99y3c",
+    "text": "This is test comment #148 about: Purely Client-Side: All data i...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        3,
+        4,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Purely Cli"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403766707,
+    "updatedAt": 1756403767207
+  },
+  {
+    "cid": "cid-a0nehs",
+    "text": "This is test comment #149 about: Persistent Local Storage: Comm...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        4,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Persistent"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403767707,
+    "updatedAt": 1756403768207
+  },
+  {
+    "cid": "cid-2btzcj",
+    "text": "This is test comment #150 about: Robust Highlighting: The syste...",
+    "range": {
+      "startPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "startOffset": 0,
+      "endPath": [
+        3,
+        0,
+        5,
+        0,
+        0
+      ],
+      "endOffset": 10,
+      "text": "Robust Hig"
+    },
+    "author": "Test User 15",
+    "isResolved": false,
+    "createdAt": 1756403768707,
+    "updatedAt": 1756403769207
+  }
+]

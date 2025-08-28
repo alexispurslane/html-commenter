@@ -1,0 +1,47 @@
+[
+  {
+    "cid": "cid-3comments1",
+    "text": "This is the first test comment on the HTML Commenter heading",
+    "range": {
+      "startPath": [3, 0, 0, 0],
+      "startOffset": 0,
+      "endPath": [3, 0, 0, 0],
+      "endOffset": 4,
+      "text": "HTML"
+    },
+    "author": "Test User",
+    "isResolved": false,
+    "createdAt": 1632123456789,
+    "updatedAt": 1632123456789
+  },
+  {
+    "cid": "cid-3comments2",
+    "text": "This is the second test comment on the Core Features heading",
+    "range": {
+      "startPath": [3, 0, 11, 0, 0],
+      "startOffset": 0,
+      "endPath": [3, 0, 11, 0, 0],
+      "endOffset": 4,
+      "text": "Core"
+    },
+    "author": "Test User",
+    "isResolved": false,
+    "createdAt": 1632123457789,
+    "updatedAt": 1632123457789
+  },
+  {
+    "cid": "cid-3comments3",
+    "text": "This is the third test comment on the Installation heading",
+    "range": {
+      "startPath": [3, 0, 23, 0, 0],
+      "startOffset": 0,
+      "endPath": [3, 0, 23, 0, 0],
+      "endOffset": 12,
+      "text": "Installation"
+    },
+    "author": "Test User",
+    "isResolved": false,
+    "createdAt": 1632123458789,
+    "updatedAt": 1632123458789
+  }
+]
